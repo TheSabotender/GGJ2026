@@ -39,6 +39,7 @@ public class PlayerBrain : EntityBrain
         {
             Vector2 moveInput = moveAction.action.ReadValue<Vector2>();
             currentMotor.MoveHorizontal(this, moveInput.x);
+            currentMotor.MoveDepth(this, moveInput.y);
         }
 
         if (jumpAction != null && jumpAction.action != null && jumpAction.action.WasPerformedThisFrame())
