@@ -8,6 +8,7 @@ public class CharacterProfile : ScriptableObject
     public int securityClearance;
     public Sprite avatar;
     public GameObject prefab;
+    public EntityMotor motor;
 
 
     public void NewGuid()

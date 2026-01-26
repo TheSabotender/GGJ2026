@@ -152,6 +152,21 @@ public class TendrilManager : MonoBehaviour
             yield return null;
         }
 
+        float maxTime = 2f;
+        while (maxTime > 0 && playerBrain.Rigidbody.linearVelocity.sqrMagnitude > 0.2f)
+        {
+            Vector3 start = playerBrain.transform.position;
+            Vector3 end = target;
+            line.SetPosition(0, start);
+            line.SetPosition(1, end);
+
+            Vector3 pullDirection = (target - start).normalized;
+            playerBrain.Rigidbody.AddForce(pullDirection * tendrilStrength, ForceMode.Acceleration);
+
+            maxTime -= Time.deltaTime;
+            yield return null;
+        }
+
         elapsed = 0f;
         while (elapsed < retractDuration)
         {

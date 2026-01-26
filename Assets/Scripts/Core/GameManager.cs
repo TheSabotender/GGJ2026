@@ -2,6 +2,24 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    private static GameManager instance = null;
+
+    [SerializeField]
+    private PlayerBrain playerBrain = null;
+
+    public static PlayerBrain PlayerBrain => instance.playerBrain;
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+        instance = this;
+        DontDestroyOnLoad(this.gameObject);
+    }
+
     public static void NewGame()
     {
         // TODO: Trigger intro cutscene or any new game setup here.

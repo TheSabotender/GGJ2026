@@ -13,9 +13,18 @@ public class PlayerBrain : EntityBrain
     private InputActionReference crouchAction = null;
 
     [SerializeField]
+    private InputActionReference maskMenuAction = null;
+
+    [SerializeField]
+    private CharacterProfile alienProfile;
+
+    [SerializeField]
     private TendrilManager tendrilManager;
 
+    public CharacterProfile DefaultProfile => alienProfile;
+
     public TendrilManager TendrilManager => tendrilManager;
+
 
     private void OnEnable()
     {
@@ -56,6 +65,12 @@ public class PlayerBrain : EntityBrain
             float crouchInput = crouchAction.action.ReadValue<float>();
             currentMotor.Crouch(this, crouchInput > 0.5f);
         }
+    }
+
+    public void SwapMask(CharacterProfile profile)
+    {
+        //TODO change appearance of player to selected mask and change back to normal when unselected
+        SwapMotor(profile.motor);
     }
 
     public void SwapMotor(EntityMotor newMotor)
