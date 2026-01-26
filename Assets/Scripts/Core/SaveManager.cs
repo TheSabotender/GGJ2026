@@ -149,12 +149,11 @@ public static class SaveManager
 
     private static string SerializeToBase64(GameSave save)
     {
+        var json = JsonUtility.ToJson(save);
         using var memoryStream = new MemoryStream();
         using (var writer = new BinaryWriter(memoryStream, Encoding.UTF8, true))
         {
-            writer.Write(save.SaveName ?? string.Empty);
-            writer.Write(save.DateTime ?? string.Empty);
-            writer.Write(save.StartDateTime);
+            writer.Write(json);
         }
 
         return Convert.ToBase64String(memoryStream.ToArray());
@@ -172,11 +171,7 @@ public static class SaveManager
         using var memoryStream = new MemoryStream(data);
         using var reader = new BinaryReader(memoryStream, Encoding.UTF8, true);
 
-        return new GameSave
-        {
-            SaveName = reader.ReadString(),
-            DateTime = reader.ReadString(),
-            StartDateTime = reader.ReadString()
-        };
+        var json = reader.ReadString();
+        return JsonUtility.FromJson<GameSave>(json);
     }
 }
