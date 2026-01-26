@@ -94,6 +94,12 @@ public class PlayerBrain : EntityBrain
         moveAction?.action?.Enable();
         jumpAction?.action?.Enable();
         crouchAction?.action?.Enable();
+        if (maskMenuAction?.action != null)
+        {
+            maskMenuAction.action.performed -= OnMaskMenuAction;
+            maskMenuAction.action.performed += OnMaskMenuAction;
+            maskMenuAction.action.Enable();
+        }
     }
 
     private void DisableActions()
@@ -101,5 +107,18 @@ public class PlayerBrain : EntityBrain
         moveAction?.action?.Disable();
         jumpAction?.action?.Disable();
         crouchAction?.action?.Disable();
+        if (maskMenuAction?.action != null)
+        {
+            maskMenuAction.action.performed -= OnMaskMenuAction;
+            maskMenuAction.action.Disable();
+        }
+    }
+
+    private void OnMaskMenuAction(InputAction.CallbackContext context)
+    {
+        if (!context.performed)
+            return;
+
+        MenuManager.SetScreen(MenuManager.Screen.Mask);
     }
 }
