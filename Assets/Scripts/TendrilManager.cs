@@ -19,6 +19,8 @@ public class TendrilManager : MonoBehaviour
     private void Awake()
     {
         mainCam = Camera.main;
+        if (lineRenderer != null)
+            lineRenderer.enabled = false;
     }
 
     public void LaunchTendril()
@@ -50,7 +52,7 @@ public class TendrilManager : MonoBehaviour
         if (control != null && control.device != lastDevice)
             lastDevice = control.device;
 
-        // Decide which lane plane we’re aiming on
+        // Decide which lane plane we're aiming on
         var brainPos = playerBrain.transform.position;
         float nearestLaneZ =
             (Mathf.Abs(brainPos.z - playerBrain.frontDepthZ) <= Mathf.Abs(brainPos.z - playerBrain.backDepthZ))
@@ -121,14 +123,51 @@ public class TendrilManager : MonoBehaviour
     private IEnumerator Latch(Vector3 target)
     {
         var line = lineRenderer;
-        //launch tendril like a sprung coil
+        if (line == null || playerBrain == null)
+        {
+            coroutine = null;
+            yield break;
+        }
 
-        yield return null;
+        line.positionCount = 2;
+        line.enabled = true;
 
-        Vector3 direction = (target - playerBrain.transform.position).normalized;
-        playerBrain.Rigidbody.AddForce(direction * tendrilStrength, ForceMode.Impulse);
+        float speed = Mathf.Max(0.01f, tendrilSpeed);
+        float distance = Vector3.Distance(playerBrain.transform.position, target);
+        float extendDuration = distance / speed;
+        float retractDuration = extendDuration;
 
-        //Retract tendril
+        float elapsed = 0f;
+        while (elapsed < extendDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / extendDuration);
+            Vector3 start = playerBrain.transform.position;
+            Vector3 end = Vector3.Lerp(start, target, t);
+            line.SetPosition(0, start);
+            line.SetPosition(1, end);
+
+            Vector3 pullDirection = (target - start).normalized;
+            playerBrain.Rigidbody.AddForce(pullDirection * tendrilStrength, ForceMode.Acceleration);
+            yield return null;
+        }
+
+        elapsed = 0f;
+        while (elapsed < retractDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / retractDuration);
+            Vector3 start = playerBrain.transform.position;
+            Vector3 end = Vector3.Lerp(target, start, t);
+            line.SetPosition(0, start);
+            line.SetPosition(1, end);
+
+            Vector3 pullDirection = (target - start).normalized;
+            playerBrain.Rigidbody.AddForce(pullDirection * tendrilStrength, ForceMode.Acceleration);
+            yield return null;
+        }
+
+        line.enabled = false;
 
         coroutine = null;
     }
@@ -136,11 +175,45 @@ public class TendrilManager : MonoBehaviour
     private IEnumerator Miss(Vector3 start, Vector3 end)
     {
         var line = lineRenderer;
-        //launch tendril like a sprung coil
+        if (line == null || playerBrain == null)
+        {
+            coroutine = null;
+            yield break;
+        }
 
-        yield return null;
+        line.positionCount = 2;
+        line.enabled = true;
 
-        //Retract tendril
+        float speed = Mathf.Max(0.01f, tendrilSpeed);
+        float distance = Vector3.Distance(start, end);
+        float extendDuration = distance / speed;
+        float retractDuration = extendDuration;
+
+        float elapsed = 0f;
+        while (elapsed < extendDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / extendDuration);
+            Vector3 currentStart = playerBrain.transform.position;
+            Vector3 currentEnd = Vector3.Lerp(currentStart, end, t);
+            line.SetPosition(0, currentStart);
+            line.SetPosition(1, currentEnd);
+            yield return null;
+        }
+
+        elapsed = 0f;
+        while (elapsed < retractDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / retractDuration);
+            Vector3 currentStart = playerBrain.transform.position;
+            Vector3 currentEnd = Vector3.Lerp(end, currentStart, t);
+            line.SetPosition(0, currentStart);
+            line.SetPosition(1, currentEnd);
+            yield return null;
+        }
+
+        line.enabled = false;
 
         coroutine = null;
     }
