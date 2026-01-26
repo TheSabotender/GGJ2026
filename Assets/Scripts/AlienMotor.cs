@@ -26,6 +26,10 @@ public class AlienMotor : EntityMotor
     /// <param name="transform"></param>
     public override void Jump(EntityBrain brain)
     {
-        // Stub for future tendril launch behavior.
+        var playerBrain = brain as PlayerBrain;
+        if (playerBrain?.TendrilManager == null)
+            return;
+
+        playerBrain.TendrilManager.LaunchTendril();
     }
 }

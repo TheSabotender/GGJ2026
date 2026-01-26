@@ -21,32 +21,40 @@ public class MenuManager : MonoBehaviour
         Mask,
     }
 
+    private static MenuManager _instance;
+
     [SerializeField]
     private Screen startingScreen = Screen.None;
 
-    [SerializeField]
     private List<SubMenu> screens = new List<SubMenu>();
-
-    private Screen currentScreen = Screen.None;
+    private static Screen currentScreen = Screen.None;
     private SubMenu current;
     
 
     private void Awake()
     {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+        _instance = this;
+
+        screens = GetComponentsInChildren<SubMenu>(true).ToList();
         foreach (var subMenu in screens)
             subMenu.gameObject.SetActive(false);
 
         SetScreen(startingScreen);
     }
 
-    public void SetScreen(Screen screen)
+    public static void SetScreen(Screen screen)
     {
-        if (currentScreen == screen)
+        if (_instance == null || currentScreen == screen)
             return;
-        StartCoroutine(TransitionScreen(screen));
+        _instance.StartCoroutine(_instance.TransitionScreen(screen));
     }
 
-    public IEnumerator TransitionScreen(Screen screen)
+    private IEnumerator TransitionScreen(Screen screen)
     {
         if (current != null)
             yield return current.Hide();

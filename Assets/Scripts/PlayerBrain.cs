@@ -12,6 +12,10 @@ public class PlayerBrain : EntityBrain
     [SerializeField]
     private InputActionReference crouchAction = null;
 
+    [SerializeField]
+    private TendrilManager tendrilManager;
+
+    public TendrilManager TendrilManager => tendrilManager;
 
     private void OnEnable()
     {
