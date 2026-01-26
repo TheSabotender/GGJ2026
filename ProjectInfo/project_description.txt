@@ -1,0 +1,10 @@
+Game Name: Skinmask
+Developer: Dark Codex
+Development Year: 2026
+
+Development reason: Global Game Jam 2026 -> Theme: Mask
+
+Concept:
+I have a vague idea for my Global Game Jam 2026 project, the theme is Mask. In my game you are a "skinwalker" and can put on the face (mask) of any person you kill. The game will be primarily a puzzle/stealth game, where you need to lure npcs into locations where you can safely kill them and steal their skin, often needing you to "go through" several other NPCs on the way there. Some NPCs have access to unique areas, dialogue, interactions, etc. so you would have to become them to also gain access. You are not limited to 1 face, you collect and remember each one, allowing you to change freely once unlocked, as long as you are in a safe hidden place. To enforce the puzzle and stealth mechanics, i want the world's security forces to be pretty tough, otherwise players could just slaughter everyone, so I think a near future or cyberpunk setting would work best, as this allows for turrets and security bots.
+
+Inspirations: DEX (game), Carrion (game), ANNO: Mutationem, The Thing (movie)
