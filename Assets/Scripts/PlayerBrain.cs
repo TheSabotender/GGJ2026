@@ -1,11 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMotor : MonoBehaviour
+public class PlayerBrain : EntityBrain
 {
-    [SerializeField]
-    private EntityMotor currentMotor = null;
-
     [SerializeField]
     private InputActionReference moveAction = null;
 
@@ -15,7 +12,6 @@ public class PlayerMotor : MonoBehaviour
     [SerializeField]
     private InputActionReference crouchAction = null;
 
-    public EntityMotor CurrentMotor => currentMotor;
 
     private void OnEnable()
     {
@@ -34,32 +30,43 @@ public class PlayerMotor : MonoBehaviour
             return;
         }
 
+        HandleMovement();
+    }
+
+    private void HandleMovement()
+    {
         if (moveAction != null && moveAction.action != null)
         {
-            float moveInput = moveAction.action.ReadValue<float>();
-            currentMotor.MoveHorizontal(moveInput);
+            Vector2 moveInput = moveAction.action.ReadValue<Vector2>();
+            currentMotor.MoveHorizontal(this, moveInput.x);
         }
 
         if (jumpAction != null && jumpAction.action != null && jumpAction.action.WasPerformedThisFrame())
         {
-            currentMotor.Jump();
+            currentMotor.Jump(this);
         }
 
         if (crouchAction != null && crouchAction.action != null)
         {
             float crouchInput = crouchAction.action.ReadValue<float>();
-            currentMotor.Crouch(crouchInput > 0.5f);
+            currentMotor.Crouch(this, crouchInput > 0.5f);
         }
     }
 
-    public void SwapToHuman(HumanMotor humanMotor)
+    public void SwapMotor(EntityMotor newMotor)
     {
-        currentMotor = humanMotor;
-    }
+        if (currentMotor != null)
+            Destroy(currentMotor);
 
-    public void SwapToAlien(AlienMotor alienMotor)
-    {
-        currentMotor = alienMotor;
+        currentMotor = newMotor;
+
+        bool isAlien = currentMotor is AlienMotor;
+
+        if (cachedRigidbody != null)
+            cachedRigidbody.isKinematic = !isAlien;
+
+        if (cachedCollider != null)
+            cachedCollider.enabled = isAlien;
     }
 
     private void EnableActions()

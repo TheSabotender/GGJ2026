@@ -1,39 +1,31 @@
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "AlienMotor", menuName = "Entity/Motors/AlienMotor")]
 public class AlienMotor : EntityMotor
 {
-    public override void MoveHorizontal(float input)
+    public override void MoveHorizontal(EntityBrain brain, float input)
     {
         if (Mathf.Approximately(input, 0f))
         {
             return;
         }
 
-        if (cachedRigidbody == null)
+        if (brain.Rigidbody == null)
         {
-            base.MoveHorizontal(input);
+            base.MoveHorizontal(brain, input);
             return;
         }
 
         Vector3 force = new Vector3(input * moveSpeed, 0f, 0f);
-        cachedRigidbody.AddForce(force, ForceMode.Acceleration);
+        brain.Rigidbody.AddForce(force, ForceMode.Acceleration);
     }
 
-    public void LaunchTendril()
+    /// <summary>
+    /// Overriden to implement tendril launch behavior.
+    /// </summary>
+    /// <param name="transform"></param>
+    public override void Jump(EntityBrain brain)
     {
         // Stub for future tendril launch behavior.
-    }
-
-    public override void OnBecomeActive()
-    {
-        if (cachedRigidbody != null)
-        {
-            cachedRigidbody.isKinematic = false;
-        }
-
-        if (cachedCollider != null)
-        {
-            cachedCollider.enabled = true;
-        }
     }
 }
