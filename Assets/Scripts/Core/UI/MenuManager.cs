@@ -1,50 +1,60 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Device;
+using static MenuManager;
 
 public class MenuManager : MonoBehaviour
 {
-    [SerializeField]
-    private SubMenu startingScreen;
+    public enum Screen
+    {
+        None,
 
-    private SubMenu currentScreen;
-    private List<SubMenu> loadedScreens = new List<SubMenu>();
+        Main,
+        Load,
+        Settings,
+        Credits,
+
+        Pause,
+        Save,
+        Mask,
+    }
+
+    [SerializeField]
+    private Screen startingScreen = Screen.None;
+
+    [SerializeField]
+    private List<SubMenu> screens = new List<SubMenu>();
+
+    private Screen currentScreen = Screen.None;
+    private SubMenu current;
+    
 
     private void Awake()
     {
+        foreach (var subMenu in screens)
+            subMenu.gameObject.SetActive(false);
+
         SetScreen(startingScreen);
     }
 
-    public void SetScreen(SubMenu screen)
+    public void SetScreen(Screen screen)
     {
-        // Check if the requested screen is already loaded
-        var instance = loadedScreens.Find(s => s.name == screen.name);
-
-        // If the requested screen is already active, do nothing
-        if (instance != null && instance == screen)
+        if (currentScreen == screen)
             return;
-
-        // Load the screen if it hasn't been loaded yet
-        if (instance == null)
-        {
-            instance = Instantiate(screen, transform);
-            instance.name = screen.name;
-            loadedScreens.Add(instance);
-        }
-
-        StartCoroutine(TransitionScreen(instance));
+        StartCoroutine(TransitionScreen(screen));
     }
 
-    public IEnumerator TransitionScreen(SubMenu newScreen)
+    public IEnumerator TransitionScreen(Screen screen)
     {
-        // Hide the current screen
-        if (currentScreen != null)
-            yield return currentScreen.Hide();
+        if (current != null)
+            yield return current.Hide();
 
-        // Set the current screen and show it
-        currentScreen = newScreen;
-        if (currentScreen != null)
-            yield return currentScreen.Show();
+        currentScreen = screen;
+        current = screens.FirstOrDefault(s => s.screenType == screen);
+
+        if (current != null)
+            yield return current.Show();
     }
 }

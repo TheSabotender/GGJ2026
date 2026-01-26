@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class SubMenu : MonoBehaviour
 {
+    public MenuManager.Screen screenType;
     public CanvasGroup canvasGroup;
     public float fadeDuration = 0.25f;
 

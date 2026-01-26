@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48a9fe334fd72b74daa6a0e07333c876, type: 3}
   m_Name: AlienMotor
   m_EditorClassIdentifier: Assembly-CSharp::AlienMotor
-  moveSpeed: 5
+  moveSpeed: 10
+  depthTransitionSpeed: 20

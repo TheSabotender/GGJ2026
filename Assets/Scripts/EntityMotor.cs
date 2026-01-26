@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class EntityMotor : ScriptableObject
@@ -9,25 +10,15 @@ public class EntityMotor : ScriptableObject
         HasBoth
     }
 
-    [SerializeField]
-    protected float moveSpeed = 5f;
+    [SerializeField] protected float moveSpeed = 5f;
 
-    [SerializeField]
-    private float depthDistance = 1f;
-
-    [SerializeField]
-    private float depthTransitionSpeed = 5f;
-
-    private bool depthInitialized = false;
-    private float frontDepthZ = 0f;
-    private float backDepthZ = 0f;
+    // Units per second
+    [SerializeField] private float depthTransitionSpeed = 5f;
 
     public virtual void MoveHorizontal(EntityBrain brain, float input)
     {
         if (Mathf.Approximately(input, 0f))
-        {
             return;
-        }
 
         Vector3 movement = new Vector3(input * moveSpeed * Time.deltaTime, 0f, 0f);
         brain.transform.Translate(movement, Space.World);
@@ -36,49 +27,81 @@ public class EntityMotor : ScriptableObject
     public virtual void MoveDepth(EntityBrain brain, float input)
     {
         if (Mathf.Approximately(input, 0f))
-        {
             return;
-        }
 
-        if (!depthInitialized)
+        // Ensure only one depth transition runs at a time
+        if (brain.DepthTransitionRoutine != null)
+            return;
+
+        var availability = CheckDepthAvailability();
+        bool canFront = availability == DepthAvailability.HasFront || availability == DepthAvailability.HasBoth;
+        bool canBack = availability == DepthAvailability.HasBack || availability == DepthAvailability.HasBoth;
+
+        // Snap to nearest lane (so tiny drift doesn’t compound)
+        float z = brain.transform.position.z;
+        float nearestLaneZ =
+            (Mathf.Abs(z - brain.frontDepthZ) <= Mathf.Abs(z - brain.backDepthZ))
+                ? brain.frontDepthZ
+                : brain.backDepthZ;
+
+        // Apply the snap for real
+        var snapped = brain.transform.position;
+        snapped.z = nearestLaneZ;
+        brain.transform.position = snapped;
+
+        // Decide target lane
+        float targetZ = nearestLaneZ;
+        if (input > 0f && canBack)
+            targetZ = brain.backDepthZ;
+        else if (input < 0f && canFront)
+            targetZ = brain.frontDepthZ;
+
+        if (Mathf.Approximately(nearestLaneZ, targetZ))
+            return;
+
+        brain.DepthTransitionRoutine = brain.StartCoroutine(TransitionDepth(brain, nearestLaneZ, targetZ));
+    }
+
+
+    private IEnumerator TransitionDepth(EntityBrain brain, float fromZ, float toZ)
+    {
+        float distance = Mathf.Abs(fromZ - toZ);
+
+        // duration in seconds
+        float duration = (depthTransitionSpeed <= 0f) ? 0f : (distance / depthTransitionSpeed);
+
+        if (duration <= 0f)
         {
-            InitializeDepthPositions(brain);
+            var p = brain.transform.position;
+            p.z = toZ;
+            brain.transform.position = p;
+            brain.DepthTransitionRoutine = null;
+            yield break;
         }
 
-        DepthAvailability availability = CheckDepthAvailability(brain);
-        float targetDepth = frontDepthZ;
-
-        if (availability == DepthAvailability.HasBack)
+        float t = 0f;
+        while (t < duration)
         {
-            targetDepth = backDepthZ;
+            float u = t / duration;
+
+            var p = brain.transform.position;
+            p.z = Mathf.Lerp(fromZ, toZ, u);
+            brain.transform.position = p;
+
+            t += Time.deltaTime;
+            yield return null;
         }
-        else if (availability == DepthAvailability.HasBoth)
-        {
-            targetDepth = input > 0f ? backDepthZ : frontDepthZ;
-        }
 
-        Vector3 position = brain.transform.position;
-        position.z = Mathf.MoveTowards(position.z, targetDepth, depthTransitionSpeed * Time.deltaTime);
-        brain.transform.position = position;
+        // Snap exactly to target at end
+        var finalPos = brain.transform.position;
+        finalPos.z = toZ;
+        brain.transform.position = finalPos;
+
+        brain.DepthTransitionRoutine = null;
     }
 
-    public virtual DepthAvailability CheckDepthAvailability(EntityBrain brain)
-    {
-        return DepthAvailability.HasBoth;
-    }
+    public virtual DepthAvailability CheckDepthAvailability() => DepthAvailability.HasBoth;
 
-    public virtual void Jump(EntityBrain brain)
-    {
-    }
-
-    public virtual void Crouch(EntityBrain brain, bool isCrouching)
-    {
-    }
-
-    private void InitializeDepthPositions(EntityBrain brain)
-    {
-        frontDepthZ = brain.transform.position.z;
-        backDepthZ = frontDepthZ + depthDistance;
-        depthInitialized = true;
-    }
+    public virtual void Jump(EntityBrain brain) { }
+    public virtual void Crouch(EntityBrain brain, bool isCrouching) { }
 }
