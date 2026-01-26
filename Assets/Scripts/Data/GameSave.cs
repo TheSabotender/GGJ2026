@@ -6,8 +6,8 @@ public class GameSave
 {
     //Metadata about the save
     public string SaveName;
+    public string StartDateTime;
     public string DateTime;
-    public float PlayTime;
     public string GameVersion;
 
     //Player data

@@ -154,7 +154,7 @@ public static class SaveManager
         {
             writer.Write(save.SaveName ?? string.Empty);
             writer.Write(save.DateTime ?? string.Empty);
-            writer.Write(save.PlayTime);
+            writer.Write(save.StartDateTime);
         }
 
         return Convert.ToBase64String(memoryStream.ToArray());
@@ -176,7 +176,7 @@ public static class SaveManager
         {
             SaveName = reader.ReadString(),
             DateTime = reader.ReadString(),
-            PlayTime = reader.ReadSingle()
+            StartDateTime = reader.ReadString()
         };
     }
 }

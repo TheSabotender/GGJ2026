@@ -936,7 +936,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b0d2520a0fb7b84f98e052c89ed32c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  playerBrain: {fileID: 0}
+  playerBrain: {fileID: 577711697}
+  startingMask: {fileID: 11400000, guid: 9176027255e08b341bf8efac4adfafa8, type: 2}
+  allProfiles:
+  - {fileID: 11400000, guid: 9176027255e08b341bf8efac4adfafa8, type: 2}
 --- !u!4 &463251420
 Transform:
   m_ObjectHideFlags: 0
