@@ -17,10 +17,21 @@ public class Localized : MonoBehaviour
 
     private void OnEnable()
     {
+        LocalizationManager.LanguageChanged += HandleLanguageChanged;
         UpdateText();
     }
 
+    private void OnDisable()
+    {
+        LocalizationManager.LanguageChanged -= HandleLanguageChanged;
+    }
+
     public void RefreshLocalization()
+    {
+        UpdateText();
+    }
+
+    private void HandleLanguageChanged()
     {
         UpdateText();
     }
