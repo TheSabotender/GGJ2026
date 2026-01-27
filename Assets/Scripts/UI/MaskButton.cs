@@ -25,7 +25,7 @@ public class MaskButton : MonoBehaviour
 
     public void OnMouseOver()
     {
-        //TODO set tooltip info
+        MaskDetailPanel.Setup(characterProfile);
     }
 
     public void OnClick()

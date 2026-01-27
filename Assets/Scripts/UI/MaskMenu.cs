@@ -13,8 +13,7 @@ public class MaskMenu : SubMenu
     public MaskButton maskButton;
     public Transform buttonContainer;
 
-    public MaskButton[] buttons;
-
+    private MaskButton[] buttons;
     private InputDevice lastDevice;
     private Vector2 currentMousePos;
 
@@ -30,11 +29,13 @@ public class MaskMenu : SubMenu
 
     private void Update()
     {
+        if (buttons == null || buttons.Length <= 0)
+            return;
+
         var lastPos = currentMousePos;
         UpdateMousePos();
-
         var delta = currentMousePos - lastPos;
-
+        
         foreach(var button in buttons)
         {
             var rb = button?.Rigidbody;
@@ -76,8 +77,9 @@ public class MaskMenu : SubMenu
 
     public void PopulateMenu(List<string> maskIds)
     {
-        foreach (var child in buttons)
-            Destroy(child.gameObject);
+        if (buttons != null && buttons.Length > 0)
+            foreach (var child in buttons)
+                Destroy(child.gameObject);
 
         buttons = new MaskButton[maskIds.Count];
         for (var i = 0; i < maskIds.Count; i++)

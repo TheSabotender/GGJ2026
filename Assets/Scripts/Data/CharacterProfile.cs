@@ -4,25 +4,37 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "CharacterProfile", menuName = "Data/CharacterProfile", order = 1)]
 public class CharacterProfile : ScriptableObject
 {
-    //Core
+    [Header("Core")]
     public string Guid;
     public EntityMotor motor;
 
-    //Visuals
+    [Header("Visuals")]
     public GameObject prefab;
     public Sprite portrait;
     public Sprite mask;
 
-    //Meta
+    [Header("Meta")]
     public string characterName;
     public JobTag field;
-    public int securityClearance;
+    public Clearance securityClearance;
     public string description;
     public InterestTag likes;
 
     public void NewGuid()
     {
         Guid = System.Guid.NewGuid().ToString();
+    }
+
+    public enum Clearance
+    {
+        Alien = -99,
+        Wanted = -10,
+        Criminal = -1,
+        Civilian = 0,
+        Employee = 1,
+        Valued = 2,
+        Official = 3,
+        Executive = 4
     }
 
     public enum JobTag

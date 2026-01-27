@@ -12,9 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99c829a2fd6e13e409077bc3af3e2da3, type: 3}
   m_Name: _AlienProfile
   m_EditorClassIdentifier: Assembly-CSharp::CharacterProfile
-  Guid: alien_default
-  characterName: Alien
-  securityClearance: -1
-  avatar: {fileID: 21300000, guid: 47fe6cc61b6d9c24b86ccee455ad314f, type: 3}
-  prefab: {fileID: 0}
+  Guid: 2dc691a5-a366-4f2b-822b-96bfd54eded5
   motor: {fileID: 11400000, guid: 769e7c6b6d790944d8cf12bb71aa2d8b, type: 2}
+  prefab: {fileID: 0}
+  portrait: {fileID: 0}
+  mask: {fileID: 0}
+  characterName: Alien
+  field: 0
+  securityClearance: -99
+  description: No mask
+  likes: 0
