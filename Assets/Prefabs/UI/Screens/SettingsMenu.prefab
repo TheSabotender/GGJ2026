@@ -975,6 +975,7 @@ GameObject:
   - component: {fileID: 6531457008223579612}
   - component: {fileID: 7899119108298442031}
   - component: {fileID: 3589572921449196134}
+  - component: {fileID: 8220746072534098811}
   m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
@@ -1101,6 +1102,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8220746072534098811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2155281052429616443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a121723125d065449b2c2fbca32c36a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Localized
+  localizationKey: settings-soundVolume
 --- !u!1 &2219012246807546959
 GameObject:
   m_ObjectHideFlags: 0
@@ -1597,9 +1611,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CreditsMenu, Assembly-CSharp
-        m_MethodName: BackToMainMenu
+      - m_Target: {fileID: 6730899048087887316}
+        m_TargetAssemblyTypeName: SettingsScreen, Assembly-CSharp
+        m_MethodName: OnBack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2137,6 +2151,7 @@ GameObject:
   - component: {fileID: 7997228269590620920}
   - component: {fileID: 667613533745750848}
   - component: {fileID: 8504644430480120798}
+  - component: {fileID: 8797903071832656283}
   m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
@@ -2263,6 +2278,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8797903071832656283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4231384673049563200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a121723125d065449b2c2fbca32c36a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Localized
+  localizationKey: settings-language
 --- !u!1 &4534413949136042318
 GameObject:
   m_ObjectHideFlags: 0
@@ -2274,6 +2302,7 @@ GameObject:
   - component: {fileID: 2560775113917792048}
   - component: {fileID: 6001345949373963638}
   - component: {fileID: 4672072599621385491}
+  - component: {fileID: 5617216168089372296}
   m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
@@ -2400,6 +2429,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &5617216168089372296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4534413949136042318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a121723125d065449b2c2fbca32c36a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Localized
+  localizationKey: settings-musicVolume
 --- !u!1 &4537710266365995250
 GameObject:
   m_ObjectHideFlags: 0
@@ -2656,6 +2698,8 @@ MonoBehaviour:
   masterVolumeSlider: {fileID: 3501853280370224150}
   musicVolumeSlider: {fileID: 1965100484751099953}
   soundVolumeSlider: {fileID: 3591084692478582854}
+  renderModeDropdown: {fileID: 7857350042554742032}
+  languageDropdown: {fileID: 7504164555445646707}
 --- !u!1 &4868389729419522943
 GameObject:
   m_ObjectHideFlags: 0
@@ -3152,6 +3196,7 @@ GameObject:
   - component: {fileID: 4087884057129943000}
   - component: {fileID: 234544102450922137}
   - component: {fileID: 3944063183797571873}
+  - component: {fileID: 8055500854676509474}
   m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
@@ -3206,7 +3251,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <color=red>F</color>anguage
+  m_text: <color=red>F</color>ullscreen
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e38f43ad1e51ad5488f5115cad2739dd, type: 2}
   m_sharedMaterial: {fileID: 44849361354826492, guid: e38f43ad1e51ad5488f5115cad2739dd, type: 2}
@@ -3278,6 +3323,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8055500854676509474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6624115267222076157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a121723125d065449b2c2fbca32c36a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Localized
+  localizationKey: settings-fullscreen
 --- !u!1 &6684322431962444511
 GameObject:
   m_ObjectHideFlags: 0
@@ -4293,6 +4351,7 @@ GameObject:
   - component: {fileID: 5210647016678739116}
   - component: {fileID: 8758791354614136714}
   - component: {fileID: 1013211364366121887}
+  - component: {fileID: 5407014406277865887}
   m_Layer: 5
   m_Name: Label
   m_TagString: Untagged
@@ -4419,6 +4478,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &5407014406277865887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7810745224224249457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a121723125d065449b2c2fbca32c36a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Localized
+  localizationKey: settings-masterVolume
 --- !u!1 &8368868251754763817
 GameObject:
   m_ObjectHideFlags: 0
@@ -4466,6 +4538,7 @@ GameObject:
   - component: {fileID: 8985310878181587925}
   - component: {fileID: 234200610800322746}
   - component: {fileID: 1825265858028821644}
+  - component: {fileID: 3173625753745621866}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -4592,6 +4665,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3173625753745621866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8374628063550526841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a121723125d065449b2c2fbca32c36a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Localized
+  localizationKey: menu-back
 --- !u!1 &8484605066033148976
 GameObject:
   m_ObjectHideFlags: 0

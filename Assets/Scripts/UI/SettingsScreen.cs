@@ -9,8 +9,8 @@ public class SettingsScreen : SubMenu
     public Slider masterVolumeSlider;
     public Slider musicVolumeSlider;
     public Slider soundVolumeSlider;
-    public Dropdown renderModeDropdown;
-    public Dropdown languageDropdown;
+    public TMPro.TMP_Dropdown renderModeDropdown;
+    public TMPro.TMP_Dropdown languageDropdown;
 
     private GameSettings settings;
 
@@ -121,13 +121,13 @@ public class SettingsScreen : SubMenu
         }
     }
 
-    private void PopulateDropdown<TEnum>(Dropdown dropdown) where TEnum : Enum
+    private void PopulateDropdown<TEnum>(TMPro.TMP_Dropdown dropdown) where TEnum : Enum
     {
         dropdown.ClearOptions();
-        var options = new List<Dropdown.OptionData>();
+        var options = new List<TMPro.TMP_Dropdown.OptionData>();
         foreach (var value in Enum.GetValues(typeof(TEnum)))
         {
-            options.Add(new Dropdown.OptionData(FormatEnumLabel(value.ToString())));
+            options.Add(new TMPro.TMP_Dropdown.OptionData(FormatEnumLabel(value.ToString())));
         }
 
         dropdown.AddOptions(options);
