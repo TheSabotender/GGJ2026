@@ -19,14 +19,18 @@ public class Localized : MonoBehaviour
         UpdateText();
     }
 
-    private void OnValidate()
+    public void RefreshLocalization()
     {
-        textComponent = GetComponent<TextMeshProUGUI>();
         UpdateText();
     }
 
     private void UpdateText()
     {
+        if (textComponent == null)
+        {
+            textComponent = GetComponent<TextMeshProUGUI>();
+        }
+
         if (textComponent == null)
         {
             return;
