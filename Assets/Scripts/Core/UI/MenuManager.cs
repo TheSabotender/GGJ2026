@@ -30,6 +30,7 @@ public class MenuManager : MonoBehaviour
     private static Screen currentScreen = Screen.None;
     private SubMenu current;
     
+    public static Screen CurrentScreen => currentScreen;
 
     private void Awake()
     {

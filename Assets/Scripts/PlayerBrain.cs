@@ -38,6 +38,11 @@ public class PlayerBrain : EntityBrain
 
     private void Update()
     {
+        if (GameManager.CurrentGameSave == null)
+            return;
+        if (MenuManager.CurrentScreen != MenuManager.Screen.None)
+            return;
+
         if (currentMotor == null)
         {
             return;

@@ -20,13 +20,18 @@ public class PlayerCameraTarget : MonoBehaviour
     private void Update()
     {
         var position = transform.position;
-        if (TryGetAimWorldPoint(out Vector3 aimWorld))
+
+        if (GameManager.CurrentGameSave == null || MenuManager.CurrentScreen != MenuManager.Screen.None)
+        {
+            //lerp back?
+        }
+        else if(TryGetAimWorldPoint(out Vector3 aimWorld))
         {
             var newPos = Vector3.Lerp(position, aimWorld, 0.5f);
             position = Vector3.MoveTowards(position, newPos, maxDistanceFromPlayer);
         }
-        position.z = 0;
 
+        position.z = 0;
         cameraTarget.position = position;
     }
 

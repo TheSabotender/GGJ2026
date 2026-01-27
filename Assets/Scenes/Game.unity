@@ -1693,7 +1693,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 1065985746633cb4dbd59e48e0fc4384, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1717,8 +1717,8 @@ LineRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
+  - {x: 0, y: 0, z: -4.39}
+  - {x: 0, y: 0, z: 18.96}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -1727,13 +1727,22 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
+        value: 0.33663356
+        inSlope: -0.13311288
+        outSlope: -0.13311288
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.33333334
+        outWeight: 0.2231405
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: -0.63291615
+        outSlope: -0.63291615
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.21900827
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -1767,10 +1776,10 @@ LineRenderer:
       m_ColorSpace: -1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    numCornerVertices: 0
-    numCapVertices: 0
+    numCornerVertices: 4
+    numCapVertices: 4
     alignment: 0
-    textureMode: 0
+    textureMode: 1
     textureScale: {x: 1, y: 1}
     shadowBias: 0.5
     generateLightingData: 0
@@ -2864,7 +2873,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6778424350497545503, guid: e490318474d7ed64fa0dd4389aca11ca, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.00018310547
+      value: 0.00021362305
       objectReference: {fileID: 0}
     - target: {fileID: 7073572300306507136, guid: e490318474d7ed64fa0dd4389aca11ca, type: 3}
       propertyPath: startingScreen

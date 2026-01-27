@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
 
     public static PlayerBrain PlayerBrain => instance.playerBrain;
 
-    public static GameSave CurrentGameSave => instance.currentGameSave;
+    public static GameSave CurrentGameSave => instance?.currentGameSave;
 
     public static CharacterProfile[] AllProfiles => instance.allProfiles;
 

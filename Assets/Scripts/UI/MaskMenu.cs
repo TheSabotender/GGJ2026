@@ -12,8 +12,12 @@ public class MaskMenu : SubMenu
 
     private void OnEnable()
     {
+        var maskIds = GameManager.CurrentGameSave?.Masks;
+
+        if (maskIds == null || maskIds.Count == 0)
+            return;
+
         var masks = new List<CharacterProfile>();
-        var maskIds = GameManager.CurrentGameSave.Masks;
         for (var i = 0; i < maskIds.Count; i++)
         {
             var maskProfile = GameManager.AllProfiles.FirstOrDefault(m => m.Guid == maskIds[i]);
