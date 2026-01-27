@@ -1,0 +1,28 @@
+{
+  "Entries": [
+    {
+      "Key": "menu-continue",
+      "Value": "Continue"
+    },
+    {
+      "Key": "menu-newgame",
+      "Value": "New Game"
+    },
+    {
+      "Key": "menu-loadgame",
+      "Value": "Load Game"
+    },
+    {
+      "Key": "menu-settings",
+      "Value": "Settings"
+    },
+    {
+      "Key": "menu-credits",
+      "Value": "Credits"
+    },
+    {
+      "Key": "menu-quit",
+      "Value": "Quit"
+    }
+  ]
+}
