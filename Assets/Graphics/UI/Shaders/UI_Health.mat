@@ -42,6 +42,9 @@ Material:
     m_Ints: []
     m_Floats:
     - _ColorMask: 15
+    - _Fill: 0.047
+    - _Health: 1
+    - _LineThickness: 0.023
     - _Stencil: 0
     - _StencilComp: 8
     - _StencilOp: 0
@@ -49,6 +52,12 @@ Material:
     - _StencilWriteMask: 255
     - _UIMaskSoftnessX: 1
     - _UIMaskSoftnessY: 1
+    - _calmFreq: 30
+    - _calmPower: 0.4
+    - _calmSpeed: 2
+    - _dangerFreq: 70
+    - _dangerPower: 0.4
+    - _dangerSpeed: 10
     m_Colors:
     - _ClipRect: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
