@@ -9,24 +9,32 @@ public class SettingsScreen : SubMenu
 
     private GameSettings settings;
 
+    private void Awake()
+    {
+        masterVolumeSlider.onValueChanged.AddListener(OnMasterVolumeChanged);
+        musicVolumeSlider.onValueChanged.AddListener(OnMusicVolumeChanged);
+        soundVolumeSlider.onValueChanged.AddListener(OnSoundVolumeChanged);
+    }
+
     private void OnEnable()
     {
         settings = SettingsManager.Load();
 
         if (masterVolumeSlider != null)
-        {
             masterVolumeSlider.SetValueWithoutNotify(settings.MasterVolume);
-        }
 
         if (musicVolumeSlider != null)
-        {
             musicVolumeSlider.SetValueWithoutNotify(settings.MusicVolume);
-        }
 
         if (soundVolumeSlider != null)
-        {
             soundVolumeSlider.SetValueWithoutNotify(settings.SoundVolume);
-        }
+    }
+
+    public void OnBack()
+    {
+        MenuManager.SetScreen(GameManager.CurrentGameSave != null
+            ? MenuManager.Screen.Pause
+            : MenuManager.Screen.Main);
     }
 
     public void OnMasterVolumeChanged(float value)
