@@ -44,15 +44,6 @@ public class TendrilManager : MonoBehaviour
     public void ReleaseTendril()
     {
         isHoldingTendril = false;
-
-        if (coroutine != null)
-        {
-            StopCoroutine(coroutine);
-            coroutine = null;
-        }
-
-        if (lineRenderer != null)
-            lineRenderer.enabled = false;
     }
 
     bool TryGetAimWorldPoint(out Vector3 aimWorld)
@@ -80,9 +71,6 @@ public class TendrilManager : MonoBehaviour
             {            
                 Vector2 mouseScreenPos = mouseAction.action.ReadValue<Vector2>();
                 Ray ray = mainCam.ScreenPointToRay(mouseScreenPos);
-
-                Debug.DrawRay(ray.origin, ray.direction);
-                Debug.Log($"Mouse pos: {mouseScreenPos}");
 
                 Plane plane = new Plane(Vector3.forward, new Vector3(0, 0, nearestLaneZ));
                 if (plane.Raycast(ray, out float enter))

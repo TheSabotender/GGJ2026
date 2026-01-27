@@ -4,6 +4,12 @@ using UnityEngine.InputSystem;
 public class PlayerBrain : EntityBrain
 {
     [SerializeField]
+    private InputActionReference pauseMenuAction = null;
+
+    [SerializeField]
+    private InputActionReference maskMenuAction = null;
+
+    [SerializeField]
     private InputActionReference moveAction = null;
 
     [SerializeField]
@@ -11,9 +17,6 @@ public class PlayerBrain : EntityBrain
 
     [SerializeField]
     private InputActionReference crouchAction = null;
-
-    [SerializeField]
-    private InputActionReference maskMenuAction = null;
 
     [SerializeField]
     private CharacterProfile alienProfile;
@@ -123,6 +126,14 @@ public class PlayerBrain : EntityBrain
         moveAction?.action?.Enable();
         jumpAction?.action?.Enable();
         crouchAction?.action?.Enable();
+
+        if (pauseMenuAction?.action != null)
+        {
+            pauseMenuAction.action.performed -= OnPauseMenuAction;
+            pauseMenuAction.action.performed += OnPauseMenuAction;
+            pauseMenuAction.action.Enable();
+        }
+
         if (maskMenuAction?.action != null)
         {
             maskMenuAction.action.performed -= OnMaskMenuAction;
@@ -136,6 +147,13 @@ public class PlayerBrain : EntityBrain
         moveAction?.action?.Disable();
         jumpAction?.action?.Disable();
         crouchAction?.action?.Disable();
+
+        if (pauseMenuAction?.action != null)
+        {
+            pauseMenuAction.action.performed -= OnPauseMenuAction;
+            pauseMenuAction.action.Disable();
+        }
+
         if (maskMenuAction?.action != null)
         {
             maskMenuAction.action.performed -= OnMaskMenuAction;
@@ -143,12 +161,27 @@ public class PlayerBrain : EntityBrain
         }
     }
 
-    private void OnMaskMenuAction(InputAction.CallbackContext context)
+    private void OnPauseMenuAction(InputAction.CallbackContext context)
     {
         if (!context.performed)
             return;
 
-        MenuManager.SetScreen(MenuManager.Screen.Mask);
+        if (MenuManager.CurrentScreen == MenuManager.Screen.Pause)
+            MenuManager.SetScreen(MenuManager.Screen.None);
+        else if (MenuManager.CurrentScreen == MenuManager.Screen.Mask)
+            MenuManager.SetScreen(MenuManager.Screen.None);
+        else if (MenuManager.CurrentScreen == MenuManager.Screen.None)
+            MenuManager.SetScreen(MenuManager.Screen.Pause);
+    }
+
+    private void OnMaskMenuAction(InputAction.CallbackContext context)
+    {
+        if (!context.performed)
+            return;
+        if (MenuManager.CurrentScreen == MenuManager.Screen.None)
+            MenuManager.SetScreen(MenuManager.Screen.Mask);
+        else if (MenuManager.CurrentScreen == MenuManager.Screen.Mask)
+            MenuManager.SetScreen(MenuManager.Screen.None);
     }
 
     private bool IsGrounded()

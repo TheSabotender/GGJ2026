@@ -8,6 +8,7 @@ public class HUDManager : MonoBehaviour
     public Image portrait;
     public TMPro.TextMeshProUGUI profileName;
     public Image health;
+    public float hudFadeSpeed = 1;
 
     private Material healthMaterial;
     private string lastMaskGuid;
@@ -22,9 +23,9 @@ public class HUDManager : MonoBehaviour
 
     private void Update()
     {
-        bool isGameplay = GameManager.CurrentGameSave != null;
+        bool isGameplay = MenuManager.CurrentScreen == MenuManager.Screen.None;
 
-        canvasGroup.alpha = Mathf.Lerp(canvasGroup.alpha, isGameplay ? 1 : 0, Time.deltaTime);
+        canvasGroup.alpha = Mathf.MoveTowards(canvasGroup.alpha, isGameplay ? 1 : 0, Time.deltaTime * hudFadeSpeed);
 
         if (isGameplay)
         {

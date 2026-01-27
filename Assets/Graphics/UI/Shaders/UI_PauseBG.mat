@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: UI_Health
-  m_Shader: {fileID: -6465566751694194690, guid: fce8736db7c3f214dbc4feea95279720, type: 3}
+  m_Name: UI_PauseBG
+  m_Shader: {fileID: -6465566751694194690, guid: ac7e809dbbed19a4b8b43c271b70895b, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -42,9 +42,6 @@ Material:
     m_Ints: []
     m_Floats:
     - _ColorMask: 15
-    - _Fill: 0.005
-    - _Health: 1
-    - _LineThickness: 0.023
     - _Stencil: 0
     - _StencilComp: 8
     - _StencilOp: 0
@@ -52,13 +49,10 @@ Material:
     - _StencilWriteMask: 255
     - _UIMaskSoftnessX: 1
     - _UIMaskSoftnessY: 1
-    - _calmFreq: 30
-    - _calmPower: 0.4
-    - _calmSpeed: 2
-    - _dangerFreq: 70
-    - _dangerPower: 0.4
-    - _dangerSpeed: 40
     m_Colors:
     - _ClipRect: {r: 0, g: 0, b: 0, a: 0}
+    - _ColorA: {r: 0.1509434, g: 0, b: 0, a: 1}
+    - _ColorB: {r: 0.6415094, g: 0.011394217, b: 0, a: 1}
+    - _Speed: {r: 0.2, g: 0.3, b: 0.4, a: 0.5}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

@@ -6,10 +6,12 @@ public class MaskButton : MonoBehaviour
     [SerializeField]
     private Image image;
 
-    private CharacterProfile characterProfile;
+    [SerializeField]
     private Rigidbody2D rigidbody;
 
-    public Rigidbody2D Rigidbody => rigidbody ??= image.GetComponent<Rigidbody2D>();
+    private CharacterProfile characterProfile;
+
+    public Rigidbody2D Rigidbody => rigidbody;
 
     public void Setup(CharacterProfile profile)
     {

@@ -36,7 +36,10 @@ public class GameManager : MonoBehaviour
     public static void NewGame()
     {
         var newGame = new GameSave();        
-        newGame.Masks = new() { instance.startingMask.Guid, instance.testMask.Guid };
+        newGame.Masks = new() {
+            instance.startingMask.Guid,
+            instance.testMask.Guid,instance.testMask.Guid,instance.testMask.Guid,instance.testMask.Guid,instance.testMask.Guid,instance.testMask.Guid,instance.testMask.Guid,instance.testMask.Guid,instance.testMask.Guid,instance.testMask.Guid,instance.testMask.Guid,instance.testMask.Guid,instance.testMask.Guid,instance.testMask.Guid,
+        };
         newGame.MasksCollected = newGame.Masks.Count;
         newGame.GameVersion = Application.version;
         newGame.StartDateTime = System.DateTime.Now.Ticks.ToString();

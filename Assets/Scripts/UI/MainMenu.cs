@@ -8,7 +8,7 @@ public class MainMenu : SubMenu
 
     private void OnEnable()
     {
-        var hasContinue = SaveManager.HasLastSave();
+        var hasContinue = SaveManager.HasLastSave() || GameManager.CurrentGameSave != null;
         continueButton.interactable = hasContinue;
 
         var hasSaves = SaveManager.LoadAll().Length > 0;
@@ -17,6 +17,12 @@ public class MainMenu : SubMenu
 
     public void ContinueGame()
     {
+        if (GameManager.CurrentGameSave != null)
+        {
+            MenuManager.SetScreen(MenuManager.Screen.None);
+            return;
+        }
+
         var save = SaveManager.GetLastSave();
         if (save == null)
             return;

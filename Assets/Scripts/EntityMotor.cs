@@ -40,7 +40,7 @@ public class EntityMotor : ScriptableObject
         bool canFront = availability == DepthAvailability.HasFront || availability == DepthAvailability.HasBoth;
         bool canBack = availability == DepthAvailability.HasBack || availability == DepthAvailability.HasBoth;
 
-    public virtual void Jump(EntityBrain brain, bool isGrounded) { }
+        // Snap to nearest lane (so tiny drift doesnt compound)
         float z = brain.transform.position.z;
         float nearestLaneZ =
             (Mathf.Abs(z - brain.frontDepthZ) <= Mathf.Abs(z - brain.backDepthZ))
@@ -65,7 +65,7 @@ public class EntityMotor : ScriptableObject
         brain.DepthTransitionRoutine = brain.StartCoroutine(TransitionDepth(brain, nearestLaneZ, targetZ));
     }
 
-    public virtual void Jump(EntityBrain brain) { }
+    public virtual void Jump(EntityBrain brain, bool isGrounded) { }
     public virtual void Crouch(EntityBrain brain, bool isCrouching) { }
 
     private IEnumerator TransitionDepth(EntityBrain brain, float fromZ, float toZ)
