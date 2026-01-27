@@ -40,7 +40,7 @@ public class EntityMotor : ScriptableObject
         bool canFront = availability == DepthAvailability.HasFront || availability == DepthAvailability.HasBoth;
         bool canBack = availability == DepthAvailability.HasBack || availability == DepthAvailability.HasBoth;
 
-        // Snap to nearest lane (so tiny drift doesn’t compound)
+    public virtual void Jump(EntityBrain brain, bool isGrounded) { }
         float z = brain.transform.position.z;
         float nearestLaneZ =
             (Mathf.Abs(z - brain.frontDepthZ) <= Mathf.Abs(z - brain.backDepthZ))

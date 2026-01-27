@@ -7,7 +7,7 @@ public class AlienMotor : EntityMotor
     /// Overriden to implement tendril launch behavior.
     /// </summary>
     /// <param name="transform"></param>
-    public override void Jump(EntityBrain brain)
+    public override void Jump(EntityBrain brain, bool isGrounded)
     {
         var playerBrain = brain as PlayerBrain;
         if (playerBrain?.TendrilManager == null)
