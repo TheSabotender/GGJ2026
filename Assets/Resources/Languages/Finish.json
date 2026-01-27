@@ -1,0 +1,88 @@
+{
+  "Entries": [
+    {
+      "Key": "menu-continue",
+      "Value": "Jatka"
+    },
+    {
+      "Key": "menu-newgame",
+      "Value": "Uusi peli"
+    },
+    {
+      "Key": "menu-loadgame",
+      "Value": "Lataa peli"
+    },
+    {
+      "Key": "menu-settings",
+      "Value": "Asetukset"
+    },
+    {
+      "Key": "menu-credits",
+      "Value": "Tekijät"
+    },
+    {
+      "Key": "menu-quit",
+      "Value": "Lopeta"
+    },
+    {
+      "Key": "menu-back",
+      "Value": "Takaisin"
+    },
+    {
+      "Key": "settings-language",
+      "Value": "Kieli"
+    },
+    {
+      "Key": "settings-fullscreen",
+      "Value": "Koko näyttö"
+    },
+    {
+      "Key": "settings-masterVolume",
+      "Value": "Pää-äänenvoimakkuus"
+    },
+    {
+      "Key": "settings-musicVolume",
+      "Value": "Musiikin äänenvoimakkuus"
+    },
+    {
+      "Key": "settings-soundVolume",
+      "Value": "Äänitehosteiden äänenvoimakkuus"
+    },
+    {
+      "Key": "menu-quit",
+      "Value": "Lopeta"
+    },
+    {
+      "Key": "credits-code",
+      "Value": "Koodi"
+    },
+    {
+      "Key": "credits-design",
+      "Value": "Suunnittelu"
+    },
+    {
+      "Key": "credits-music",
+      "Value": "Musiikki"
+    },
+    {
+      "Key": "credits-sfx",
+      "Value": "Äänitehosteet"
+    },
+    {
+      "Key": "credits-textures",
+      "Value": "Lisätekstuurit"
+    },
+    {
+      "Key": "credits-inspiration",
+      "Value": "Inspiraatio"
+    },
+    {
+      "Key": "credits-aiHeader",
+      "Value": "AI-vastuuvapauslauseke"
+    },
+    {
+      "Key": "credits-aiBody",
+      "Value": "AI:ta on käytetty koodin avustamiseen"
+    }
+  ]
+}

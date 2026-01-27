@@ -1,0 +1,88 @@
+{
+  "Entries": [
+    {
+      "Key": "menu-continue",
+      "Value": "Continuar"
+    },
+    {
+      "Key": "menu-newgame",
+      "Value": "Nuevo juego"
+    },
+    {
+      "Key": "menu-loadgame",
+      "Value": "Cargar juego"
+    },
+    {
+      "Key": "menu-settings",
+      "Value": "Ajustes"
+    },
+    {
+      "Key": "menu-credits",
+      "Value": "Créditos"
+    },
+    {
+      "Key": "menu-quit",
+      "Value": "Salir"
+    },
+    {
+      "Key": "menu-back",
+      "Value": "Atrás"
+    },
+    {
+      "Key": "settings-language",
+      "Value": "Idioma"
+    },
+    {
+      "Key": "settings-fullscreen",
+      "Value": "Pantalla completa"
+    },
+    {
+      "Key": "settings-masterVolume",
+      "Value": "Volumen maestro"
+    },
+    {
+      "Key": "settings-musicVolume",
+      "Value": "Volumen de música"
+    },
+    {
+      "Key": "settings-soundVolume",
+      "Value": "Volumen de efectos"
+    },
+    {
+      "Key": "menu-quit",
+      "Value": "Salir"
+    },
+    {
+      "Key": "credits-code",
+      "Value": "Código"
+    },
+    {
+      "Key": "credits-design",
+      "Value": "Diseño"
+    },
+    {
+      "Key": "credits-music",
+      "Value": "Música"
+    },
+    {
+      "Key": "credits-sfx",
+      "Value": "Efectos de sonido"
+    },
+    {
+      "Key": "credits-textures",
+      "Value": "Texturas adicionales"
+    },
+    {
+      "Key": "credits-inspiration",
+      "Value": "Inspiración"
+    },
+    {
+      "Key": "credits-aiHeader",
+      "Value": "Aviso de IA"
+    },
+    {
+      "Key": "credits-aiBody",
+      "Value": "Se ha utilizado IA para ayudar con el código"
+    }
+  ]
+}

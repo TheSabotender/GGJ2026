@@ -1,0 +1,88 @@
+{
+  "Entries": [
+    {
+      "Key": "menu-continue",
+      "Value": "続ける"
+    },
+    {
+      "Key": "menu-newgame",
+      "Value": "新しいゲーム"
+    },
+    {
+      "Key": "menu-loadgame",
+      "Value": "ゲームをロード"
+    },
+    {
+      "Key": "menu-settings",
+      "Value": "設定"
+    },
+    {
+      "Key": "menu-credits",
+      "Value": "クレジット"
+    },
+    {
+      "Key": "menu-quit",
+      "Value": "終了"
+    },
+    {
+      "Key": "menu-back",
+      "Value": "戻る"
+    },
+    {
+      "Key": "settings-language",
+      "Value": "言語"
+    },
+    {
+      "Key": "settings-fullscreen",
+      "Value": "フルスクリーン"
+    },
+    {
+      "Key": "settings-masterVolume",
+      "Value": "マスター音量"
+    },
+    {
+      "Key": "settings-musicVolume",
+      "Value": "音楽音量"
+    },
+    {
+      "Key": "settings-soundVolume",
+      "Value": "効果音量"
+    },
+    {
+      "Key": "menu-quit",
+      "Value": "終了"
+    },
+    {
+      "Key": "credits-code",
+      "Value": "コード"
+    },
+    {
+      "Key": "credits-design",
+      "Value": "デザイン"
+    },
+    {
+      "Key": "credits-music",
+      "Value": "音楽"
+    },
+    {
+      "Key": "credits-sfx",
+      "Value": "効果音"
+    },
+    {
+      "Key": "credits-textures",
+      "Value": "追加テクスチャ"
+    },
+    {
+      "Key": "credits-inspiration",
+      "Value": "インスピレーション"
+    },
+    {
+      "Key": "credits-aiHeader",
+      "Value": "AI 免責事項"
+    },
+    {
+      "Key": "credits-aiBody",
+      "Value": "AI をコードの支援に使用しました"
+    }
+  ]
+}

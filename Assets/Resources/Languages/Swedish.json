@@ -1,0 +1,88 @@
+{
+  "Entries": [
+    {
+      "Key": "menu-continue",
+      "Value": "Fortsätt"
+    },
+    {
+      "Key": "menu-newgame",
+      "Value": "Nytt spel"
+    },
+    {
+      "Key": "menu-loadgame",
+      "Value": "Ladda spel"
+    },
+    {
+      "Key": "menu-settings",
+      "Value": "Inställningar"
+    },
+    {
+      "Key": "menu-credits",
+      "Value": "Eftertexter"
+    },
+    {
+      "Key": "menu-quit",
+      "Value": "Avsluta"
+    },
+    {
+      "Key": "menu-back",
+      "Value": "Tillbaka"
+    },
+    {
+      "Key": "settings-language",
+      "Value": "Språk"
+    },
+    {
+      "Key": "settings-fullscreen",
+      "Value": "Helskärm"
+    },
+    {
+      "Key": "settings-masterVolume",
+      "Value": "Huvudvolym"
+    },
+    {
+      "Key": "settings-musicVolume",
+      "Value": "Musikvolym"
+    },
+    {
+      "Key": "settings-soundVolume",
+      "Value": "Ljudvolym"
+    },
+    {
+      "Key": "menu-quit",
+      "Value": "Avsluta"
+    },
+    {
+      "Key": "credits-code",
+      "Value": "Kod"
+    },
+    {
+      "Key": "credits-design",
+      "Value": "Design"
+    },
+    {
+      "Key": "credits-music",
+      "Value": "Musik"
+    },
+    {
+      "Key": "credits-sfx",
+      "Value": "Ljudeffekter"
+    },
+    {
+      "Key": "credits-textures",
+      "Value": "Ytterligare texturer"
+    },
+    {
+      "Key": "credits-inspiration",
+      "Value": "Inspiration"
+    },
+    {
+      "Key": "credits-aiHeader",
+      "Value": "AI-ansvarsfriskrivning"
+    },
+    {
+      "Key": "credits-aiBody",
+      "Value": "AI har använts för att assistera med kod"
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "Entries": [
+    {
+      "Key": "menu-continue",
+      "Value": "Fortsetzen"
+    },
+    {
+      "Key": "menu-newgame",
+      "Value": "Neues Spiel"
+    },
+    {
+      "Key": "menu-loadgame",
+      "Value": "Spiel laden"
+    },
+    {
+      "Key": "menu-settings",
+      "Value": "Einstellungen"
+    },
+    {
+      "Key": "menu-credits",
+      "Value": "Credits"
+    },
+    {
+      "Key": "menu-quit",
+      "Value": "Beenden"
+    },
+    {
+      "Key": "menu-back",
+      "Value": "Zurück"
+    },
+    {
+      "Key": "settings-language",
+      "Value": "Sprache"
+    },
+    {
+      "Key": "settings-fullscreen",
+      "Value": "Vollbild"
+    },
+    {
+      "Key": "settings-masterVolume",
+      "Value": "Gesamtlautstärke"
+    },
+    {
+      "Key": "settings-musicVolume",
+      "Value": "Musiklautstärke"
+    },
+    {
+      "Key": "settings-soundVolume",
+      "Value": "Effektlautstärke"
+    },
+    {
+      "Key": "menu-quit",
+      "Value": "Beenden"
+    },
+    {
+      "Key": "credits-code",
+      "Value": "Code"
+    },
+    {
+      "Key": "credits-design",
+      "Value": "Design"
+    },
+    {
+      "Key": "credits-music",
+      "Value": "Musik"
+    },
+    {
+      "Key": "credits-sfx",
+      "Value": "Soundeffekte"
+    },
+    {
+      "Key": "credits-textures",
+      "Value": "Zusätzliche Texturen"
+    },
+    {
+      "Key": "credits-inspiration",
+      "Value": "Inspiration"
+    },
+    {
+      "Key": "credits-aiHeader",
+      "Value": "KI-Hinweis"
+    },
+    {
+      "Key": "credits-aiBody",
+      "Value": "KI wurde zur Unterstützung beim Code verwendet"
+    }
+  ]
+}

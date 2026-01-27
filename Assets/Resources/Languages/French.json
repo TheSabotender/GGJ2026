@@ -1,0 +1,88 @@
+{
+  "Entries": [
+    {
+      "Key": "menu-continue",
+      "Value": "Continuer"
+    },
+    {
+      "Key": "menu-newgame",
+      "Value": "Nouvelle partie"
+    },
+    {
+      "Key": "menu-loadgame",
+      "Value": "Charger la partie"
+    },
+    {
+      "Key": "menu-settings",
+      "Value": "Paramètres"
+    },
+    {
+      "Key": "menu-credits",
+      "Value": "Crédits"
+    },
+    {
+      "Key": "menu-quit",
+      "Value": "Quitter"
+    },
+    {
+      "Key": "menu-back",
+      "Value": "Retour"
+    },
+    {
+      "Key": "settings-language",
+      "Value": "Langue"
+    },
+    {
+      "Key": "settings-fullscreen",
+      "Value": "Plein écran"
+    },
+    {
+      "Key": "settings-masterVolume",
+      "Value": "Volume principal"
+    },
+    {
+      "Key": "settings-musicVolume",
+      "Value": "Volume de la musique"
+    },
+    {
+      "Key": "settings-soundVolume",
+      "Value": "Volume des effets"
+    },
+    {
+      "Key": "menu-quit",
+      "Value": "Quitter"
+    },
+    {
+      "Key": "credits-code",
+      "Value": "Code"
+    },
+    {
+      "Key": "credits-design",
+      "Value": "Design"
+    },
+    {
+      "Key": "credits-music",
+      "Value": "Musique"
+    },
+    {
+      "Key": "credits-sfx",
+      "Value": "Effets sonores"
+    },
+    {
+      "Key": "credits-textures",
+      "Value": "Textures supplémentaires"
+    },
+    {
+      "Key": "credits-inspiration",
+      "Value": "Inspiration"
+    },
+    {
+      "Key": "credits-aiHeader",
+      "Value": "Avertissement IA"
+    },
+    {
+      "Key": "credits-aiBody",
+      "Value": "L'IA a été utilisée pour aider au code"
+    }
+  ]
+}
