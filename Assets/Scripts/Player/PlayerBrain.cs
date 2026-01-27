@@ -25,6 +25,7 @@ public class PlayerBrain : EntityBrain
 
     public TendrilManager TendrilManager => tendrilManager;
 
+    private bool isJumpHeld = false;
 
     private void OnEnable()
     {
@@ -60,9 +61,19 @@ public class PlayerBrain : EntityBrain
             currentMotor.MoveDepth(this, moveInput.y);
         }
 
-        if (jumpAction != null && jumpAction.action != null && jumpAction.action.WasPerformedThisFrame())
+        if (jumpAction != null && jumpAction.action != null)
         {
-            currentMotor.Jump(this);
+            bool jumpPressed = jumpAction.action.IsPressed();
+            if (jumpPressed && !isJumpHeld)
+            {
+                currentMotor.Jump(this);
+            }
+            else if (!jumpPressed && isJumpHeld && currentMotor is AlienMotor)
+            {
+                tendrilManager?.ReleaseTendril();
+            }
+
+            isJumpHeld = jumpPressed;
         }
 
         if (crouchAction != null && crouchAction.action != null)

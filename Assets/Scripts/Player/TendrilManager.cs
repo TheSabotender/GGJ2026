@@ -15,6 +15,7 @@ public class TendrilManager : MonoBehaviour
     private Camera mainCam;
     private Coroutine coroutine;
     private InputDevice lastDevice;
+    private bool isHoldingTendril;
 
     private void Awake()
     {
@@ -25,6 +26,7 @@ public class TendrilManager : MonoBehaviour
 
     public void LaunchTendril()
     {
+        isHoldingTendril = true;
         if (coroutine != null)
             return;
 
@@ -37,6 +39,20 @@ public class TendrilManager : MonoBehaviour
             coroutine = StartCoroutine(Latch(tendrilEnd));
         else
             coroutine = StartCoroutine(Miss(playerBrain.transform.position, tendrilEnd));
+    }
+
+    public void ReleaseTendril()
+    {
+        isHoldingTendril = false;
+
+        if (coroutine != null)
+        {
+            StopCoroutine(coroutine);
+            coroutine = null;
+        }
+
+        if (lineRenderer != null)
+            lineRenderer.enabled = false;
     }
 
     bool TryGetAimWorldPoint(out Vector3 aimWorld)
@@ -152,8 +168,7 @@ public class TendrilManager : MonoBehaviour
             yield return null;
         }
 
-        float maxTime = 2f;
-        while (maxTime > 0 && playerBrain.Rigidbody.linearVelocity.sqrMagnitude > 0.2f)
+        while (isHoldingTendril)
         {
             Vector3 start = playerBrain.transform.position;
             Vector3 end = target;
@@ -162,8 +177,6 @@ public class TendrilManager : MonoBehaviour
 
             Vector3 pullDirection = (target - start).normalized;
             playerBrain.Rigidbody.AddForce(pullDirection * tendrilStrength, ForceMode.Acceleration);
-
-            maxTime -= Time.deltaTime;
             yield return null;
         }
 
@@ -185,6 +198,7 @@ public class TendrilManager : MonoBehaviour
         line.enabled = false;
 
         coroutine = null;
+        isHoldingTendril = false;
     }
 
     private IEnumerator Miss(Vector3 start, Vector3 end)
@@ -231,6 +245,7 @@ public class TendrilManager : MonoBehaviour
         line.enabled = false;
 
         coroutine = null;
+        isHoldingTendril = false;
     }
 
     private void OnDrawGizmos()
