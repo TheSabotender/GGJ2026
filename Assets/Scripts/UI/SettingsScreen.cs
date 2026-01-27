@@ -111,6 +111,7 @@ public class SettingsScreen : SubMenu
 
         settings.Language = languages[value];
         SettingsManager.Save(settings);
+        LocalizationManager.ReloadLanguage();
     }
 
     private void EnsureSettingsLoaded()

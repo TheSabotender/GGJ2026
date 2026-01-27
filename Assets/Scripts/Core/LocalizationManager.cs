@@ -21,6 +21,7 @@ public static class LocalizationManager
     private static readonly Dictionary<string, string> Localization = new Dictionary<string, string>();
     private static bool isLoaded;
     private static Language loadedLanguage = Language.English;
+    public static event Action LanguageChanged;
 
     public static bool TryGetValue(string key, out string value)
     {
@@ -46,6 +47,17 @@ public static class LocalizationManager
         return Localization.Keys;
     }
 
+    public static void ReloadLanguage()
+    {
+        var desiredLanguage = GetDesiredLanguage();
+        if (Application.isPlaying && isLoaded && loadedLanguage == desiredLanguage)
+        {
+            return;
+        }
+
+        LoadLanguage(desiredLanguage);
+    }
+
     private static void EnsureLoaded()
     {
         var desiredLanguage = GetDesiredLanguage();
@@ -68,6 +80,8 @@ public static class LocalizationManager
 
     private static void LoadLanguage(Language language)
     {
+        var previousLanguage = loadedLanguage;
+        var wasLoaded = isLoaded;
         var textAsset = LoadLanguageAsset(language);
         if (textAsset == null && language != Language.English)
         {
@@ -95,6 +109,11 @@ public static class LocalizationManager
 
         loadedLanguage = language;
         isLoaded = true;
+
+        if (wasLoaded && previousLanguage != loadedLanguage)
+        {
+            LanguageChanged?.Invoke();
+        }
     }
 
     private static TextAsset LoadLanguageAsset(Language language)
