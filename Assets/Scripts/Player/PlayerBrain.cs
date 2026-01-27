@@ -21,6 +21,13 @@ public class PlayerBrain : EntityBrain
     [SerializeField]
     private TendrilManager tendrilManager;
 
+    [Header("Ground Check")]
+    [SerializeField]
+    private float groundCheckDistance = 0.1f;
+
+    [SerializeField]
+    private LayerMask groundLayers = ~0;
+
     public CharacterProfile DefaultProfile => alienProfile;
 
     public TendrilManager TendrilManager => tendrilManager;
@@ -66,7 +73,7 @@ public class PlayerBrain : EntityBrain
             bool jumpPressed = jumpAction.action.IsPressed();
             if (jumpPressed && !isJumpHeld)
             {
-                currentMotor.Jump(this);
+                currentMotor.Jump(this, IsGrounded());
             }
             else if (!jumpPressed && isJumpHeld && currentMotor is AlienMotor)
             {
@@ -142,5 +149,22 @@ public class PlayerBrain : EntityBrain
             return;
 
         MenuManager.SetScreen(MenuManager.Screen.Mask);
+    }
+
+    private bool IsGrounded()
+    {
+        if (cachedCollider == null)
+            return false;
+
+        Bounds bounds = cachedCollider.bounds;
+        float castDistance = bounds.extents.y + groundCheckDistance;
+        Vector3 origin = bounds.center;
+
+        if (Physics.Raycast(origin, Vector3.down, out RaycastHit hit, castDistance, groundLayers, QueryTriggerInteraction.Ignore))
+        {
+            return hit.collider != cachedCollider;
+        }
+
+        return false;
     }
 }

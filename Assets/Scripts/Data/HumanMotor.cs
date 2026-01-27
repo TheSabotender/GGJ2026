@@ -9,8 +9,11 @@ public class HumanMotor : EntityMotor
     [SerializeField]
     private float crouchScale = 0.5f;
 
-    public override void Jump(EntityBrain brain)
+    public override void Jump(EntityBrain brain, bool isGrounded)
     {
+        if (!isGrounded)
+            return;
+
         brain.Rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 
