@@ -23,6 +23,66 @@
     {
       "Key": "menu-quit",
       "Value": "Quit"
+    },
+    {
+      "Key": "menu-back",
+      "Value": "Back"
+    },
+    {
+      "Key": "settings-language",
+      "Value": "Language"
+    },
+    {
+      "Key": "settings-fullscreen",
+      "Value": "Fullscreen"
+    },
+    {
+      "Key": "settings-masterVolume",
+      "Value": "Master Volume"
+    },
+    {
+      "Key": "settings-musicVolume",
+      "Value": "Music Volume"
+    },
+    {
+      "Key": "settings-soundVolume",
+      "Value": "Sound Volume"
+    },
+    {
+      "Key": "menu-quit",
+      "Value": "Quit"
+    },
+    {
+      "Key": "credits-code",
+      "Value": "Code"
+    },
+    {
+      "Key": "credits-design",
+      "Value": "Design"
+    },
+    {
+      "Key": "credits-music",
+      "Value": "Music"
+    },
+    {
+      "Key": "credits-sfx",
+      "Value": "SFX"
+    },
+    {
+      "Key": "credits-textures",
+      "Value": "Additional Textures"
+    },
+    {
+      "Key": "credits-inspiration",
+      "Value": "Inspiration"
+    },
+    {
+      "Key": "credits-aiHeader",
+      "Value": "AI Disclaimer"
+    },
+    {
+      "Key": "credits-aiBody",
+      "Value": "AI has been used for assisting code"
     }
   ]
 }

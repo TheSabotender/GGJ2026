@@ -40,13 +40,17 @@ public static class LocalizationManager
         return !string.IsNullOrEmpty(key) && Localization.ContainsKey(key);
     }
 
+    public static IEnumerable<string> AllKeys()
+    {
+        EnsureLoaded();
+        return Localization.Keys;
+    }
+
     private static void EnsureLoaded()
     {
         var desiredLanguage = GetDesiredLanguage();
-        if (isLoaded && loadedLanguage == desiredLanguage)
-        {
+        if (Application.isPlaying && isLoaded && loadedLanguage == desiredLanguage)
             return;
-        }
 
         LoadLanguage(desiredLanguage);
     }
