@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +9,8 @@ public class SettingsScreen : SubMenu
     public Slider masterVolumeSlider;
     public Slider musicVolumeSlider;
     public Slider soundVolumeSlider;
+    public Dropdown renderModeDropdown;
+    public Dropdown languageDropdown;
 
     private GameSettings settings;
 
@@ -14,6 +19,18 @@ public class SettingsScreen : SubMenu
         masterVolumeSlider.onValueChanged.AddListener(OnMasterVolumeChanged);
         musicVolumeSlider.onValueChanged.AddListener(OnMusicVolumeChanged);
         soundVolumeSlider.onValueChanged.AddListener(OnSoundVolumeChanged);
+
+        if (renderModeDropdown != null)
+        {
+            PopulateDropdown<FullScreenMode>(renderModeDropdown);
+            renderModeDropdown.onValueChanged.AddListener(OnRenderModeChanged);
+        }
+
+        if (languageDropdown != null)
+        {
+            PopulateDropdown<Language>(languageDropdown);
+            languageDropdown.onValueChanged.AddListener(OnLanguageChanged);
+        }
     }
 
     private void OnEnable()
@@ -28,6 +45,22 @@ public class SettingsScreen : SubMenu
 
         if (soundVolumeSlider != null)
             soundVolumeSlider.SetValueWithoutNotify(settings.SoundVolume);
+
+        if (renderModeDropdown != null)
+        {
+            var renderModes = (FullScreenMode[])Enum.GetValues(typeof(FullScreenMode));
+            var index = Array.IndexOf(renderModes, settings.RenderMode);
+            if (index >= 0)
+                renderModeDropdown.SetValueWithoutNotify(index);
+        }
+
+        if (languageDropdown != null)
+        {
+            var languages = (Language[])Enum.GetValues(typeof(Language));
+            var index = Array.IndexOf(languages, settings.Language);
+            if (index >= 0)
+                languageDropdown.SetValueWithoutNotify(index);
+        }
     }
 
     public void OnBack()
@@ -58,11 +91,69 @@ public class SettingsScreen : SubMenu
         SettingsManager.Save(settings);
     }
 
+    public void OnRenderModeChanged(int value)
+    {
+        EnsureSettingsLoaded();
+        var renderModes = (FullScreenMode[])Enum.GetValues(typeof(FullScreenMode));
+        if (value < 0 || value >= renderModes.Length)
+            return;
+
+        settings.RenderMode = renderModes[value];
+        SettingsManager.Save(settings);
+    }
+
+    public void OnLanguageChanged(int value)
+    {
+        EnsureSettingsLoaded();
+        var languages = (Language[])Enum.GetValues(typeof(Language));
+        if (value < 0 || value >= languages.Length)
+            return;
+
+        settings.Language = languages[value];
+        SettingsManager.Save(settings);
+    }
+
     private void EnsureSettingsLoaded()
     {
         if (settings == null)
         {
             settings = SettingsManager.Load();
         }
+    }
+
+    private void PopulateDropdown<TEnum>(Dropdown dropdown) where TEnum : Enum
+    {
+        dropdown.ClearOptions();
+        var options = new List<Dropdown.OptionData>();
+        foreach (var value in Enum.GetValues(typeof(TEnum)))
+        {
+            options.Add(new Dropdown.OptionData(FormatEnumLabel(value.ToString())));
+        }
+
+        dropdown.AddOptions(options);
+    }
+
+    private static string FormatEnumLabel(string value)
+    {
+        if (string.IsNullOrEmpty(value))
+            return value;
+
+        var builder = new StringBuilder();
+        builder.Append(value[0]);
+
+        for (int i = 1; i < value.Length; i++)
+        {
+            char current = value[i];
+            char previous = value[i - 1];
+
+            if (char.IsUpper(current) && !char.IsUpper(previous))
+            {
+                builder.Append(' ');
+            }
+
+            builder.Append(current);
+        }
+
+        return builder.ToString();
     }
 }
