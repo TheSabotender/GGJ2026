@@ -54,9 +54,6 @@ public class PlayerCameraTarget : MonoBehaviour
             Vector2 mouseScreenPos = mouseAction.action.ReadValue<Vector2>();
             Ray ray = mainCam.ScreenPointToRay(mouseScreenPos);
 
-            Debug.DrawRay(ray.origin, ray.direction);
-            Debug.Log($"Mouse pos: {mouseScreenPos}");
-
             Plane plane = new Plane(Vector3.forward, new Vector3(0, 0, 0));
             if (plane.Raycast(ray, out float enter))
             {

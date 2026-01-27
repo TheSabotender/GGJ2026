@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private CharacterProfile startingMask;
+    public CharacterProfile testMask;
 
     [SerializeField]
     private CharacterProfile[] allProfiles;
@@ -34,11 +35,14 @@ public class GameManager : MonoBehaviour
 
     public static void NewGame()
     {
-        instance.currentGameSave = new GameSave();
-        instance.currentGameSave.MasksCollected = 1;
-        instance.currentGameSave.Masks = new() { instance.startingMask.Guid };
-        instance.currentGameSave.GameVersion = Application.version;
-        instance.currentGameSave.StartDateTime = System.DateTime.Now.Ticks.ToString();
+        var newGame = new GameSave();        
+        newGame.Masks = new() { instance.startingMask.Guid, instance.testMask.Guid };
+        newGame.MasksCollected = newGame.Masks.Count;
+        newGame.GameVersion = Application.version;
+        newGame.StartDateTime = System.DateTime.Now.Ticks.ToString();
+        newGame.CurrentMask = instance.startingMask.Guid;
+
+        instance.currentGameSave = newGame;
 
         Debug.Log("NewGame called - hook up intro cutscene here.");
     }

@@ -13,4 +13,5 @@ public class GameSave
     //Player data
     public int MasksCollected;
     public List<string> Masks;
+    public string CurrentMask;
 }

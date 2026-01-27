@@ -74,17 +74,22 @@ public class PlayerBrain : EntityBrain
 
     public void SwapMask(CharacterProfile profile)
     {
+        if (profile == null)
+        {
+            Debug.LogError("Cannot swap to null profile");
+            return;
+        }
+
         //TODO change appearance of player to selected mask and change back to normal when unselected
+        GameManager.CurrentGameSave.CurrentMask = profile.Guid;
         SwapMotor(profile.motor);
     }
 
     public void SwapMotor(EntityMotor newMotor)
     {
-        if (currentMotor != null)
-            Destroy(currentMotor);
-
         currentMotor = newMotor;
 
+        /*
         bool isAlien = currentMotor is AlienMotor;
 
         if (cachedRigidbody != null)
@@ -92,6 +97,7 @@ public class PlayerBrain : EntityBrain
 
         if (cachedCollider != null)
             cachedCollider.enabled = isAlien;
+        */
     }
 
     private void EnableActions()

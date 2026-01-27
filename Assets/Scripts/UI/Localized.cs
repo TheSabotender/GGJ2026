@@ -1,4 +1,4 @@
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
 
@@ -81,7 +81,7 @@ public class Localized : MonoBehaviour
             if (wasSpace)
                 text += suffix;
 
-            wasSpace = input[i] == ' ';
+            wasSpace = input[i] == ' ' || input[i] == '。';
         }
         return text;
     }

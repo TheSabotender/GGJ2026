@@ -20,8 +20,11 @@ public class EntityMotor : ScriptableObject
         if (Mathf.Approximately(input, 0f))
             return;
 
-        Vector3 movement = new Vector3(input * moveSpeed * Time.deltaTime, 0f, 0f);
-        brain.transform.Translate(movement, Space.World);
+        if (brain.Rigidbody == null)
+            return;
+
+        Vector3 force = new Vector3(input * moveSpeed, 0f, 0f);
+        brain.Rigidbody.AddForce(force, ForceMode.Acceleration);
     }
 
     public virtual void MoveDepth(EntityBrain brain, float input)
@@ -62,6 +65,8 @@ public class EntityMotor : ScriptableObject
         brain.DepthTransitionRoutine = brain.StartCoroutine(TransitionDepth(brain, nearestLaneZ, targetZ));
     }
 
+    public virtual void Jump(EntityBrain brain) { }
+    public virtual void Crouch(EntityBrain brain, bool isCrouching) { }
 
     private IEnumerator TransitionDepth(EntityBrain brain, float fromZ, float toZ)
     {
@@ -102,6 +107,5 @@ public class EntityMotor : ScriptableObject
 
     public virtual DepthAvailability CheckDepthAvailability() => DepthAvailability.HasBoth;
 
-    public virtual void Jump(EntityBrain brain) { }
-    public virtual void Crouch(EntityBrain brain, bool isCrouching) { }
+    
 }

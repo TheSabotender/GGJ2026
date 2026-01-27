@@ -11,7 +11,7 @@ public class HumanMotor : EntityMotor
 
     public override void Jump(EntityBrain brain)
     {
-        brain.transform.Translate(Vector3.up * jumpForce * Time.deltaTime, Space.World);
+        brain.Rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 
     public override void Crouch(EntityBrain brain, bool isCrouching)
