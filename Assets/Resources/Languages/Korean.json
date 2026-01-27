@@ -1,0 +1,88 @@
+{
+  "Entries": [
+    {
+      "Key": "menu-continue",
+      "Value": "계속"
+    },
+    {
+      "Key": "menu-newgame",
+      "Value": "새 게임"
+    },
+    {
+      "Key": "menu-loadgame",
+      "Value": "게임 불러오기"
+    },
+    {
+      "Key": "menu-settings",
+      "Value": "설정"
+    },
+    {
+      "Key": "menu-credits",
+      "Value": "크레딧"
+    },
+    {
+      "Key": "menu-quit",
+      "Value": "종료"
+    },
+    {
+      "Key": "menu-back",
+      "Value": "뒤로"
+    },
+    {
+      "Key": "settings-language",
+      "Value": "언어"
+    },
+    {
+      "Key": "settings-fullscreen",
+      "Value": "전체 화면"
+    },
+    {
+      "Key": "settings-masterVolume",
+      "Value": "마스터 볼륨"
+    },
+    {
+      "Key": "settings-musicVolume",
+      "Value": "음악 볼륨"
+    },
+    {
+      "Key": "settings-soundVolume",
+      "Value": "효과음 볼륨"
+    },
+    {
+      "Key": "menu-quit",
+      "Value": "종료"
+    },
+    {
+      "Key": "credits-code",
+      "Value": "코드"
+    },
+    {
+      "Key": "credits-design",
+      "Value": "디자인"
+    },
+    {
+      "Key": "credits-music",
+      "Value": "음악"
+    },
+    {
+      "Key": "credits-sfx",
+      "Value": "효과음"
+    },
+    {
+      "Key": "credits-textures",
+      "Value": "추가 텍스처"
+    },
+    {
+      "Key": "credits-inspiration",
+      "Value": "영감"
+    },
+    {
+      "Key": "credits-aiHeader",
+      "Value": "AI 면책 고지"
+    },
+    {
+      "Key": "credits-aiBody",
+      "Value": "코드 지원을 위해 AI를 사용했습니다"
+    }
+  ]
+}

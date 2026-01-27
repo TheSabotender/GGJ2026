@@ -1,0 +1,88 @@
+{
+  "Entries": [
+    {
+      "Key": "menu-continue",
+      "Value": "继续"
+    },
+    {
+      "Key": "menu-newgame",
+      "Value": "新游戏"
+    },
+    {
+      "Key": "menu-loadgame",
+      "Value": "载入游戏"
+    },
+    {
+      "Key": "menu-settings",
+      "Value": "设置"
+    },
+    {
+      "Key": "menu-credits",
+      "Value": "制作人员"
+    },
+    {
+      "Key": "menu-quit",
+      "Value": "退出"
+    },
+    {
+      "Key": "menu-back",
+      "Value": "返回"
+    },
+    {
+      "Key": "settings-language",
+      "Value": "语言"
+    },
+    {
+      "Key": "settings-fullscreen",
+      "Value": "全屏"
+    },
+    {
+      "Key": "settings-masterVolume",
+      "Value": "主音量"
+    },
+    {
+      "Key": "settings-musicVolume",
+      "Value": "音乐音量"
+    },
+    {
+      "Key": "settings-soundVolume",
+      "Value": "音效音量"
+    },
+    {
+      "Key": "menu-quit",
+      "Value": "退出"
+    },
+    {
+      "Key": "credits-code",
+      "Value": "代码"
+    },
+    {
+      "Key": "credits-design",
+      "Value": "设计"
+    },
+    {
+      "Key": "credits-music",
+      "Value": "音乐"
+    },
+    {
+      "Key": "credits-sfx",
+      "Value": "音效"
+    },
+    {
+      "Key": "credits-textures",
+      "Value": "额外纹理"
+    },
+    {
+      "Key": "credits-inspiration",
+      "Value": "灵感"
+    },
+    {
+      "Key": "credits-aiHeader",
+      "Value": "AI 免责声明"
+    },
+    {
+      "Key": "credits-aiBody",
+      "Value": "已使用 AI 协助编写代码"
+    }
+  ]
+}

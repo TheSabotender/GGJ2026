@@ -1,0 +1,88 @@
+{
+  "Entries": [
+    {
+      "Key": "menu-continue",
+      "Value": "Fortsett"
+    },
+    {
+      "Key": "menu-newgame",
+      "Value": "Nytt spill"
+    },
+    {
+      "Key": "menu-loadgame",
+      "Value": "Last inn spill"
+    },
+    {
+      "Key": "menu-settings",
+      "Value": "Innstillinger"
+    },
+    {
+      "Key": "menu-credits",
+      "Value": "Takk til"
+    },
+    {
+      "Key": "menu-quit",
+      "Value": "Avslutt"
+    },
+    {
+      "Key": "menu-back",
+      "Value": "Tilbake"
+    },
+    {
+      "Key": "settings-language",
+      "Value": "Språk"
+    },
+    {
+      "Key": "settings-fullscreen",
+      "Value": "Fullskjerm"
+    },
+    {
+      "Key": "settings-masterVolume",
+      "Value": "Hovedvolum"
+    },
+    {
+      "Key": "settings-musicVolume",
+      "Value": "Musikkvolum"
+    },
+    {
+      "Key": "settings-soundVolume",
+      "Value": "Lydvolum"
+    },
+    {
+      "Key": "menu-quit",
+      "Value": "Avslutt"
+    },
+    {
+      "Key": "credits-code",
+      "Value": "Kode"
+    },
+    {
+      "Key": "credits-design",
+      "Value": "Design"
+    },
+    {
+      "Key": "credits-music",
+      "Value": "Musikk"
+    },
+    {
+      "Key": "credits-sfx",
+      "Value": "Lydeffekter"
+    },
+    {
+      "Key": "credits-textures",
+      "Value": "Ekstra teksturer"
+    },
+    {
+      "Key": "credits-inspiration",
+      "Value": "Inspirasjon"
+    },
+    {
+      "Key": "credits-aiHeader",
+      "Value": "AI-ansvarsfraskrivelse"
+    },
+    {
+      "Key": "credits-aiBody",
+      "Value": "AI har blitt brukt til å assistere med kode"
+    }
+  ]
+}
