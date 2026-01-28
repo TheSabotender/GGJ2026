@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d7dcb5640404aaa8a5e0dcdd8c54988, type: 3}
   m_Name: Apartments
   m_EditorClassIdentifier: Assembly-CSharp::MusicProfile
-  normal: {fileID: 0}
-  caution: {fileID: 0}
-  alert: {fileID: 0}
+  normal: {fileID: 8300000, guid: 2bcb9fd9e23ee9641976599b4c2a9e96, type: 3}
+  caution: {fileID: 8300000, guid: b7b2e98c4b7c11e4a8e7ff71527ced13, type: 3}
+  alert: {fileID: 8300000, guid: 2af9087274fcf364b859960ef03ac17e, type: 3}

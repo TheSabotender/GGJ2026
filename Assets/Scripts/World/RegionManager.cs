@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class RegionManager : MonoBehaviour
 {
+    private static RegionManager instance;
+
     [SerializeField]
     private float positionUpdateThreshold = 0.5f;
 
@@ -10,10 +12,12 @@ public class RegionManager : MonoBehaviour
     private PlayerBrain playerBrain;
     private Vector3 lastPlayerPosition;
 
-    public static WorldRegion CurrentRegion { get; private set; }
+    private WorldRegion currentRegion;
+    public static WorldRegion CurrentRegion => instance.currentRegion;
 
     private void Awake()
     {
+        instance = this;
         RefreshWorldRegions();
     }
 
@@ -67,7 +71,8 @@ public class RegionManager : MonoBehaviour
 
         if (cachedRegions.Count == 0)
         {
-            CurrentRegion = null;
+            currentRegion = null;
+            AudioManager.SetMusicProfile(null);
             return;
         }
 
@@ -90,7 +95,7 @@ public class RegionManager : MonoBehaviour
             }
         }
 
-        CurrentRegion = closestRegion;
+        currentRegion = closestRegion;
         AudioManager.SetMusicProfile(CurrentRegion?.MusicProfile);
     }
 }

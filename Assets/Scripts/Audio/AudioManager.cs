@@ -1,33 +1,39 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
+    [System.Serializable]
+    public class MusicSource
+    {
+        public AudioSource source;
+        public bool isNeeded;
+    }
+
     private static AudioManager instance;
 
     [SerializeField]
     private float positionUpdateThreshold = 0.5f;
 
     [SerializeField]
-    private AudioSource musicSourceA;
-    
-    [SerializeField]
-    private AudioSource musicSourceB;
+    private AudioSource musicSourcePrefab;
 
     [SerializeField]
-    private float crossfadeDuration;
+    private float crossfadeSpeed;
 
     private readonly List<AudioSource> cachedAudioSources = new();
     private PlayerBrain playerBrain;
     private Vector3 lastPlayerPosition;
     private MusicProfile currentProfile;
-    private AudioSource activeSource;
+    private List<MusicSource> musicSources = new();
 
     private void Awake()
     {
         instance = this;
         RefreshAudioSources();
+
+        if (musicSources == null)
+            musicSources = new();
     }
 
     private void Start()
@@ -43,6 +49,8 @@ public class AudioManager : MonoBehaviour
 
     private void Update()
     {
+        UpdateMusic();
+
         if (playerBrain == null)
         {
             playerBrain = GameManager.PlayerBrain;
@@ -112,54 +120,85 @@ public class AudioManager : MonoBehaviour
 
     private void OnAlertStateChanged(GameManager.AlertState newState)
     {
+        if (currentProfile == null)            
+            return;
+
+        AudioClip newTrack;
         switch (newState)
         {
+            default:
             case GameManager.AlertState.Normal:
-                TransitionMusic(currentProfile.normal);
+                newTrack = currentProfile.normal;
                 break;
             case GameManager.AlertState.Caution:
-                TransitionMusic(currentProfile.caution);
+                newTrack = currentProfile.caution;
                 break;
             case GameManager.AlertState.Alert:
-                TransitionMusic(currentProfile.alert);
+                newTrack = currentProfile.alert;
                 break;
         }
-    }
 
-    private IEnumerator TransitionMusic(AudioClip target)
-    {
-        var oldSource = activeSource;
-        var newSource = activeSource == musicSourceA ? musicSourceB : musicSourceA;
-
-        newSource.clip = target;
-        newSource.volume = 0f;
-        if (target != null)
-            newSource.Play();
-
-        float time = 0f;
-
-        while (time < crossfadeDuration)
+        bool foundTrack = false;
+        foreach (var musicSource in musicSources)
         {
-            float t = time / crossfadeDuration;
-            t = Mathf.SmoothStep(0f, 1f, t);
+            musicSource.isNeeded = musicSource.source.clip == newTrack;
 
-            oldSource.volume = MusicVolumeFromSettings(1f - t);
-            if(target != null)
-                newSource.volume = MusicVolumeFromSettings(t);
-
-            time += Time.deltaTime;
-            yield return null;
+            if (musicSource.source.clip == newTrack)
+                foundTrack = true;
         }
 
-        // Finalize volumes
-        oldSource.volume = 0f;
-        if (target != null)
-            newSource.volume = MusicVolumeFromSettings(1f);
+        if (!foundTrack)
+        {
+            var source = Instantiate(musicSourcePrefab, transform);
+            source.gameObject.name = newTrack.name;
+            source.clip = newTrack;
+            source.volume = 0;
+            source.time = Time.timeSinceLevelLoad % newTrack.length;
+            source.Play();
 
-        oldSource.Stop();
-        activeSource = newSource;
+            musicSources.Add(new MusicSource()
+            {
+                source = source,
+                isNeeded = true
+            }); ;
+        }
     }
 
+    private void UpdateMusic()
+    {
+        if (musicSources.Count == 0)
+            return;
+
+        var maxVolume = MusicVolumeFromSettings(1);
+        foreach (var musicSource in musicSources)
+        {
+            if (musicSource.source == null)
+                continue;
+            if (musicSource.isNeeded && musicSource.source.volume >= maxVolume)
+                continue;
+
+            if (!musicSource.isNeeded && musicSource.source.volume <= 0)
+            {
+                Destroy(musicSource.source.gameObject);
+                continue;
+            }
+
+            var targetVolume = musicSource.isNeeded ? maxVolume : 0;
+            var volume = Mathf.MoveTowards(musicSource.source.volume, targetVolume, Time.deltaTime * crossfadeSpeed);
+
+            musicSource.source.volume = volume;
+        }
+
+        // Clean up dead sources, one at a time since lists dont like to be modified in loops
+        foreach (var musicSource in musicSources)
+        {
+            if (musicSource.source != null)
+                continue;
+
+            musicSources.Remove(musicSource);
+            break;
+        }
+    }
 
     float MusicVolumeFromSettings(float volume)
     {

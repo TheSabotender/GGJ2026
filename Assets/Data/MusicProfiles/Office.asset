@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d7dcb5640404aaa8a5e0dcdd8c54988, type: 3}
   m_Name: Office
   m_EditorClassIdentifier: Assembly-CSharp::MusicProfile
-  normal: {fileID: 0}
-  caution: {fileID: 0}
-  alert: {fileID: 0}
+  normal: {fileID: 8300000, guid: 6657302c3d3da5e48aefba7084612754, type: 3}
+  caution: {fileID: 8300000, guid: 792c23383cee074408fbf8af63c2c064, type: 3}
+  alert: {fileID: 8300000, guid: 421f42631ef354d4fbe9a45923f6d3a3, type: 3}
