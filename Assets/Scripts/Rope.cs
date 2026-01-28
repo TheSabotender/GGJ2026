@@ -60,12 +60,12 @@ public class Rope : MonoBehaviour
         UpdateSegmentLength();
 
         // SIMULATION
-        Vector2 forceGravity = new Vector2(0f, -1f);
+        Vector3 forceGravity = new Vector3(0f, -1f, 0) * (1f-Elasticity);
 
         for (int i = 1; i < this.segmentCount; i++)
         {
             RopeSegment firstSegment = this.ropeSegments[i];
-            Vector2 velocity = firstSegment.posNow - firstSegment.posOld;
+            Vector3 velocity = firstSegment.posNow - firstSegment.posOld;
             firstSegment.posOld = firstSegment.posNow;
             firstSegment.posNow += velocity;
             firstSegment.posNow += forceGravity * Time.fixedDeltaTime;
@@ -99,7 +99,7 @@ public class Rope : MonoBehaviour
 
             float dist = (firstSeg.posNow - secondSeg.posNow).magnitude;
             float error = Mathf.Abs(dist - this.currentSegLen);
-            Vector2 changeDir = Vector2.zero;
+            Vector3 changeDir = Vector2.zero;
 
             if (dist > currentSegLen)
             {
@@ -110,7 +110,7 @@ public class Rope : MonoBehaviour
                 changeDir = (secondSeg.posNow - firstSeg.posNow).normalized;
             }
 
-            Vector2 changeAmount = changeDir * error;
+            Vector3 changeAmount = changeDir * error;
             if (i != 0)
             {
                 firstSeg.posNow -= changeAmount * 0.5f;
@@ -153,10 +153,10 @@ public class Rope : MonoBehaviour
 
     public struct RopeSegment
     {
-        public Vector2 posNow;
-        public Vector2 posOld;
+        public Vector3 posNow;
+        public Vector3 posOld;
 
-        public RopeSegment(Vector2 pos)
+        public RopeSegment(Vector3 pos)
         {
             this.posNow = pos;
             this.posOld = pos;
