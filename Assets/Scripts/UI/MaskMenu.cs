@@ -13,6 +13,10 @@ public class MaskMenu : SubMenu
     public MaskButton maskButton;
     public Transform buttonContainer;
 
+    public bool worldMode;
+    public float worldOffset;
+    public float worldSmoothness;
+
     private MaskButton[] buttons;
     private InputDevice lastDevice;
     private Vector2 currentMousePos;
@@ -24,19 +28,25 @@ public class MaskMenu : SubMenu
         if (maskIds == null || maskIds.Count == 0)
             return;
 
+        transform.localScale = worldMode ? Vector3.one * 0.7f : Vector3.one;
+        if (worldMode)
+            UpdateWindowPosition(Vector2.zero, true);
+
         PopulateMenu(maskIds);
     }
 
     private void Update()
     {
+        var lastPos = currentMousePos;
+        currentMousePos = UpdateMousePos();
+        var delta = currentMousePos - lastPos;
+
+        if (worldMode)
+            UpdateWindowPosition(delta, false);
+
         if (buttons == null || buttons.Length <= 0)
             return;
-
-        var lastPos = currentMousePos;
-        UpdateMousePos();
-        var delta = currentMousePos - lastPos;
-        
-        foreach(var button in buttons)
+        foreach (var button in buttons)
         {
             var rb = button?.Rigidbody;
             if (rb == null)
@@ -51,11 +61,22 @@ public class MaskMenu : SubMenu
         }
     }
 
-    void UpdateMousePos()
+    private void UpdateWindowPosition(Vector3 delta, bool instant)
+    {
+        var playerPos = GameManager.PlayerBrain.transform.position + (Vector3.up * worldOffset);
+        var screenSpacePlayer = Camera.main.WorldToScreenPoint(playerPos);
+
+        if (instant)
+            transform.position = screenSpacePlayer;
+        else
+            transform.position = Vector3.MoveTowards(transform.position, screenSpacePlayer, Time.deltaTime * worldSmoothness);
+    }
+
+    Vector2 UpdateMousePos()
     {
         var action = mouseAction.action;
         if (action == null || !action.enabled)
-            return;
+            return currentMousePos;
 
         // Track the last used device (so we can decide mouse vs stick)
         var control = action.activeControl;
@@ -65,13 +86,13 @@ public class MaskMenu : SubMenu
         // Mouse path: input is already screen position
         if (lastDevice is Mouse && Mouse.current != null)
         {
-            currentMousePos = mouseAction.action.ReadValue<Vector2>();
+            return mouseAction.action.ReadValue<Vector2>();
         }
         // Stick path: input is a direction;
         else
         {
             Vector2 lookInput = action.ReadValue<Vector2>();
-            currentMousePos += lookInput;
+            return currentMousePos + lookInput;
         }
     }
 
