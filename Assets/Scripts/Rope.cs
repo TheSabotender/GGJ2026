@@ -6,13 +6,13 @@ public class Rope : MonoBehaviour
 {
     public Vector3 StartPoint;
     public Vector3 EndPoint;
-    public float Elasticity;
+    [Range(0, 1)] public float Elasticity;
+    public int segmentCount = 35;
 
     private LineRenderer lineRenderer;
     private List<RopeSegment> ropeSegments = new List<RopeSegment>();
     private float ropeSegLen = 0.25f;
     private float currentSegLen;
-    private int segmentLength = 35;
 
     private LineRenderer LineRenderer
     {
@@ -37,7 +37,7 @@ public class Rope : MonoBehaviour
     void Start()
     {
         currentSegLen = ropeSegLen;
-        for (int i = 0; i < segmentLength; i++)
+        for (int i = 0; i < segmentCount; i++)
         {
             this.ropeSegments.Add(new RopeSegment(StartPoint));
             StartPoint.y -= ropeSegLen;
@@ -62,7 +62,7 @@ public class Rope : MonoBehaviour
         // SIMULATION
         Vector2 forceGravity = new Vector2(0f, -1f);
 
-        for (int i = 1; i < this.segmentLength; i++)
+        for (int i = 1; i < this.segmentCount; i++)
         {
             RopeSegment firstSegment = this.ropeSegments[i];
             Vector2 velocity = firstSegment.posNow - firstSegment.posOld;
@@ -92,7 +92,7 @@ public class Rope : MonoBehaviour
         endSegment.posNow = this.EndPoint;
         this.ropeSegments[this.ropeSegments.Count - 1] = endSegment;
 
-        for (int i = 0; i < this.segmentLength - 1; i++)
+        for (int i = 0; i < this.segmentCount - 1; i++)
         {
             RopeSegment firstSeg = this.ropeSegments[i];
             RopeSegment secondSeg = this.ropeSegments[i + 1];
@@ -128,7 +128,7 @@ public class Rope : MonoBehaviour
 
     private void UpdateSegmentLength()
     {
-        float desiredSegLen = Vector3.Distance(StartPoint, EndPoint) / (segmentLength - 1);
+        float desiredSegLen = Vector3.Distance(StartPoint, EndPoint) / (segmentCount - 1);
         if (desiredSegLen > currentSegLen)
         {
             currentSegLen = desiredSegLen;
@@ -141,8 +141,8 @@ public class Rope : MonoBehaviour
 
     private void DrawRope()
     {
-        Vector3[] ropePositions = new Vector3[this.segmentLength];
-        for (int i = 0; i < this.segmentLength; i++)
+        Vector3[] ropePositions = new Vector3[this.segmentCount];
+        for (int i = 0; i < this.segmentCount; i++)
         {
             ropePositions[i] = this.ropeSegments[i].posNow;
         }
