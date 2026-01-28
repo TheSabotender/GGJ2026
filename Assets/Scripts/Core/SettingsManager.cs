@@ -8,6 +8,10 @@ public static class SettingsManager
     private const string SettingsFileName = "settings.json";
     private static GameSettings cachedSettings;
 
+    public static event Action<float> MasterVolumeChanged;
+    public static event Action<float> MusicVolumeChanged;
+    public static event Action<float> SoundVolumeChanged;
+
     private static string SettingsFilePath => Path.Combine(Application.persistentDataPath, SettingsFileName);
 
     public static GameSettings Load()
@@ -49,5 +53,20 @@ public static class SettingsManager
     private static GameSettings CreateDefaultSettings()
     {
         return new GameSettings();
+    }
+
+    public static void NotifyMasterVolumeChanged(float volume)
+    {
+        MasterVolumeChanged?.Invoke(volume);
+    }
+
+    public static void NotifyMusicVolumeChanged(float volume)
+    {
+        MusicVolumeChanged?.Invoke(volume);
+    }
+
+    public static void NotifySoundVolumeChanged(float volume)
+    {
+        SoundVolumeChanged?.Invoke(volume);
     }
 }

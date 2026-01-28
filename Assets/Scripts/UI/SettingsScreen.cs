@@ -75,6 +75,7 @@ public class SettingsScreen : SubMenu
         EnsureSettingsLoaded();
         settings.MasterVolume = value;
         SettingsManager.Save(settings);
+        SettingsManager.NotifyMasterVolumeChanged(value);
     }
 
     public void OnMusicVolumeChanged(float value)
@@ -82,6 +83,7 @@ public class SettingsScreen : SubMenu
         EnsureSettingsLoaded();
         settings.MusicVolume = value;
         SettingsManager.Save(settings);
+        SettingsManager.NotifyMusicVolumeChanged(value);
     }
 
     public void OnSoundVolumeChanged(float value)
@@ -89,6 +91,7 @@ public class SettingsScreen : SubMenu
         EnsureSettingsLoaded();
         settings.SoundVolume = value;
         SettingsManager.Save(settings);
+        SettingsManager.NotifySoundVolumeChanged(value);
     }
 
     public void OnRenderModeChanged(int value)
