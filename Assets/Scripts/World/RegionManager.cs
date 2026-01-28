@@ -55,7 +55,7 @@ public class RegionManager : MonoBehaviour
     public void RefreshWorldRegions()
     {
         cachedRegions.Clear();
-        cachedRegions.AddRange(FindObjectsOfType<WorldRegion>(true));
+        cachedRegions.AddRange(FindObjectsByType<WorldRegion>(FindObjectsInactive.Include, FindObjectsSortMode.None));
     }
 
     private void UpdateCurrentRegion()

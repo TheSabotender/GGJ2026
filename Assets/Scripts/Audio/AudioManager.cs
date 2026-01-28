@@ -6,9 +6,16 @@ public class AudioManager : MonoBehaviour
     [SerializeField]
     private float positionUpdateThreshold = 0.5f;
 
+    [SerializeField]
+    private AudioSource musicSourceA;
+    
+    [SerializeField]
+    private AudioSource musicSourceB;
+
     private readonly List<AudioSource> cachedAudioSources = new();
     private PlayerBrain playerBrain;
     private Vector3 lastPlayerPosition;
+    private MusicProfile currentProfile;
 
     private void Awake()
     {
@@ -53,7 +60,7 @@ public class AudioManager : MonoBehaviour
     public void RefreshAudioSources()
     {
         cachedAudioSources.Clear();
-        cachedAudioSources.AddRange(FindObjectsOfType<AudioSource>(true));
+        cachedAudioSources.AddRange(FindObjectsByType<AudioSource>(FindObjectsInactive.Include, FindObjectsSortMode.None));
     }
 
     private void UpdateAudioSources()
@@ -83,5 +90,10 @@ public class AudioManager : MonoBehaviour
                 audioSource.enabled = isInRange;
             }
         }
+    }
+
+    public void SetMusicProfile(MusicProfile newProfile)
+    {
+        currentProfile = newProfile;
     }
 }
