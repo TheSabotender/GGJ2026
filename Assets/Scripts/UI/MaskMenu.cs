@@ -23,16 +23,16 @@ public class MaskMenu : SubMenu
 
     private void OnEnable()
     {
-        var maskIds = GameManager.CurrentGameSave?.Masks;
+        var maskStates = GameManager.CurrentGameSave?.Masks;
 
-        if (maskIds == null || maskIds.Count == 0)
+        if (maskStates == null || maskStates.Count == 0)
             return;
 
         transform.localScale = worldMode ? Vector3.one * 0.7f : Vector3.one;
         if (worldMode)
             UpdateWindowPosition(Vector2.zero, true);
 
-        PopulateMenu(maskIds);
+        PopulateMenu(maskStates);
     }
 
     private void Update()
@@ -96,7 +96,7 @@ public class MaskMenu : SubMenu
         }
     }
 
-    public void PopulateMenu(List<string> maskIds)
+    public void PopulateMenu(List<MaskState> maskIds)
     {
         if (buttons != null && buttons.Length > 0)
             foreach (var child in buttons)
@@ -105,15 +105,15 @@ public class MaskMenu : SubMenu
         buttons = new MaskButton[maskIds.Count];
         for (var i = 0; i < maskIds.Count; i++)
         {
-            var maskProfile = GameManager.AllProfiles.FirstOrDefault(m => m.Guid == maskIds[i]);
+            var maskProfile = GameManager.AllProfiles.FirstOrDefault(m => m.Guid == maskIds[i].guid);
             if (maskProfile == null)
             {
-                Debug.LogWarning($"MaskMenu: Could not find mask profile with ID {maskIds[i]}");
+                Debug.LogWarning($"MaskMenu: Could not find mask profile with ID {maskIds[i].guid}");
                 continue;
             }
 
             MaskButton buttonObj = Instantiate(maskButton, buttonContainer);
-            buttonObj.Setup(maskProfile);
+            buttonObj.Setup(maskIds[i], maskProfile);
             buttons[i] = buttonObj;
         }
     }

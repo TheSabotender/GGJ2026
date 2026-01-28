@@ -13,4 +13,8 @@ MonoBehaviour:
   m_Name: AlienMotor
   m_EditorClassIdentifier: Assembly-CSharp::AlienMotor
   moveSpeed: 7
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 55
   depthTransitionSpeed: 18
+  jumpForce: 5

@@ -3,14 +3,9 @@ using UnityEngine;
 
 public class EntityMotor : ScriptableObject
 {
-    public enum DepthAvailability
-    {
-        HasFront,
-        HasBack,
-        HasBoth
-    }
-
     [SerializeField] protected float moveSpeed = 5f;
+
+    [SerializeField] protected LayerMask layerMask;
 
     // Units per second
     [SerializeField] private float depthTransitionSpeed = 5f;
@@ -36,10 +31,6 @@ public class EntityMotor : ScriptableObject
         if (brain.DepthTransitionRoutine != null)
             return;
 
-        var availability = CheckDepthAvailability();
-        bool canFront = availability == DepthAvailability.HasFront || availability == DepthAvailability.HasBoth;
-        bool canBack = availability == DepthAvailability.HasBack || availability == DepthAvailability.HasBoth;
-
         // Snap to nearest lane (so tiny drift doesnt compound)
         float z = brain.transform.position.z;
         float nearestLaneZ =
@@ -54,12 +45,12 @@ public class EntityMotor : ScriptableObject
 
         // Decide target lane
         float targetZ = nearestLaneZ;
-        if (input > 0f && canBack)
+        if (input > 0f)
             targetZ = brain.backDepthZ;
-        else if (input < 0f && canFront)
+        else if (input < 0f)
             targetZ = brain.frontDepthZ;
 
-        if (Mathf.Approximately(nearestLaneZ, targetZ))
+        if (Mathf.Approximately(nearestLaneZ, targetZ) || !CanChangeLane(brain))
             return;
 
         brain.DepthTransitionRoutine = brain.StartCoroutine(TransitionDepth(brain, nearestLaneZ, targetZ));
@@ -105,7 +96,17 @@ public class EntityMotor : ScriptableObject
         brain.DepthTransitionRoutine = null;
     }
 
-    public virtual DepthAvailability CheckDepthAvailability() => DepthAvailability.HasBoth;
+    public virtual bool CanChangeLane(EntityBrain brain)
+    {
+        float z = brain.transform.position.z;
+        bool isInBackLane = Mathf.Abs(z - brain.frontDepthZ) > Mathf.Abs(z - brain.backDepthZ);
 
-    
+        var dir = isInBackLane ? Vector3.back : Vector3.forward;
+        Ray ray = new Ray(brain.transform.position, dir);
+        var distance = Mathf.Max(brain.frontDepthZ, brain.backDepthZ) - Mathf.Min(brain.frontDepthZ, brain.backDepthZ);
+        if (Physics.Raycast(ray, distance, layerMask, QueryTriggerInteraction.Ignore))
+            return false;
+
+        return true;
+    }
 }

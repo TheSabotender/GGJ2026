@@ -36,6 +36,7 @@ public class MaskDetailPanel : MonoBehaviour
         if (currentProfile == null)
             return;
 
+        portrait.enabled = currentProfile.portrait != null;
         portrait.sprite = currentProfile.portrait;
         characterName.text = currentProfile.characterName;
         field.text = currentProfile.field.ToString();

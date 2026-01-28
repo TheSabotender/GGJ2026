@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: HumanMotor
   m_EditorClassIdentifier: Assembly-CSharp::HumanMotor
   moveSpeed: 5
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 55
   depthTransitionSpeed: 5
   jumpForce: 5
   crouchScale: 0.5

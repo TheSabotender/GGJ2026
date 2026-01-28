@@ -19,6 +19,7 @@ public class TendrilManager : MonoBehaviour
     [SerializeField] private InputActionReference mouseAction = null;
     [SerializeField] private Rope ropePrefab;
     [SerializeField] private PlayerBrain playerBrain = null;
+    [SerializeField] private LayerMask tendrilLayerMask;
 
     [Header("Floor Tendrils")]
     [SerializeField] private int stickyCount = 5;
@@ -27,8 +28,9 @@ public class TendrilManager : MonoBehaviour
 
     [Header("Launch Tendril")]
     [SerializeField] private float tendrilLength = 10f;
-    [SerializeField] private float tendrilSpeed = 5f;
+    [SerializeField] private Vector2 tendrilSpeed = new Vector2(20, 30);
     [SerializeField] private float tendrilStrength = 10f;
+    [SerializeField] [Range(0,1)] private float tendrilElasticity = 0.8f;
     [SerializeField] private int tendrilCount = 5;
     [SerializeField] private float tendrilScatter = 1f;
 
@@ -197,9 +199,9 @@ public class TendrilManager : MonoBehaviour
             Debug.DrawLine(GameManager.PlayerBrain.transform.position, tendrilEnd, Color.red, 1);
 
             if (hit)
-                rope.StartCoroutine(Latch(rope, tendrilEnd, tendrilSpeed, tendrilStrength / tendrilCount));
+                rope.StartCoroutine(Latch(rope, tendrilEnd, tendrilSpeed, tendrilStrength / tendrilCount, tendrilElasticity));
             else
-                rope.StartCoroutine(Miss(rope, tendrilEnd, tendrilSpeed));
+                rope.StartCoroutine(Miss(rope, tendrilEnd, tendrilSpeed, tendrilElasticity));
         }
     }
 
@@ -219,7 +221,7 @@ public class TendrilManager : MonoBehaviour
 
         Ray ray = new Ray(origin, dir.normalized);
 
-        if (Physics.Raycast(ray, out RaycastHit rayHit, maxLength))
+        if (Physics.Raycast(ray, out RaycastHit rayHit, maxLength, tendrilLayerMask, QueryTriggerInteraction.Ignore))
         {
             hit = rayHit.point;
             return true;
@@ -229,14 +231,14 @@ public class TendrilManager : MonoBehaviour
         return false;
     }
 
-    private static IEnumerator Latch(Rope rope, Vector3 target, float tendrilSpeed, float tendrilStrength)
+    private static IEnumerator Latch(Rope rope, Vector3 target, Vector2 tendrilSpeed, float tendrilStrength, float tendrilElasticity)
     {
         var playerBrain = GameManager.PlayerBrain;
 
-        float speed = Mathf.Max(0.01f, tendrilSpeed);
         float distance = Vector3.Distance(playerBrain.transform.position, target);
-        float extendDuration = distance / speed;
-        float retractDuration = extendDuration;
+        float extendDuration = distance / tendrilSpeed.x;
+        float retractDuration = distance / tendrilSpeed.y;
+        rope.Elasticity = tendrilElasticity;
 
         float elapsed = 0f;
         while (elapsed < extendDuration)
@@ -245,10 +247,12 @@ public class TendrilManager : MonoBehaviour
             float t = Mathf.Clamp01(elapsed / extendDuration);
             rope.StartPoint = playerBrain.transform.position;
             rope.EndPoint = Vector3.Lerp(rope.StartPoint, target, t);
+            rope.Elasticity = Mathf.Lerp(tendrilElasticity, 1, t);
 
             if(tendrilStrength > 0)
             {
                 Vector3 pullDirection = (target - rope.StartPoint).normalized;
+                //Vector3 pullDirection = (rope.NextPoint - rope.StartPoint).normalized;
                 playerBrain.Rigidbody.AddForce(pullDirection * tendrilStrength, ForceMode.Acceleration);
             }
             yield return null;
@@ -262,10 +266,13 @@ public class TendrilManager : MonoBehaviour
             if (tendrilStrength > 0)
             {
                 Vector3 pullDirection = (target - rope.StartPoint).normalized;
+                //Vector3 pullDirection = (rope.NextPoint - rope.StartPoint).normalized;
                 playerBrain.Rigidbody.AddForce(pullDirection * tendrilStrength, ForceMode.Acceleration);
             }
             yield return null;
         }
+
+        rope.Elasticity = tendrilElasticity;
 
         elapsed = 0f;
         while (elapsed < retractDuration)
@@ -274,23 +281,20 @@ public class TendrilManager : MonoBehaviour
             float t = Mathf.Clamp01(elapsed / retractDuration);
             rope.StartPoint = playerBrain.transform.position;
             rope.EndPoint = Vector3.Lerp(target, rope.StartPoint, t);
-
-            Vector3 pullDirection = (target - rope.StartPoint).normalized;
-            playerBrain.Rigidbody.AddForce(pullDirection * tendrilStrength, ForceMode.Acceleration);
             yield return null;
         }
 
         Destroy(rope.gameObject);
     }
 
-    private static IEnumerator Miss(Rope rope, Vector3 target, float tendrilSpeed)
+    private static IEnumerator Miss(Rope rope, Vector3 target, Vector2 tendrilSpeed, float tendrilElasticity)
     {
         var playerTransform = GameManager.PlayerBrain.transform;
+        rope.Elasticity = tendrilElasticity;
 
-        float speed = Mathf.Max(0.01f, tendrilSpeed);
         float distance = Vector3.Distance(playerTransform.position, target);
-        float extendDuration = distance / speed;
-        float retractDuration = extendDuration;
+        float extendDuration = distance / tendrilSpeed.x;
+        float retractDuration = distance / tendrilSpeed.y;
 
         float elapsed = 0f;
         while (elapsed < extendDuration)

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.UI.Image;
 
 public class Rope : MonoBehaviour
 {
@@ -9,10 +10,15 @@ public class Rope : MonoBehaviour
     [Range(0, 1)] public float Elasticity;
     public int segmentCount = 35;
 
+    public bool useCollision = false;
+    public LayerMask layerMask;
+
     private LineRenderer lineRenderer;
     private List<RopeSegment> ropeSegments = new List<RopeSegment>();
     private float ropeSegLen = 0.25f;
     private float currentSegLen;
+
+    public Vector3 NextPoint => ropeSegments.Count > 1 ? ropeSegments[1].posNow : EndPoint;
 
     private LineRenderer LineRenderer
     {
@@ -67,11 +73,25 @@ public class Rope : MonoBehaviour
             RopeSegment firstSegment = this.ropeSegments[i];
             Vector3 velocity = firstSegment.posNow - firstSegment.posOld;
             firstSegment.posOld = firstSegment.posNow;
-            firstSegment.posNow += velocity;
-            firstSegment.posNow += forceGravity * Time.fixedDeltaTime;
+            var dir = velocity + (forceGravity * Time.fixedDeltaTime);
+            firstSegment.posNow += dir;
+
             this.ropeSegments[i] = firstSegment;
         }
 
+        if (useCollision)
+        {
+            for (int i = 0; i < this.segmentCount; i++)
+            {
+                RopeSegment firstSegment = this.ropeSegments[i];
+                if (Physics.Linecast(firstSegment.posOld, firstSegment.posNow, out RaycastHit hit, layerMask, QueryTriggerInteraction.Ignore))
+                {
+                    firstSegment.posNow = hit.point;
+                    this.ropeSegments[i] = firstSegment;
+                }
+            }
+        }
+        
         //CONSTRAINTS
         for (int i = 0; i < 50; i++)
         {

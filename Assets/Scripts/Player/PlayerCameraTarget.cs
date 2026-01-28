@@ -13,7 +13,7 @@ public class PlayerCameraTarget : MonoBehaviour
     {
         var position = transform.position;
 
-        if (GameManager.CurrentGameSave == null || (MenuManager.CurrentScreen != MenuManager.Screen.None && MenuManager.CurrentScreen != MenuManager.Screen.Mask))
+        if (GameManager.CurrentGameSave == null || (MenuManager.CurrentScreen != MenuManager.Screen.None /*&& MenuManager.CurrentScreen != MenuManager.Screen.Mask*/))
         {
             //lerp back?
         }

@@ -44,7 +44,7 @@ public class AudioManager : MonoBehaviour
             lastPlayerPosition = playerBrain.transform.position;
             UpdateAudioSources();
         }
-        GameManager.AlertStateChanged += OnAlertStateChanged;
+        RegionManager.AlertStateChanged += OnAlertStateChanged;
     }
 
     private void Update()
@@ -174,7 +174,7 @@ public class AudioManager : MonoBehaviour
         {
             if (musicSource.source == null)
                 continue;
-            if (musicSource.isNeeded && musicSource.source.volume >= maxVolume)
+            if (musicSource.isNeeded && Mathf.Approximately(musicSource.source.volume, maxVolume))
                 continue;
 
             if (!musicSource.isNeeded && musicSource.source.volume <= 0)

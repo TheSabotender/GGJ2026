@@ -93,16 +93,24 @@ public class PlayerBrain : EntityBrain
         }
     }
 
-    public void SwapMask(CharacterProfile profile)
+    public void SwapMask(MaskState mask, CharacterProfile profile)
     {
-        if (profile == null)
+        if (mask == null)
         {
             Debug.LogError("Cannot swap to null profile");
             return;
         }
 
+        var maskIndex = GameManager.CurrentGameSave.Masks.IndexOf(mask);
+        if (maskIndex < 0)
+        {
+            GameManager.CurrentGameSave.Masks.Add(mask);
+            maskIndex = GameManager.CurrentGameSave.Masks.Count - 1;
+        }
+
+        GameManager.CurrentGameSave.CurrentMask = maskIndex;
+
         //TODO change appearance of player to selected mask and change back to normal when unselected
-        GameManager.CurrentGameSave.CurrentMask = profile.Guid;
         SwapMotor(profile.motor);
     }
 

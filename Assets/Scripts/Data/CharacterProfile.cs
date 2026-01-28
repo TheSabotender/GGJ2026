@@ -37,15 +37,16 @@ public class CharacterProfile : ScriptableObject
         Executive = 4
     }
 
+    [Flags]
     public enum JobTag
     {
-        None,
-        Scientist,
-        Engineer,
-        Security,
-        Medical,
-        Administrative,
-        Maintenance
+        None = 0,
+        Scientist = 1 << 0,
+        Engineer = 1 << 1,
+        Security = 1 << 2,
+        Medical = 1 << 3,
+        Administrative = 1 << 4,
+        Maintenance = 1 << 5,
     }
 
     [Flags]

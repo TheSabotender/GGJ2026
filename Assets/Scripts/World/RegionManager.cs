@@ -1,5 +1,8 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
+using static GameManager;
 
 public class RegionManager : MonoBehaviour
 {
@@ -15,6 +18,8 @@ public class RegionManager : MonoBehaviour
     private WorldRegion currentRegion;
     public static WorldRegion CurrentRegion => instance.currentRegion;
 
+    public static event Action<AlertState> AlertStateChanged;
+
     private void Awake()
     {
         instance = this;
@@ -28,6 +33,15 @@ public class RegionManager : MonoBehaviour
         {
             lastPlayerPosition = playerBrain.transform.position;
             UpdateCurrentRegion();
+        }
+    }
+
+    public static void SetAlertState(AlertState newState)
+    {
+        if (instance.currentRegion != null)
+        {
+            instance.currentRegion.SetAlertState(newState);
+            AlertStateChanged?.Invoke(newState);
         }
     }
 
@@ -65,9 +79,7 @@ public class RegionManager : MonoBehaviour
     private void UpdateCurrentRegion()
     {
         if (playerBrain == null)
-        {
             return;
-        }
 
         if (cachedRegions.Count == 0)
         {
@@ -77,25 +89,21 @@ public class RegionManager : MonoBehaviour
         }
 
         var playerPosition = playerBrain.transform.position;
-        var closestRegion = (WorldRegion)null;
-        var closestDistance = float.PositiveInfinity;
-
+        var newRegion = currentRegion;
         foreach (var region in cachedRegions)
         {
-            if (region == null)
+            if (region != null && region.IsWithinRegion(playerPosition))
             {
-                continue;
-            }
-
-            var distance = Vector3.Distance(playerPosition, region.transform.position);
-            if (distance < closestDistance)
-            {
-                closestDistance = distance;
-                closestRegion = region;
+                newRegion = region;
+                break;
             }
         }
 
-        currentRegion = closestRegion;
+        if (newRegion == currentRegion)
+            return;
+
+        currentRegion = newRegion;
         AudioManager.SetMusicProfile(CurrentRegion?.MusicProfile);
+        AlertStateChanged?.Invoke(currentRegion.AlertState);
     }
 }

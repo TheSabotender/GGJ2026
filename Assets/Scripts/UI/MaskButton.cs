@@ -9,17 +9,17 @@ public class MaskButton : MonoBehaviour
     [SerializeField]
     new private Rigidbody2D rigidbody;
 
+    private MaskState maskState;
     private CharacterProfile characterProfile;
 
     public Rigidbody2D Rigidbody => rigidbody;
 
-    public void Setup(CharacterProfile profile)
+    public void Setup(MaskState state, CharacterProfile profile)
     {
-        if (profile == null)
+        if (state == null || profile == null)
             return;
+        maskState = state;
         characterProfile = profile;
-
-        Debug.Log($"Setting mask button to {profile?.name} with mask {characterProfile?.mask}");
 
         image.enabled = characterProfile.mask != null;
         image.sprite = characterProfile.mask;
@@ -33,6 +33,6 @@ public class MaskButton : MonoBehaviour
     public void OnClick()
     {
         MenuManager.SetScreen(MenuManager.Screen.None);
-        GameManager.PlayerBrain.SwapMask(characterProfile);
+        GameManager.PlayerBrain.SwapMask(maskState, characterProfile);
     }
 }

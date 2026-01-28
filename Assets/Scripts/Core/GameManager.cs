@@ -17,13 +17,12 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private CharacterProfile startingMask;
-    public CharacterProfile testMask;
+    public CharacterProfile[] testMasks;
 
     [SerializeField]
     private CharacterProfile[] allProfiles;
 
     private GameSave currentGameSave = null;
-    private AlertState alertState = AlertState.Normal;
 
     public static PlayerBrain PlayerBrain => instance.playerBrain;
 
@@ -31,9 +30,8 @@ public class GameManager : MonoBehaviour
 
     public static CharacterProfile[] AllProfiles => instance.allProfiles;
 
-    public static AlertState CurrentAlertState => instance.alertState;
+    public static AlertState CurrentAlertState => RegionManager.CurrentRegion.AlertState;
 
-    public static event Action<AlertState> AlertStateChanged;
 
     private void Awake()
     {
@@ -46,17 +44,38 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Keypad1))
+            RegionManager.SetAlertState(AlertState.Normal);
+        if (Input.GetKeyDown(KeyCode.Keypad2))
+            RegionManager.SetAlertState(AlertState.Caution);
+        if (Input.GetKeyDown(KeyCode.Keypad3))
+            RegionManager.SetAlertState(AlertState.Alert);
+    }
+
     public static void NewGame()
     {
         var newGame = new GameSave();        
         newGame.Masks = new() {
-            instance.startingMask.Guid,
-            instance.testMask.Guid,instance.testMask.Guid,instance.testMask.Guid,instance.testMask.Guid,instance.testMask.Guid,instance.testMask.Guid,instance.testMask.Guid,instance.testMask.Guid,instance.testMask.Guid,instance.testMask.Guid,instance.testMask.Guid,instance.testMask.Guid,instance.testMask.Guid,instance.testMask.Guid,
+            new MaskState() { guid = instance.startingMask.Guid, status = MaskStatus.Compromised },
         };
+
+        if (instance.testMasks != null && instance.testMasks.Length > 0)
+        {
+            foreach (var profile in instance.testMasks)
+            {
+                if (profile != null && profile.Guid != instance.startingMask.Guid)
+                {
+                    newGame.Masks.Add(new MaskState() { guid = profile.Guid, status = MaskStatus.Fresh });
+                }
+            }
+        }
+
         newGame.MasksCollected = newGame.Masks.Count;
         newGame.GameVersion = Application.version;
         newGame.StartDateTime = System.DateTime.Now.Ticks.ToString();
-        newGame.CurrentMask = instance.startingMask.Guid;
+        newGame.CurrentMask = 0;
 
         instance.currentGameSave = newGame;
 
