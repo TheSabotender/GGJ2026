@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class TendrilManager : MonoBehaviour
 {
     [SerializeField] private InputActionReference mouseAction = null;
-    [SerializeField] private LineRenderer lineRenderer = null;
+    [SerializeField] private Rope rope = null;
     [SerializeField] private PlayerBrain playerBrain = null;
     [SerializeField] private float tendrilLength = 10f;
     [SerializeField] private float tendrilSpeed = 5f;
@@ -19,8 +19,8 @@ public class TendrilManager : MonoBehaviour
     private void Awake()
     {
         mainCam = Camera.main;
-        if (lineRenderer != null)
-            lineRenderer.enabled = false;
+        if (rope != null)
+            rope.enabled = false;
     }
 
     public void LaunchTendril()
@@ -68,15 +68,13 @@ public class TendrilManager : MonoBehaviour
 
     private IEnumerator Latch(Vector3 target)
     {
-        var line = lineRenderer;
-        if (line == null || playerBrain == null)
+        if (rope == null || playerBrain == null)
         {
             coroutine = null;
             yield break;
         }
 
-        line.positionCount = 2;
-        line.enabled = true;
+        rope.enabled = true;
 
         float speed = Mathf.Max(0.01f, tendrilSpeed);
         float distance = Vector3.Distance(playerBrain.transform.position, target);
@@ -88,24 +86,20 @@ public class TendrilManager : MonoBehaviour
         {
             elapsed += Time.deltaTime;
             float t = Mathf.Clamp01(elapsed / extendDuration);
-            Vector3 start = playerBrain.transform.position;
-            Vector3 end = Vector3.Lerp(start, target, t);
-            line.SetPosition(0, start);
-            line.SetPosition(1, end);
+            rope.StartPoint = playerBrain.transform.position;
+            rope.EndPoint = Vector3.Lerp(rope.StartPoint, target, t);
 
-            Vector3 pullDirection = (target - start).normalized;
+            Vector3 pullDirection = (target - rope.StartPoint).normalized;
             playerBrain.Rigidbody.AddForce(pullDirection * tendrilStrength, ForceMode.Acceleration);
             yield return null;
         }
 
         while (isHoldingTendril)
         {
-            Vector3 start = playerBrain.transform.position;
-            Vector3 end = target;
-            line.SetPosition(0, start);
-            line.SetPosition(1, end);
+            rope.StartPoint = playerBrain.transform.position;
+            rope.EndPoint = target;
 
-            Vector3 pullDirection = (target - start).normalized;
+            Vector3 pullDirection = (target - rope.StartPoint).normalized;
             playerBrain.Rigidbody.AddForce(pullDirection * tendrilStrength, ForceMode.Acceleration);
             yield return null;
         }
@@ -115,17 +109,15 @@ public class TendrilManager : MonoBehaviour
         {
             elapsed += Time.deltaTime;
             float t = Mathf.Clamp01(elapsed / retractDuration);
-            Vector3 start = playerBrain.transform.position;
-            Vector3 end = Vector3.Lerp(target, start, t);
-            line.SetPosition(0, start);
-            line.SetPosition(1, end);
+            rope.StartPoint = playerBrain.transform.position;
+            rope.EndPoint = Vector3.Lerp(target, rope.StartPoint, t);
 
-            Vector3 pullDirection = (target - start).normalized;
+            Vector3 pullDirection = (target - rope.StartPoint).normalized;
             playerBrain.Rigidbody.AddForce(pullDirection * tendrilStrength, ForceMode.Acceleration);
             yield return null;
         }
 
-        line.enabled = false;
+        rope.enabled = false;
 
         coroutine = null;
         isHoldingTendril = false;
@@ -133,15 +125,13 @@ public class TendrilManager : MonoBehaviour
 
     private IEnumerator Miss(Vector3 start, Vector3 end)
     {
-        var line = lineRenderer;
-        if (line == null || playerBrain == null)
+        if (rope == null || playerBrain == null)
         {
             coroutine = null;
             yield break;
         }
 
-        line.positionCount = 2;
-        line.enabled = true;
+        rope.enabled = true;
 
         float speed = Mathf.Max(0.01f, tendrilSpeed);
         float distance = Vector3.Distance(start, end);
@@ -153,10 +143,9 @@ public class TendrilManager : MonoBehaviour
         {
             elapsed += Time.deltaTime;
             float t = Mathf.Clamp01(elapsed / extendDuration);
-            Vector3 currentStart = playerBrain.transform.position;
-            Vector3 currentEnd = Vector3.Lerp(currentStart, end, t);
-            line.SetPosition(0, currentStart);
-            line.SetPosition(1, currentEnd);
+            rope.StartPoint = playerBrain.transform.position;
+            rope.EndPoint = Vector3.Lerp(rope.StartPoint, end, t);            
+
             yield return null;
         }
 
@@ -165,14 +154,12 @@ public class TendrilManager : MonoBehaviour
         {
             elapsed += Time.deltaTime;
             float t = Mathf.Clamp01(elapsed / retractDuration);
-            Vector3 currentStart = playerBrain.transform.position;
-            Vector3 currentEnd = Vector3.Lerp(end, currentStart, t);
-            line.SetPosition(0, currentStart);
-            line.SetPosition(1, currentEnd);
+            rope.StartPoint = playerBrain.transform.position;
+            rope.EndPoint = Vector3.Lerp(end, rope.StartPoint, t);
             yield return null;
         }
 
-        line.enabled = false;
+        rope.enabled = false;
 
         coroutine = null;
         isHoldingTendril = false;

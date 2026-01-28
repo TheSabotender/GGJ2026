@@ -73,48 +73,4 @@ public static class Util
         );
         return true;
     }
-
-    public static Vector3[] SimulateRope(Vector3 start, Vector3 end, float tension, float gravity, int fidelity)
-    {
-        return SimulateRope(start, end, tension, Vector3.down * gravity, fidelity);
-    }
-
-    public static Vector3[] SimulateRope(Vector3 start, Vector3 end, float tension, Vector3 gravity, int fidelity)
-    {
-        float distance = Vector3.Distance(start, end);
-        int points = Mathf.Max(2, Mathf.CeilToInt(distance * Mathf.Max(1, fidelity)) + 1);
-
-        Vector3[] ropePoints = new Vector3[points];
-        Vector3 ropeDirection = end - start;
-
-        if (ropeDirection.sqrMagnitude <= Mathf.Epsilon)
-        {
-            for (int i = 0; i < points; i++)
-                ropePoints[i] = start;
-            return ropePoints;
-        }
-
-        float gravityMagnitude = gravity.magnitude;
-        Vector3 gravityDirection = gravityMagnitude > Mathf.Epsilon ? gravity / gravityMagnitude : Vector3.down;
-        Vector3 ropeDirectionNormalized = ropeDirection.normalized;
-
-        Vector3 sagDirection = gravityDirection - Vector3.Dot(gravityDirection, ropeDirectionNormalized) * ropeDirectionNormalized;
-        if (sagDirection.sqrMagnitude <= Mathf.Epsilon)
-            sagDirection = Vector3.down;
-        else
-            sagDirection.Normalize();
-
-        float clampedTension = Mathf.Clamp01(tension);
-        float normalizedGravity = gravityMagnitude / Physics.gravity.magnitude;
-        float sagAmplitude = (1f - clampedTension) * distance * 0.25f * normalizedGravity;
-
-        for (int i = 0; i < points; i++)
-        {
-            float t = points == 1 ? 0f : i / (float)(points - 1);
-            float sag = 4f * t * (1f - t) * sagAmplitude;
-            ropePoints[i] = start + ropeDirection * t + sagDirection * sag;
-        }
-
-        return ropePoints;
-    }
 }

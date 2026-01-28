@@ -7,7 +7,7 @@ public class MaskButton : MonoBehaviour
     private Image image;
 
     [SerializeField]
-    private Rigidbody2D rigidbody;
+    new private Rigidbody2D rigidbody;
 
     private CharacterProfile characterProfile;
 
