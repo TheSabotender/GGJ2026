@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "AlienMotor", menuName = "Entity/Motors/AlienMotor")]
+[CreateAssetMenu(fileName = "AlienMotor", menuName = "Data/Motors/AlienMotor")]
 public class AlienMotor : EntityMotor
 {
     /// <summary>

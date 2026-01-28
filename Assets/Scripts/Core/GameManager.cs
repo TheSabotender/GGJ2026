@@ -1,7 +1,15 @@
+using System;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public enum AlertState
+    {
+        Normal,
+        Caution,
+        Alert
+    }
+    
     private static GameManager instance = null;
 
     [SerializeField]
@@ -15,12 +23,17 @@ public class GameManager : MonoBehaviour
     private CharacterProfile[] allProfiles;
 
     private GameSave currentGameSave = null;
+    private AlertState alertState = AlertState.Normal;
 
     public static PlayerBrain PlayerBrain => instance.playerBrain;
 
     public static GameSave CurrentGameSave => instance?.currentGameSave;
 
     public static CharacterProfile[] AllProfiles => instance.allProfiles;
+
+    public static AlertState CurrentAlertState => instance.alertState;
+
+    public static event Action<AlertState> AlertStateChanged;
 
     private void Awake()
     {

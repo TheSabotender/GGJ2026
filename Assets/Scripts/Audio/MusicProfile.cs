@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "MusicProfile", menuName = "Audio/MusicProfile", order = 1)]
+[CreateAssetMenu(fileName = "MusicProfile", menuName = "Data/Music Profile", order = 1)]
 public class MusicProfile : ScriptableObject
 {
     [Header("Tracks")]

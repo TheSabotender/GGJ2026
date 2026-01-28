@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "HumanMotor", menuName = "Entity/Motors/HumanMotor")]
+[CreateAssetMenu(fileName = "HumanMotor", menuName = "Data/Motors/HumanMotor")]
 public class HumanMotor : EntityMotor
 {
     [SerializeField]
