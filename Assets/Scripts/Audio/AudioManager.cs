@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
+    private static AudioManager instance;
+
     [SerializeField]
     private float positionUpdateThreshold = 0.5f;
 
@@ -19,6 +21,7 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
+        instance = this;
         RefreshAudioSources();
     }
 
@@ -92,8 +95,8 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void SetMusicProfile(MusicProfile newProfile)
+    public static void SetMusicProfile(MusicProfile newProfile)
     {
-        currentProfile = newProfile;
+        instance.currentProfile = newProfile;
     }
 }

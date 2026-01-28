@@ -91,5 +91,6 @@ public class RegionManager : MonoBehaviour
         }
 
         CurrentRegion = closestRegion;
+        AudioManager.SetMusicProfile(CurrentRegion?.MusicProfile);
     }
 }
