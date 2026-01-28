@@ -135,7 +135,7 @@ public class Rope : MonoBehaviour
         }
         else if (Elasticity > 0f)
         {
-            currentSegLen = Mathf.Lerp(currentSegLen, desiredSegLen, Elasticity * Time.fixedDeltaTime);
+            currentSegLen = Mathf.Lerp(currentSegLen, desiredSegLen, Mathf.Clamp01(Elasticity));
         }
     }
 
