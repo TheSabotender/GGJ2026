@@ -11,6 +11,7 @@ public class Rope : MonoBehaviour
     private LineRenderer lineRenderer;
     private List<RopeSegment> ropeSegments = new List<RopeSegment>();
     private float ropeSegLen = 0.25f;
+    private float currentSegLen;
     private int segmentLength = 35;
 
     private LineRenderer LineRenderer
@@ -35,6 +36,7 @@ public class Rope : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        currentSegLen = ropeSegLen;
         for (int i = 0; i < segmentLength; i++)
         {
             this.ropeSegments.Add(new RopeSegment(StartPoint));
@@ -55,6 +57,8 @@ public class Rope : MonoBehaviour
 
     private void Simulate()
     {
+        UpdateSegmentLength();
+
         // SIMULATION
         Vector2 forceGravity = new Vector2(0f, -1f);
 
@@ -94,14 +98,14 @@ public class Rope : MonoBehaviour
             RopeSegment secondSeg = this.ropeSegments[i + 1];
 
             float dist = (firstSeg.posNow - secondSeg.posNow).magnitude;
-            float error = Mathf.Abs(dist - this.ropeSegLen);
+            float error = Mathf.Abs(dist - this.currentSegLen);
             Vector2 changeDir = Vector2.zero;
 
-            if (dist > ropeSegLen)
+            if (dist > currentSegLen)
             {
                 changeDir = (firstSeg.posNow - secondSeg.posNow).normalized;
             }
-            else if (dist < ropeSegLen)
+            else if (dist < currentSegLen)
             {
                 changeDir = (secondSeg.posNow - firstSeg.posNow).normalized;
             }
@@ -119,6 +123,19 @@ public class Rope : MonoBehaviour
                 secondSeg.posNow += changeAmount;
                 this.ropeSegments[i + 1] = secondSeg;
             }
+        }
+    }
+
+    private void UpdateSegmentLength()
+    {
+        float desiredSegLen = Vector3.Distance(StartPoint, EndPoint) / (segmentLength - 1);
+        if (desiredSegLen > currentSegLen)
+        {
+            currentSegLen = desiredSegLen;
+        }
+        else if (Elasticity > 0f)
+        {
+            currentSegLen = Mathf.Lerp(currentSegLen, desiredSegLen, Elasticity * Time.fixedDeltaTime);
         }
     }
 
