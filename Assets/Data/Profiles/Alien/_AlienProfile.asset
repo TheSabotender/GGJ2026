@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterProfile
   Guid: 2dc691a5-a366-4f2b-822b-96bfd54eded5
   motor: {fileID: 11400000, guid: 769e7c6b6d790944d8cf12bb71aa2d8b, type: 2}
-  prefab: {fileID: 0}
+  prefab: {fileID: 1990457004708512158, guid: 3dcfeac9b8700e241b16ad365f3d884d, type: 3}
   portrait: {fileID: 0}
   mask: {fileID: 0}
   characterName: Alien

@@ -9,7 +9,7 @@ public class CharacterProfile : ScriptableObject
     public EntityMotor motor;
 
     [Header("Visuals")]
-    public GameObject prefab;
+    public CharacterPrefab prefab;
     public Sprite portrait;
     public Sprite mask;
 
@@ -29,7 +29,7 @@ public class CharacterProfile : ScriptableObject
     {
         Alien = -99,
         Wanted = -10,
-        Criminal = -1,
+        Disliked = -1,
         Civilian = 0,
         Employee = 1,
         Valued = 2,

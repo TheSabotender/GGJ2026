@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99c829a2fd6e13e409077bc3af3e2da3, type: 3}
+  m_Name: HoboA
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterProfile
+  Guid: c77d3bfd-f816-4f0c-8552-af0f2af0d149
+  motor: {fileID: 11400000, guid: 713fb29563383a7468d1abfebcee6532, type: 2}
+  prefab: {fileID: -385657164195148974, guid: 0aac849ce8f61af4eb940768cf3e0a0c, type: 3}
+  portrait: {fileID: 21300000, guid: 98ef26a82ba914a4b9a77bd462036fe7, type: 3}
+  mask: {fileID: 21300000, guid: a25de055ddbb924429cdc81330b759d5, type: 3}
+  characterName: Homeless
+  field: 0
+  securityClearance: -1
+  description: has no home
+  likes: 11

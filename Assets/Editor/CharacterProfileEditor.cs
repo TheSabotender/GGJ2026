@@ -19,6 +19,28 @@ public class CharacterProfileEditor : Editor
         }
 
         serializedObject.ApplyModifiedProperties();
+
+        EditorGUILayout.Space(EditorGUIUtility.singleLineHeight * 2);
+
+        // Show sprites if assigned
+        var width = EditorGUIUtility.currentViewWidth * 0.5f;
+        using (new EditorGUILayout.HorizontalScope())
+        {
+            var profile = (CharacterProfile)target;
+            if (profile.portrait != null)
+            {
+                GUILayout.FlexibleSpace();
+                GUILayout.Label(profile.portrait.texture, GUILayout.Width(width), GUILayout.Height(width));
+                GUILayout.FlexibleSpace();
+            }
+
+            if (profile.mask != null)
+            {
+                GUILayout.FlexibleSpace();
+                GUILayout.Label(profile.mask.texture, GUILayout.Width(width), GUILayout.Height(width));
+                GUILayout.FlexibleSpace();
+            }
+        }
     }
 
     private void EnsureGuids()

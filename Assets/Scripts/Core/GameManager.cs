@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -76,10 +77,11 @@ public class GameManager : MonoBehaviour
         newGame.GameVersion = Application.version;
         newGame.StartDateTime = System.DateTime.Now.Ticks.ToString();
         newGame.CurrentMask = 0;
-
         instance.currentGameSave = newGame;
 
         Debug.Log("NewGame called - hook up intro cutscene here.");
+
+        PlayerBrain.SwapMask(newGame.Masks[newGame.CurrentMask], newGame.CurrentProfile, force: true);
     }
 
     public static void LoadGame(GameSave gameSave)

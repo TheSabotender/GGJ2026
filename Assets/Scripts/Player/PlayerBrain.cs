@@ -1,8 +1,19 @@
+using NUnit.Framework;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerBrain : EntityBrain
 {
+    private class MaskInstance
+    {
+        public CharacterProfile profile;
+        public CharacterPrefab instance;
+        public Animator animator;
+    }
+
     [SerializeField]
     private InputActionReference pauseMenuAction = null;
 
@@ -36,6 +47,10 @@ public class PlayerBrain : EntityBrain
     public TendrilManager TendrilManager => tendrilManager;
 
     private bool isJumpHeld = false;
+    private bool isCrouchHeld = false;
+
+    private List<MaskInstance> loadedMasks;
+    private MaskInstance currentMask;
 
     private void OnEnable()
     {
@@ -88,19 +103,34 @@ public class PlayerBrain : EntityBrain
 
         if (crouchAction != null && crouchAction.action != null)
         {
-            float crouchInput = crouchAction.action.ReadValue<float>();
-            currentMotor.Crouch(this, crouchInput > 0.5f);
+            bool crouchPressed = crouchAction.action.IsPressed();
+            if (crouchPressed && !isCrouchHeld)
+            {
+                currentMotor.Crouch(this, true);
+            }
+            else if (!crouchPressed && isCrouchHeld)
+            {
+                currentMotor.Crouch(this, false);
+            }
+            isCrouchHeld = crouchPressed;
         }
     }
 
-    public void SwapMask(MaskState mask, CharacterProfile profile)
+    public void PlayAnimation(string triggerName)
+    {
+        if (currentMask?.animator == null)
+            return;
+
+        currentMask.animator.SetTrigger(triggerName);
+    }
+
+    public void SwapMask(MaskState mask, CharacterProfile profile, bool force = false)
     {
         if (mask == null)
         {
             Debug.LogError("Cannot swap to null profile");
             return;
         }
-
         var maskIndex = GameManager.CurrentGameSave.Masks.IndexOf(mask);
         if (maskIndex < 0)
         {
@@ -108,25 +138,67 @@ public class PlayerBrain : EntityBrain
             maskIndex = GameManager.CurrentGameSave.Masks.Count - 1;
         }
 
-        GameManager.CurrentGameSave.CurrentMask = maskIndex;
+        if (!force && GameManager.CurrentGameSave.CurrentMask == maskIndex)
+            return;
 
-        //TODO change appearance of player to selected mask and change back to normal when unselected
+        GameManager.CurrentGameSave.CurrentMask = maskIndex;
+        StartCoroutine(SwapAppearance(profile));
+    }
+
+    private IEnumerator SwapAppearance(CharacterProfile profile)
+    {
+        SwapMotor(null);
+        if (loadedMasks == null)
+            loadedMasks = new();
+
+        //Play death animation of current animator
+        if (currentMask != null)
+            currentMask.animator.SetTrigger("Death");
+
+        var newMaskInstance = loadedMasks.FirstOrDefault(m => m?.profile == profile);
+        if (newMaskInstance == null)
+        {
+            newMaskInstance = new MaskInstance();
+            newMaskInstance.profile = profile;
+            newMaskInstance.instance = Instantiate(profile.prefab, transform, false);
+            newMaskInstance.animator = newMaskInstance.instance.GetComponent<Animator>();
+            loadedMasks.Add(newMaskInstance);
+        }
+
+        //Play death animation of new animator
+        newMaskInstance.instance.gameObject.SetActive(true);
+        newMaskInstance.animator.SetTrigger("Death");
+
+        TendrilManager.SpreadTendrils();
+
+        //Dissolve
+        var t = 0f;
+        while (t < 1)
+        {
+            if (currentMask != null)
+                currentMask.instance.Material.SetFloat("_Dissolve", 1 - t);
+            newMaskInstance.instance.Material.SetFloat("_Dissolve", t);
+
+            t += Time.deltaTime;
+            yield return null;
+        }
+
+        TendrilManager.ReleaseSpread();
+
+        //Remove
+        if (currentMask != null)
+            currentMask.instance.gameObject.SetActive(false);
+
+        newMaskInstance.instance.Material.SetFloat("_Dissolve", 1);
+        newMaskInstance.animator.SetTrigger("Idle");
+        currentMask = newMaskInstance;
+
         SwapMotor(profile.motor);
     }
 
     public void SwapMotor(EntityMotor newMotor)
     {
         currentMotor = newMotor;
-
-        /*
-        bool isAlien = currentMotor is AlienMotor;
-
-        if (cachedRigidbody != null)
-            cachedRigidbody.isKinematic = !isAlien;
-
-        if (cachedCollider != null)
-            cachedCollider.enabled = isAlien;
-        */
     }
 
     private void EnableActions()

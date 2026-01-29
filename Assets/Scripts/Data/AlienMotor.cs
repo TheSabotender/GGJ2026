@@ -21,4 +21,16 @@ public class AlienMotor : EntityMotor
         if (isGrounded)
             brain.Rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
+
+    public override void Crouch(EntityBrain brain, bool isCrouching)
+    {
+        var playerBrain = brain as PlayerBrain;
+        if (playerBrain?.TendrilManager == null)
+            return;
+
+        if (isCrouching)
+            playerBrain.TendrilManager.SpreadTendrils();
+        else
+            playerBrain.TendrilManager.ReleaseSpread();
+    }
 }
