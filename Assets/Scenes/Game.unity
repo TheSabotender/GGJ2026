@@ -1294,7 +1294,7 @@ MonoBehaviour:
   playerBrain: {fileID: 577711697}
   startingMask: {fileID: 11400000, guid: 9176027255e08b341bf8efac4adfafa8, type: 2}
   testMasks:
-  - {fileID: 11400000, guid: 30760b52bf6908148a8e969d7ac1251f, type: 2}
+  - {fileID: 11400000, guid: 3d50c35c2d049984497f1a569ec2218b, type: 2}
   - {fileID: 11400000, guid: 30760b52bf6908148a8e969d7ac1251f, type: 2}
   - {fileID: 11400000, guid: 30760b52bf6908148a8e969d7ac1251f, type: 2}
   - {fileID: 11400000, guid: 30760b52bf6908148a8e969d7ac1251f, type: 2}
@@ -1306,6 +1306,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 30760b52bf6908148a8e969d7ac1251f, type: 2}
   allProfiles:
   - {fileID: 11400000, guid: 9176027255e08b341bf8efac4adfafa8, type: 2}
+  - {fileID: 11400000, guid: 3d50c35c2d049984497f1a569ec2218b, type: 2}
   - {fileID: 11400000, guid: 30760b52bf6908148a8e969d7ac1251f, type: 2}
 --- !u!4 &463251420
 Transform:
@@ -3223,10 +3224,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 463251420}
     m_Modifications:
-    - target: {fileID: 220105773415241402, guid: e490318474d7ed64fa0dd4389aca11ca, type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4294967295
-      objectReference: {fileID: 0}
     - target: {fileID: 310975967591340736, guid: e490318474d7ed64fa0dd4389aca11ca, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -3608,8 +3605,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3938541252760000543, guid: e490318474d7ed64fa0dd4389aca11ca, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -14.900024
+      propertyPath: m_LocalPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4319387227629614060, guid: e490318474d7ed64fa0dd4389aca11ca, type: 3}
       propertyPath: m_AnchorMax.y
@@ -3689,7 +3686,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5048869906557661114, guid: e490318474d7ed64fa0dd4389aca11ca, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -14.299988
+      value: -7.299988
       objectReference: {fileID: 0}
     - target: {fileID: 5061235724089993451, guid: e490318474d7ed64fa0dd4389aca11ca, type: 3}
       propertyPath: m_AnchorMax.y
@@ -3885,7 +3882,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6778424350497545503, guid: e490318474d7ed64fa0dd4389aca11ca, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000015258789
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6812897742683455190, guid: e490318474d7ed64fa0dd4389aca11ca, type: 3}
       propertyPath: m_AnchorMax.y
@@ -3973,10 +3970,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7292721763931968946, guid: e490318474d7ed64fa0dd4389aca11ca, type: 3}
       propertyPath: m_Size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7292721763931968946, guid: e490318474d7ed64fa0dd4389aca11ca, type: 3}
-      propertyPath: m_Value
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7544218078085410762, guid: e490318474d7ed64fa0dd4389aca11ca, type: 3}

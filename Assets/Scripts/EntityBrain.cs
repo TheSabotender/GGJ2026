@@ -2,6 +2,12 @@ using UnityEngine;
 
 public class EntityBrain : MonoBehaviour
 {
+    public const string ANIMATOR_IDLE = "Idle";
+    public const string ANIMATOR_WALK = "Walk";
+    public const string ANIMATOR_GO_UP = "GoUp";
+    public const string ANIMATOR_GO_DOWN = "GoDown";
+    public const string ANIMATOR_DEATH = "Death";
+
     [SerializeField]
     protected EntityMotor currentMotor = null;
 
@@ -32,6 +38,11 @@ public class EntityBrain : MonoBehaviour
 
         if (cachedCollider == null)
             cachedCollider = gameObject.AddComponent<BoxCollider>();
+    }
+
+    public virtual void PlayAnimation(string triggerName)
+    {
+        
     }
 
     private void OnDrawGizmos()

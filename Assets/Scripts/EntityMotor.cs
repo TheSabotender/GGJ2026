@@ -10,16 +10,30 @@ public class EntityMotor : ScriptableObject
     // Units per second
     [SerializeField] private float depthTransitionSpeed = 5f;
 
+    protected float HorizontalDelta;
+
     public virtual void MoveHorizontal(EntityBrain brain, float input)
     {
-        if (Mathf.Approximately(input, 0f))
+        if (brain.DepthTransitionRoutine != null)
             return;
+
+        HorizontalDelta = input;
+        if (Mathf.Abs(HorizontalDelta) < 0.01f)
+            brain.PlayAnimation(EntityBrain.ANIMATOR_IDLE);
+        else
+            brain.PlayAnimation(EntityBrain.ANIMATOR_WALK);
+
+        //if (Mathf.Approximately(input, 0f))
+        //    return;
 
         if (brain.Rigidbody == null)
             return;
 
-        Vector3 force = new Vector3(input * moveSpeed, 0f, 0f);
-        brain.Rigidbody.AddForce(force, ForceMode.Acceleration);
+        //Vector3 force = new Vector3(input * moveSpeed, 0f, 0f);
+        //brain.Rigidbody.AddForce(force, ForceMode.Acceleration);
+        var v = brain.Rigidbody.linearVelocity;
+        v.x = input * moveSpeed;
+        brain.Rigidbody.linearVelocity = v;
     }
 
     public virtual void MoveDepth(EntityBrain brain, float input)
@@ -75,6 +89,8 @@ public class EntityMotor : ScriptableObject
             yield break;
         }
 
+        brain.PlayAnimation(fromZ < toZ ? EntityBrain.ANIMATOR_GO_UP : EntityBrain.ANIMATOR_GO_DOWN);
+
         float t = 0f;
         while (t < duration)
         {
@@ -92,6 +108,10 @@ public class EntityMotor : ScriptableObject
         var finalPos = brain.transform.position;
         finalPos.z = toZ;
         brain.transform.position = finalPos;
+        if (Mathf.Abs(HorizontalDelta) < 0.01f)
+            brain.PlayAnimation(EntityBrain.ANIMATOR_IDLE);
+        else
+            brain.PlayAnimation(EntityBrain.ANIMATOR_WALK);
 
         brain.DepthTransitionRoutine = null;
     }

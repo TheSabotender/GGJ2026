@@ -116,12 +116,11 @@ public class PlayerBrain : EntityBrain
         }
     }
 
-    public void PlayAnimation(string triggerName)
+    public override void PlayAnimation(string state)
     {
         if (currentMask?.animator == null)
             return;
-
-        currentMask.animator.SetTrigger(triggerName);
+        currentMask.animator.Play(state, 0);
     }
 
     public void SwapMask(MaskState mask, CharacterProfile profile, bool force = false)
@@ -152,8 +151,7 @@ public class PlayerBrain : EntityBrain
             loadedMasks = new();
 
         //Play death animation of current animator
-        if (currentMask != null)
-            currentMask.animator.SetTrigger("Death");
+        PlayAnimation(ANIMATOR_DEATH);
 
         var newMaskInstance = loadedMasks.FirstOrDefault(m => m?.profile == profile);
         if (newMaskInstance == null)
@@ -167,7 +165,7 @@ public class PlayerBrain : EntityBrain
 
         //Play death animation of new animator
         newMaskInstance.instance.gameObject.SetActive(true);
-        newMaskInstance.animator.SetTrigger("Death");
+        newMaskInstance.animator.SetTrigger(ANIMATOR_DEATH);
 
         TendrilManager.SpreadTendrils();
 
@@ -189,9 +187,10 @@ public class PlayerBrain : EntityBrain
         if (currentMask != null)
             currentMask.instance.gameObject.SetActive(false);
 
-        newMaskInstance.instance.Material.SetFloat("_Dissolve", 1);
-        newMaskInstance.animator.SetTrigger("Idle");
         currentMask = newMaskInstance;
+        currentMask.instance.Material.SetFloat("_Dissolve", 1);
+        PlayAnimation(ANIMATOR_IDLE);
+        
 
         SwapMotor(profile.motor);
     }
