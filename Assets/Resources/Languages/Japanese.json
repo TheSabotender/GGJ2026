@@ -83,6 +83,98 @@
     {
       "Key": "credits-aiBody",
       "Value": "AI をコードの支援に使用しました"
+    },
+    {
+      "Key": "menu-save",
+      "Value": "セーブ"
+    },
+    {
+      "Key": "menu-load",
+      "Value": "ロード"
+    },
+    {
+      "Key": "menu-delete",
+      "Value": "削除"
+    },
+    {
+      "Key": "clearance-alien",
+      "Value": "レッドアラート"
+    },
+    {
+      "Key": "clearance-wanted",
+      "Value": "指名手配"
+    },
+    {
+      "Key": "clearance-disliked",
+      "Value": "不人気"
+    },
+    {
+      "Key": "clearance-civilian",
+      "Value": "民間人"
+    },
+    {
+      "Key": "clearance-employee",
+      "Value": "従業員"
+    },
+    {
+      "Key": "clearance-valued",
+      "Value": "高評価"
+    },
+    {
+      "Key": "clearance-official",
+      "Value": "公式"
+    },
+    {
+      "Key": "clearance-executive",
+      "Value": "幹部"
+    },
+    {
+      "Key": "job-noJob",
+      "Value": "無職"
+    },
+    {
+      "Key": "job-scientist",
+      "Value": "科学者"
+    },
+    {
+      "Key": "job-security",
+      "Value": "警備"
+    },
+    {
+      "Key": "job-medical",
+      "Value": "医療"
+    },
+    {
+      "Key": "job-admin",
+      "Value": "事務"
+    },
+    {
+      "Key": "job-maintenance",
+      "Value": "保守"
+    },
+    {
+      "Key": "interest-none",
+      "Value": "なし"
+    },
+    {
+      "Key": "interest-tech",
+      "Value": "技術"
+    },
+    {
+      "Key": "interest-engineer",
+      "Value": "工学"
+    },
+    {
+      "Key": "interest-alcohol",
+      "Value": "アルコール"
+    },
+    {
+      "Key": "interest-lust",
+      "Value": "欲望"
+    },
+    {
+      "Key": "interest-money",
+      "Value": "金"
     }
   ]
 }

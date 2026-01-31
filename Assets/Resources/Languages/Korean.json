@@ -83,6 +83,98 @@
     {
       "Key": "credits-aiBody",
       "Value": "코드 지원을 위해 AI를 사용했습니다"
+    },
+    {
+      "Key": "menu-save",
+      "Value": "저장"
+    },
+    {
+      "Key": "menu-load",
+      "Value": "불러오기"
+    },
+    {
+      "Key": "menu-delete",
+      "Value": "삭제"
+    },
+    {
+      "Key": "clearance-alien",
+      "Value": "적색 경보"
+    },
+    {
+      "Key": "clearance-wanted",
+      "Value": "지명수배"
+    },
+    {
+      "Key": "clearance-disliked",
+      "Value": "비호감"
+    },
+    {
+      "Key": "clearance-civilian",
+      "Value": "민간인"
+    },
+    {
+      "Key": "clearance-employee",
+      "Value": "직원"
+    },
+    {
+      "Key": "clearance-valued",
+      "Value": "중요 인물"
+    },
+    {
+      "Key": "clearance-official",
+      "Value": "공식"
+    },
+    {
+      "Key": "clearance-executive",
+      "Value": "임원"
+    },
+    {
+      "Key": "job-noJob",
+      "Value": "무직"
+    },
+    {
+      "Key": "job-scientist",
+      "Value": "과학자"
+    },
+    {
+      "Key": "job-security",
+      "Value": "보안"
+    },
+    {
+      "Key": "job-medical",
+      "Value": "의료"
+    },
+    {
+      "Key": "job-admin",
+      "Value": "행정"
+    },
+    {
+      "Key": "job-maintenance",
+      "Value": "정비"
+    },
+    {
+      "Key": "interest-none",
+      "Value": "없음"
+    },
+    {
+      "Key": "interest-tech",
+      "Value": "기술"
+    },
+    {
+      "Key": "interest-engineer",
+      "Value": "공학"
+    },
+    {
+      "Key": "interest-alcohol",
+      "Value": "알코올"
+    },
+    {
+      "Key": "interest-lust",
+      "Value": "욕망"
+    },
+    {
+      "Key": "interest-money",
+      "Value": "돈"
     }
   ]
 }
