@@ -41,14 +41,14 @@ public class MaskDetailPanel : MonoBehaviour
         characterName.text = currentProfile.characterName;
 
         if (LocalizationManager.TryGetValue("job-" + currentProfile.field.ToString().ToLower(), out var localizedField))
-            field.text += localizedField;
+            field.text = localizedField;
         else
             field.text = currentProfile.field.ToString();
 
         if (LocalizationManager.TryGetValue("clearance-" + currentProfile.securityClearance.ToString().ToLower(), out var localizedClearance))
-            securityClearance.text += localizedClearance;
+            securityClearance.text = localizedClearance;
         else
-            securityClearance.text = currentProfile.securityClearance.ToString().ToLower();
+            securityClearance.text = currentProfile.securityClearance.ToString();
         
         description.text = currentProfile.description;
 
