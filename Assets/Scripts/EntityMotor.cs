@@ -12,25 +12,31 @@ public class EntityMotor : ScriptableObject
 
     protected float HorizontalDelta;
 
-    public virtual void MoveHorizontal(EntityBrain brain, float input)
+    public virtual void MoveHorizontal(EntityBrain brain, float input, bool isGrounded)
     {
         if (brain.DepthTransitionRoutine != null)
             return;
 
         HorizontalDelta = input;
         if (Mathf.Abs(HorizontalDelta) < 0.01f)
+        {
             brain.PlayAnimation(EntityBrain.ANIMATOR_IDLE);
+        }
         else
+        {
             brain.PlayAnimation(EntityBrain.ANIMATOR_WALK);
-
-        //if (Mathf.Approximately(input, 0f))
-        //    return;
+            brain.transform.forward = (input > 0f) ? Vector3.forward : Vector3.back;
+        }
 
         if (brain.Rigidbody == null)
             return;
 
         //Vector3 force = new Vector3(input * moveSpeed, 0f, 0f);
         //brain.Rigidbody.AddForce(force, ForceMode.Acceleration);
+
+        if (!isGrounded)
+            return; 
+
         var v = brain.Rigidbody.linearVelocity;
         v.x = input * moveSpeed;
         brain.Rigidbody.linearVelocity = v;

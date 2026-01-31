@@ -79,10 +79,12 @@ public class PlayerBrain : EntityBrain
 
     private void HandleMovement()
     {
+        var isGrounded = IsGrounded();
+
         if (moveAction != null && moveAction.action != null)
         {
             Vector2 moveInput = moveAction.action.ReadValue<Vector2>();
-            currentMotor.MoveHorizontal(this, moveInput.x);
+            currentMotor.MoveHorizontal(this, moveInput.x, isGrounded);
             currentMotor.MoveDepth(this, moveInput.y);
         }
 
@@ -91,7 +93,7 @@ public class PlayerBrain : EntityBrain
             bool jumpPressed = jumpAction.action.IsPressed();
             if (jumpPressed && !isJumpHeld)
             {
-                currentMotor.Jump(this, IsGrounded());
+                currentMotor.Jump(this, isGrounded);
             }
             else if (!jumpPressed && isJumpHeld && currentMotor is AlienMotor)
             {
