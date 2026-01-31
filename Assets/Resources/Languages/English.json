@@ -145,7 +145,7 @@
       "Value": "Medical"
     },
     {
-      "Key": "job-admin",
+      "Key": "job-administrator",
       "Value": "Administrative"
     },
     {
@@ -157,11 +157,11 @@
       "Value": "None"
     },
     {
-      "Key": "interest-tech",
+      "Key": "interest-technology",
       "Value": "Technology"
     },
     {
-      "Key": "interest-engineer",
+      "Key": "interest-engineering",
       "Value": "Engineering"
     },
     {

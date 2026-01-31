@@ -145,7 +145,7 @@
       "Value": "医療"
     },
     {
-      "Key": "job-admin",
+      "Key": "job-administrator",
       "Value": "事務"
     },
     {
@@ -157,11 +157,11 @@
       "Value": "なし"
     },
     {
-      "Key": "interest-tech",
+      "Key": "interest-technology",
       "Value": "技術"
     },
     {
-      "Key": "interest-engineer",
+      "Key": "interest-engineering",
       "Value": "工学"
     },
     {
