@@ -1,11 +1,14 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.VFX;
+using System.Collections;
 
 public static class Util
 {
     private static Camera mainCam;
     private static PlayerBrain playerBrain;
     private static InputDevice lastDevice;
+    private static UtilCoroutineRunner coroutineRunner;
 
     private static void EnsureReferences()
     {
@@ -13,6 +16,45 @@ public static class Util
             mainCam = Camera.main;
         if (playerBrain == null)
             playerBrain = GameManager.PlayerBrain;
+    }
+
+    private static void EnsureCoroutineRunner()
+    {
+        if (coroutineRunner != null)
+            return;
+
+        var runnerObject = new GameObject("UtilCoroutineRunner");
+        Object.DontDestroyOnLoad(runnerObject);
+        coroutineRunner = runnerObject.AddComponent<UtilCoroutineRunner>();
+    }
+
+    public static void SpawnOneShotVfx(GameObject vfxPrefab, Vector3 position)
+    {
+        if (vfxPrefab == null)
+            return;
+
+        EnsureCoroutineRunner();
+        coroutineRunner.StartCoroutine(SpawnOneShotVfxRoutine(vfxPrefab, position));
+    }
+
+    private static IEnumerator SpawnOneShotVfxRoutine(GameObject vfxPrefab, Vector3 position)
+    {
+        var instance = Object.Instantiate(vfxPrefab, position, Quaternion.identity);
+        var vfx = instance.GetComponent<VisualEffect>();
+        if (vfx == null)
+        {
+            Object.Destroy(instance);
+            yield break;
+        }
+
+        while (vfx != null && vfx.aliveParticleCount <= 0)
+            yield return null;
+
+        while (vfx != null && vfx.aliveParticleCount > 0)
+            yield return null;
+
+        if (instance != null)
+            Object.Destroy(instance);
     }
 
     public static bool TryGetAimWorldPoint(InputActionReference mouseAction, out Vector3 aimWorld)
@@ -70,5 +112,9 @@ public static class Util
             nearestLaneZ
         );
         return true;
+    }
+
+    private sealed class UtilCoroutineRunner : MonoBehaviour
+    {
     }
 }
