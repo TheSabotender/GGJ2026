@@ -145,7 +145,7 @@
       "Value": "Medicinsk"
     },
     {
-      "Key": "job-admin",
+      "Key": "job-administrator",
       "Value": "Administrativ"
     },
     {
@@ -157,11 +157,11 @@
       "Value": "Ingen"
     },
     {
-      "Key": "interest-tech",
+      "Key": "interest-technology",
       "Value": "Teknologi"
     },
     {
-      "Key": "interest-engineer",
+      "Key": "interest-engineering",
       "Value": "Ingenjörskonst"
     },
     {

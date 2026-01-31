@@ -145,7 +145,7 @@
       "Value": "의료"
     },
     {
-      "Key": "job-admin",
+      "Key": "job-administrator",
       "Value": "행정"
     },
     {
@@ -157,11 +157,11 @@
       "Value": "없음"
     },
     {
-      "Key": "interest-tech",
+      "Key": "interest-technology",
       "Value": "기술"
     },
     {
-      "Key": "interest-engineer",
+      "Key": "interest-engineering",
       "Value": "공학"
     },
     {

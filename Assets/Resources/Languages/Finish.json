@@ -145,7 +145,7 @@
       "Value": "Lääketieteellinen"
     },
     {
-      "Key": "job-admin",
+      "Key": "job-administrator",
       "Value": "Hallinnollinen"
     },
     {
@@ -157,11 +157,11 @@
       "Value": "Ei mitään"
     },
     {
-      "Key": "interest-tech",
+      "Key": "interest-technology",
       "Value": "Teknologia"
     },
     {
-      "Key": "interest-engineer",
+      "Key": "interest-engineering",
       "Value": "Insinööritiede"
     },
     {
