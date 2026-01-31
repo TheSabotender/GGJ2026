@@ -40,15 +40,15 @@ public class MaskDetailPanel : MonoBehaviour
         portrait.sprite = currentProfile.portrait;
         characterName.text = currentProfile.characterName;
 
-        if (LocalizationManager.TryGetValue(currentProfile.field.ToString(), out var localizedField))
+        if (LocalizationManager.TryGetValue("job-" + currentProfile.field.ToString().ToLower(), out var localizedField))
             field.text += localizedField;
         else
             field.text = currentProfile.field.ToString();
 
-        if (LocalizationManager.TryGetValue(currentProfile.securityClearance.ToString(), out var localizedClearance))
+        if (LocalizationManager.TryGetValue("clearance-" + currentProfile.securityClearance.ToString().ToLower(), out var localizedClearance))
             securityClearance.text += localizedClearance;
         else
-            securityClearance.text = currentProfile.securityClearance.ToString();
+            securityClearance.text = currentProfile.securityClearance.ToString().ToLower();
         
         description.text = currentProfile.description;
 
@@ -68,7 +68,7 @@ public class MaskDetailPanel : MonoBehaviour
                 if (l.Length > 0)
                     l += ", ";
 
-                if(LocalizationManager.TryGetValue(flag.ToString(), out var localizedFlag))
+                if(LocalizationManager.TryGetValue("interest-" + flag.ToString().ToLower(), out var localizedFlag))
                     l += localizedFlag;
                 else
                     l += flag.ToString();
