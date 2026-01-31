@@ -46,6 +46,8 @@ public class PlayerBrain : EntityBrain
 
     public TendrilManager TendrilManager => tendrilManager;
 
+    public override Animator Animator => currentMask?.animator;
+
     private bool isJumpHeld = false;
     private bool isCrouchHeld = false;
 
@@ -62,22 +64,7 @@ public class PlayerBrain : EntityBrain
         DisableActions();
     }
 
-    private void Update()
-    {
-        if (GameManager.CurrentGameSave == null)
-            return;
-        if (MenuManager.CurrentScreen != MenuManager.Screen.None)
-            return;
-
-        if (currentMotor == null)
-        {
-            return;
-        }
-
-        HandleMovement();
-    }
-
-    private void HandleMovement()
+    protected override void HandleMovement()
     {
         var isGrounded = IsGrounded();
 
@@ -116,13 +103,6 @@ public class PlayerBrain : EntityBrain
             }
             isCrouchHeld = crouchPressed;
         }
-    }
-
-    public override void PlayAnimation(string state)
-    {
-        if (currentMask?.animator == null)
-            return;
-        currentMask.animator.Play(state, 0);
     }
 
     public void SwapMask(MaskState mask, CharacterProfile profile, bool force = false)

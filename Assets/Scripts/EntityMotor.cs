@@ -12,6 +12,9 @@ public class EntityMotor : ScriptableObject
 
     protected float HorizontalDelta;
 
+    public float MoveSpeed => moveSpeed;
+    public LayerMask LayerMask => layerMask;
+
     public virtual void MoveHorizontal(EntityBrain brain, float input, bool isGrounded)
     {
         if (brain.DepthTransitionRoutine != null)
@@ -52,11 +55,7 @@ public class EntityMotor : ScriptableObject
             return;
 
         // Snap to nearest lane (so tiny drift doesnt compound)
-        float z = brain.transform.position.z;
-        float nearestLaneZ =
-            (Mathf.Abs(z - brain.frontDepthZ) <= Mathf.Abs(z - brain.backDepthZ))
-                ? brain.frontDepthZ
-                : brain.backDepthZ;
+        float nearestLaneZ = GetCurrentLane(brain);
 
         // Apply the snap for real
         var snapped = brain.transform.position;
@@ -66,11 +65,13 @@ public class EntityMotor : ScriptableObject
         // Decide target lane
         float targetZ = nearestLaneZ;
         if (input > 0f)
-            targetZ = brain.backDepthZ;
+            targetZ = GameManager.BackDepthZ;
         else if (input < 0f)
-            targetZ = brain.frontDepthZ;
+            targetZ = GameManager.FrontDepthZ;
 
-        if (Mathf.Approximately(nearestLaneZ, targetZ) || !CanChangeLane(brain))
+        Debug.Log($"Attempting depth change from {nearestLaneZ} to {targetZ}");
+
+        if (Mathf.Approximately(nearestLaneZ, targetZ) || !CanChangeLane(brain, layerMask))
             return;
 
         brain.DepthTransitionRoutine = brain.StartCoroutine(TransitionDepth(brain, nearestLaneZ, targetZ));
@@ -82,6 +83,7 @@ public class EntityMotor : ScriptableObject
     private IEnumerator TransitionDepth(EntityBrain brain, float fromZ, float toZ)
     {
         float distance = Mathf.Abs(fromZ - toZ);
+        Debug.Log($"Transitioning depth from {fromZ} to {toZ}, distance {distance}");
 
         // duration in seconds
         float duration = (depthTransitionSpeed <= 0f) ? 0f : (distance / depthTransitionSpeed);
@@ -122,17 +124,32 @@ public class EntityMotor : ScriptableObject
         brain.DepthTransitionRoutine = null;
     }
 
-    public virtual bool CanChangeLane(EntityBrain brain)
+    public static bool CanChangeLane(EntityBrain brain, LayerMask layerMask)
     {
         float z = brain.transform.position.z;
-        bool isInBackLane = Mathf.Abs(z - brain.frontDepthZ) > Mathf.Abs(z - brain.backDepthZ);
+        bool isInBackLane = Mathf.Abs(z - GameManager.FrontDepthZ) > Mathf.Abs(z - GameManager.BackDepthZ);
 
         var dir = isInBackLane ? Vector3.back : Vector3.forward;
         Ray ray = new Ray(brain.transform.position, dir);
-        var distance = Mathf.Max(brain.frontDepthZ, brain.backDepthZ) - Mathf.Min(brain.frontDepthZ, brain.backDepthZ);
+        var distance = Mathf.Max(GameManager.FrontDepthZ, GameManager.BackDepthZ) - Mathf.Min(GameManager.FrontDepthZ, GameManager.BackDepthZ);
         if (Physics.Raycast(ray, distance, layerMask, QueryTriggerInteraction.Ignore))
             return false;
 
         return true;
+    }
+
+    public static float GetCurrentLane(EntityBrain brain)
+    {
+        return GetLaneFromPosition(brain.transform.position);
+    }
+
+    public static float GetLaneFromPosition(Vector3 position)
+    {
+        float z = position.z;
+        float laneZ =
+            (Mathf.Abs(z - GameManager.FrontDepthZ) <= Mathf.Abs(z - GameManager.BackDepthZ))
+                ? GameManager.FrontDepthZ
+                : GameManager.BackDepthZ;
+        return laneZ;
     }
 }

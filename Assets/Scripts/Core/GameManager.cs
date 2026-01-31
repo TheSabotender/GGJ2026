@@ -23,6 +23,12 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private CharacterProfile[] allProfiles;
 
+    [SerializeField]
+    private float frontDepthZ = -1f;
+
+    [SerializeField]
+    private float backDepthZ = 0f;
+
     private GameSave currentGameSave = null;
 
     public static PlayerBrain PlayerBrain => instance.playerBrain;
@@ -33,6 +39,8 @@ public class GameManager : MonoBehaviour
 
     public static AlertState CurrentAlertState => RegionManager.CurrentRegion.AlertState;
 
+    public static float FrontDepthZ => instance.frontDepthZ;
+    public static float BackDepthZ => instance.backDepthZ;
 
     private void Awake()
     {
@@ -47,11 +55,11 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Keypad1))
+        if (Input.GetKeyDown(KeyCode.Keypad7))
             RegionManager.SetAlertState(AlertState.Normal);
-        if (Input.GetKeyDown(KeyCode.Keypad2))
+        if (Input.GetKeyDown(KeyCode.Keypad8))
             RegionManager.SetAlertState(AlertState.Caution);
-        if (Input.GetKeyDown(KeyCode.Keypad3))
+        if (Input.GetKeyDown(KeyCode.Keypad9))
             RegionManager.SetAlertState(AlertState.Alert);
     }
 
@@ -96,5 +104,15 @@ public class GameManager : MonoBehaviour
         instance.currentGameSave = gameSave;
 
         // TODO: Apply save data to the current game state.
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawLine(new Vector3(transform.position.x - 1f, transform.position.y, frontDepthZ),
+                        new Vector3(transform.position.x + 1f, transform.position.y, frontDepthZ));
+
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawLine(new Vector3(transform.position.x - 1f, transform.position.y, backDepthZ),
+                        new Vector3(transform.position.x + 1f, transform.position.y, backDepthZ));
     }
 }

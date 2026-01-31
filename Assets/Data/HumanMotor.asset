@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ccf3e322c685c94a96f5e3b83dd4266, type: 3}
   m_Name: HumanMotor
   m_EditorClassIdentifier: Assembly-CSharp::HumanMotor
-  moveSpeed: 2.5
+  moveSpeed: 7
   layerMask:
     serializedVersion: 2
     m_Bits: 55
-  depthTransitionSpeed: 5
+  depthTransitionSpeed: 18
   jumpForce: 5
   crouchScale: 0.5

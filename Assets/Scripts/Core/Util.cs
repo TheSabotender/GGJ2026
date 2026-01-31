@@ -32,10 +32,8 @@ public static class Util
 
         // Decide which lane plane we're aiming on
         var brainPos = playerBrain.transform.position;
-        float nearestLaneZ =
-            (Mathf.Abs(brainPos.z - playerBrain.frontDepthZ) <= Mathf.Abs(brainPos.z - playerBrain.backDepthZ))
-                ? playerBrain.frontDepthZ
-                : playerBrain.backDepthZ;
+        float nearestLaneZ = EntityMotor.GetLaneFromPosition(playerBrain.transform.position);
+
 
         // Mouse path: screen -> ray -> plane intersection
         if (lastDevice is Mouse && Mouse.current != null)

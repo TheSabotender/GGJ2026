@@ -6,6 +6,10 @@ public class EntityBrain : MonoBehaviour
     public const string ANIMATOR_WALK = "Walk";
     public const string ANIMATOR_GO_UP = "GoUp";
     public const string ANIMATOR_GO_DOWN = "GoDown";
+    public const string ANIMATOR_CROUCH = "Crouch";
+    public const string ANIMATOR_CROUCHWALK = "CrouchWalk";
+    public const string ANIMATOR_JUMP = "Jump";
+    public const string ANIMATOR_FALL = "Fall";
     public const string ANIMATOR_DEATH = "Death";
 
     [SerializeField]
@@ -18,14 +22,30 @@ public class EntityBrain : MonoBehaviour
     public Rigidbody Rigidbody => cachedRigidbody;
     public Collider Collider => cachedCollider;
 
-    public float frontDepthZ = -1f;
-    public float backDepthZ = 0f;
+    public virtual Animator Animator => null;
+
     public Coroutine DepthTransitionRoutine;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         DepthTransitionRoutine = null;
         EnsurePhysicsComponents();
+    }
+
+    protected virtual void Update()
+    {
+        if (GameManager.CurrentGameSave == null)
+            return;
+        if (MenuManager.CurrentScreen != MenuManager.Screen.None)
+            return;
+        if (currentMotor == null)
+            return;
+        HandleMovement();
+    }
+
+    protected virtual void HandleMovement()
+    {
+
     }
 
     private void EnsurePhysicsComponents()
@@ -40,19 +60,10 @@ public class EntityBrain : MonoBehaviour
             cachedCollider = gameObject.AddComponent<BoxCollider>();
     }
 
-    public virtual void PlayAnimation(string triggerName)
+    public virtual void PlayAnimation(string state)
     {
-        
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawLine(new Vector3(transform.position.x - 1f, transform.position.y, frontDepthZ),
-                        new Vector3(transform.position.x + 1f, transform.position.y, frontDepthZ));
-
-        Gizmos.color = Color.magenta;
-        Gizmos.DrawLine(new Vector3(transform.position.x - 1f, transform.position.y, backDepthZ),
-                        new Vector3(transform.position.x + 1f, transform.position.y, backDepthZ));
+        if (Animator == null)
+            return;
+        Animator.Play(state, 0);
     }
 }
