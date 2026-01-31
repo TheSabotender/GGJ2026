@@ -31,16 +31,16 @@ public class NavigationPath
             //Found a transition area, add transition points
             if (FindTransitionArea(endInThisLane, hit.point, layerMask, out Vector3 tStart, out Vector3 tEnd))
             {
-                Points.Add(tStart - Up);
                 Points.Add(tEnd - Up);
+                Points.Add(tStart - Up);
                 foundTransition = true;
             }
         } else
         {
             if (FindTransitionArea(endInThisLane, start, layerMask, out Vector3 tStart, out Vector3 tEnd))
             {
-                Points.Add(tStart - Up);
                 Points.Add(tEnd - Up);
+                Points.Add(tStart - Up);
                 foundTransition = true;
             }
         }
@@ -55,8 +55,8 @@ public class NavigationPath
                 //Found a transition area, add transition points
                 if (FindTransitionArea(endInThisLane, hitOther.point, layerMask, out Vector3 tStart, out Vector3 tEnd))
                 {
-                    Points.Add(tStart - Up);
                     Points.Add(tEnd - Up);
+                    Points.Add(tStart - Up);
                     foundTransition = true;
                 }
             }
@@ -64,8 +64,8 @@ public class NavigationPath
             {
                 if (FindTransitionArea(endInThisLane, endInThisLane + (Vector3.left * direction * 10f), layerMask, out Vector3 tStart, out Vector3 tEnd))
                 {
-                    Points.Add(tStart - Up);
                     Points.Add(tEnd - Up);
+                    Points.Add(tStart - Up);
                     foundTransition = true;
                 }
             }
