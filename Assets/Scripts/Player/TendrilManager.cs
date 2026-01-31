@@ -1,5 +1,7 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.VFX;
+using UnityEngine.Windows;
 
 public partial class TendrilManager : MonoBehaviour
 {
@@ -7,6 +9,8 @@ public partial class TendrilManager : MonoBehaviour
     [SerializeField] private Rope ropePrefab;
     [SerializeField] private PlayerBrain playerBrain = null;
     [SerializeField] private LayerMask tendrilLayerMask;
+    [SerializeField] private float eatDistance = 1f;
+    [SerializeField] private VisualEffect eatVFXPrefab;
 
     private Camera mainCam;
 
@@ -21,7 +25,7 @@ public partial class TendrilManager : MonoBehaviour
         UpdateFloorTendrils();
     }
 
-    bool GetTendrilHit(Vector3 targetWorld, float maxLength, out Vector3 hit)
+    bool GetTendrilHit(Vector3 targetWorld, float maxLength, out GameObject hitObject, out Vector3 hit)
     {
         Vector3 origin = tendrilParent.position;
         Vector3 dir = (targetWorld - origin);
@@ -34,17 +38,22 @@ public partial class TendrilManager : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit rayHit, maxLength, tendrilLayerMask, QueryTriggerInteraction.Ignore))
         {
+            hitObject = rayHit.collider.gameObject;
             hit = rayHit.point;
             return true;
         }
 
+        hitObject = null;
         hit = ray.GetPoint(maxLength);
         return false;
     }
 
-    private IEnumerator Latch(Rope rope, Vector3 target, Vector2 tendrilSpeed, float tendrilStrength, float tendrilElasticity)
+    private IEnumerator Latch(Rope rope, Vector3 target, Vector2 tendrilSpeed, float tendrilStrength, float tendrilElasticity, GameObject hitObject, bool isSpider)
     {
         var playerBrain = GameManager.PlayerBrain;
+
+        var hitRigidbody = hitObject != null ? hitObject.GetComponent<Rigidbody>() : null;
+        var hitOffset = hitRigidbody != null ? hitRigidbody.position - target : Vector3.zero;
 
         float distance = Vector3.Distance(tendrilParent.position, target);
         float extendDuration = distance / tendrilSpeed.x;
@@ -65,11 +74,14 @@ public partial class TendrilManager : MonoBehaviour
                 Vector3 pullDirection = (target - rope.StartPoint).normalized;
                 //Vector3 pullDirection = (rope.NextPoint - rope.StartPoint).normalized;
                 playerBrain.Rigidbody.AddForce(pullDirection * tendrilStrength, ForceMode.Acceleration);
+
+                if (hitRigidbody != null)
+                    hitRigidbody.AddForce(-pullDirection * tendrilStrength, ForceMode.Force);
             }
             yield return null;
         }
 
-        while (TendrilManager.isHoldingTendril)
+        while ((isSpider && isHoldingSpider) || (!isSpider && isHoldingTendril))
         {
             rope.StartPoint = tendrilParent.position;
             rope.EndPoint = target;
@@ -79,6 +91,43 @@ public partial class TendrilManager : MonoBehaviour
                 Vector3 pullDirection = (target - rope.StartPoint).normalized;
                 //Vector3 pullDirection = (rope.NextPoint - rope.StartPoint).normalized;
                 playerBrain.Rigidbody.AddForce(pullDirection * tendrilStrength, ForceMode.Acceleration);
+                playerBrain.transform.forward = (pullDirection.x > 0f) ? Vector3.forward : Vector3.back;
+
+                if (hitRigidbody != null)
+                {
+                    hitRigidbody.AddForce(-pullDirection * tendrilStrength, ForceMode.Acceleration);
+                    target = hitRigidbody.position + hitOffset;
+                    rope.EndPoint = target;
+                }
+
+                if (hitObject != null)
+                {
+                    var npc = hitObject.GetComponent<AIBrain>();
+                    var distanceToPlayer = Vector3.Distance(playerBrain.transform.position, hitObject.transform.position);
+                    if (npc != null && distanceToPlayer <= eatDistance)
+                    {
+                        var npcMask = npc.profile;
+
+                        if (npc.IsAlive)
+                            Util.SpawnOneShotVfx(eatVFXPrefab, target);
+                        npc.Kill();
+
+                        var isBeingObserved = playerBrain.ObservationManager.ObserverCount > 0;
+                        if (isBeingObserved)
+                        {
+                            RegionManager.CurrentRegion.SetAlertState(GameManager.AlertState.Alert);
+                        }
+
+                        var maskState = new MaskState()
+                        {
+                            guid = npcMask.Guid,
+                            status = isBeingObserved ? MaskStatus.Compromised : MaskStatus.Fresh
+                        };
+
+                        GameManager.PlayerBrain.AddMask(npcMask);
+                        ReleaseTendril();
+                    }
+                }
             }
             yield return null;
         }
@@ -141,7 +190,7 @@ public partial class TendrilManager : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(aimWorld, 0.5f);
 
-        bool hit = GetTendrilHit(aimWorld, tendrilLength, out Vector3 tendrilEnd);
+        bool hit = GetTendrilHit(aimWorld, tendrilLength, out _, out Vector3 tendrilEnd);
         Gizmos.color = hit ? Color.green : Color.red;
         Gizmos.DrawLine(tendrilParent.position, tendrilEnd);
     }

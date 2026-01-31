@@ -24,11 +24,21 @@ public partial class TendrilManager : MonoBehaviour
         for (int i = 0; i < tendrilCount; i++)
         {
             var random = new Vector3(Random.Range(-tendrilScatter, tendrilScatter), Random.Range(-tendrilScatter, tendrilScatter), 0);
-            var hit = GetTendrilHit(aimWorld + random, tendrilLength, out Vector3 tendrilEnd);
+            var hit = GetTendrilHit(aimWorld + random, tendrilLength, out GameObject hitObject, out Vector3 tendrilEnd);
             var rope = Instantiate(ropePrefab, tendrilParent);
 
+            if (hitObject != null)
+            {
+                var damageable = hitObject.GetComponent<Damageable>();
+                if (damageable != null)
+                {
+                    damageable.TakeDamage();
+                    hit = false; // Tendril doesn't latch if it just damages
+                }
+            }
+
             if (hit)
-                rope.StartCoroutine(Latch(rope, tendrilEnd, tendrilSpeed, tendrilStrength / tendrilCount, tendrilElasticity));
+                rope.StartCoroutine(Latch(rope, tendrilEnd, tendrilSpeed, tendrilStrength / tendrilCount, tendrilElasticity, hitObject, isSpider: false));
             else
                 rope.StartCoroutine(Miss(rope, tendrilEnd, tendrilSpeed, tendrilElasticity));
         }

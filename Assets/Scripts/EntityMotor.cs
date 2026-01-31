@@ -34,15 +34,19 @@ public class EntityMotor : ScriptableObject
         if (brain.Rigidbody == null)
             return;
 
-        //Vector3 force = new Vector3(input * moveSpeed, 0f, 0f);
-        //brain.Rigidbody.AddForce(force, ForceMode.Acceleration);
+        
 
-        if (!isGrounded)
-            return; 
-
-        var v = brain.Rigidbody.linearVelocity;
-        v.x = input * moveSpeed;
-        brain.Rigidbody.linearVelocity = v;
+        if (isGrounded)
+        {
+            var v = brain.Rigidbody.linearVelocity;
+            v.x = input * moveSpeed;
+            brain.Rigidbody.linearVelocity = v;
+        }
+        else
+        {
+            Vector3 force = new Vector3(input * moveSpeed, 0f, 0f);
+            brain.Rigidbody.AddForce(force, ForceMode.Acceleration);
+        }
     }
 
     public virtual void MoveDepth(EntityBrain brain, float input)

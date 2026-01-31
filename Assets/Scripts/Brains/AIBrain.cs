@@ -6,15 +6,19 @@ using static GameManager;
 
 public class AIBrain : EntityBrain
 {
+    public CharacterProfile profile;
     public Animator animator;
-
+    
     public Vector3 lastKnownPlayerPos;
     public bool canSeeAlien;
     public bool canSeePanic;
+    public bool isDying;
 
     [Header("Plug in per-type behavior")]
     public MonoBehaviour behaviorComponent; // assign CivilianAlert, ScientistAlert, GuardAlert
     IBehavior alertBehavior;
+
+    public bool IsAlive => !isDying;
 
     public override Animator Animator => animator;
 
@@ -28,6 +32,8 @@ public class AIBrain : EntityBrain
 
     protected override void Update()
     {
+        if (isDying)
+            return;
         if (GameManager.CurrentGameSave == null)
             return;
         if (MenuManager.CurrentScreen != MenuManager.Screen.None)
@@ -43,11 +49,11 @@ public class AIBrain : EntityBrain
             if (canSeeAlien) alertBehavior.OnSeeAlien(this);
         }
 
-        var seePanic = LookForPanic();
+        var seePanic = LookForPanic(out AIBrain triggeringEntity);
         if (seePanic != canSeePanic)
         {
             canSeePanic = seePanic;
-            if (canSeePanic) alertBehavior.OnSeePanic(this);
+            if (canSeePanic) alertBehavior.OnSeePanic(this, triggeringEntity);
         }
 
         // Example: perception updates lastKnownPlayerPos when player seen
@@ -117,6 +123,39 @@ public class AIBrain : EntityBrain
         movementCoroutine = null;
     }
 
+    public void Kill()
+    {
+        if (isDying)
+            return;
+
+        EnsurePhysicsComponents();
+
+        isDying = true;
+        GameManager.PlayerBrain.ObservationManager.RemoveObserver(this);
+
+        // Disable motor, etc.
+        if (Collider != null)
+            Collider.isTrigger = true;
+        if (movementCoroutine != null)
+            StopCoroutine(movementCoroutine);
+        currentMotor.MoveHorizontal(this, 0f, true);
+        currentMotor = null;
+
+        // Additional death logic here
+        StartCoroutine(DeathRoutine());
+    }
+
+    private IEnumerator DeathRoutine()
+    {
+        // Visuals
+        PlayAnimation(ANIMATOR_DEATH);
+
+        // Wait for animation to finish
+        yield return new WaitForSeconds(3f);
+
+        Destroy(gameObject);
+    }
+
     bool LookForAlien()
     {
         if (CanSeePlayer())
@@ -127,16 +166,17 @@ public class AIBrain : EntityBrain
         return false;
     }
 
-    bool LookForPanic()
+    bool LookForPanic(out AIBrain triggeringEntity)
     {
         // Check if we can see any panicking NPCs nearby
+        triggeringEntity = null;
         return false;
     }
 
     bool CanSeePlayer()
     {
-        // Implement line-of-sight logic here
-        var player = GameManager.PlayerBrain.transform;
-        return false;
+        if (GameManager.PlayerBrain == null)
+            return false;
+        return GameManager.PlayerBrain.ObservationManager.CheckIfBeingObserved(this);
     }
 }

@@ -5,9 +5,11 @@ public partial class TendrilManager : MonoBehaviour
     [Header("Spider Tendrils")]
     public int spiderTendrilCount = 8;
 
+    private bool isHoldingSpider;
+
     public void SpreadTendrils()
     {
-        isHoldingTendril = true;
+        isHoldingSpider = true;
 
         for (int i = 0; i < spiderTendrilCount; i++)
         {
@@ -16,11 +18,11 @@ public partial class TendrilManager : MonoBehaviour
             var aimWorld = tendrilParent.position + direction * tendrilLength;
 
             var random = new Vector3(Random.Range(-tendrilScatter, tendrilScatter), Random.Range(-tendrilScatter, tendrilScatter), 0);
-            var hit = GetTendrilHit(aimWorld + random, tendrilLength, out Vector3 tendrilEnd);
+            var hit = GetTendrilHit(aimWorld + random, tendrilLength, out _, out Vector3 tendrilEnd);
             var rope = Instantiate(ropePrefab, tendrilParent);
 
             if (hit)
-                rope.StartCoroutine(Latch(rope, tendrilEnd, tendrilSpeed, tendrilStrength / tendrilCount, tendrilElasticity));
+                rope.StartCoroutine(Latch(rope, tendrilEnd, tendrilSpeed, tendrilStrength / tendrilCount, tendrilElasticity, null, isSpider: true));
             else
                 rope.StartCoroutine(Miss(rope, tendrilEnd, tendrilSpeed, tendrilElasticity));
         }
@@ -28,6 +30,6 @@ public partial class TendrilManager : MonoBehaviour
 
     public void ReleaseSpread()
     {
-        isHoldingTendril = false;
+        isHoldingSpider = false;
     }
 }

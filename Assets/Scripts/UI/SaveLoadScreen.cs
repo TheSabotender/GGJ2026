@@ -17,6 +17,7 @@ public class SaveLoadScreen : SubMenu
 
     public SaveDisplay saveDisplayPrefab;
     public Transform saveContainer;
+    public SaveDisplay selectedSaveDisplay;
 
     public Button saveButton;
     public Button loadButton;
@@ -34,6 +35,7 @@ public class SaveLoadScreen : SubMenu
     public void SelectSave(GameSave save)
     {
         selectedSave = save;
+        selectedSaveDisplay.Setup(save, null);
     }
 
     public void OnSavePressed()
@@ -56,7 +58,7 @@ public class SaveLoadScreen : SubMenu
             currentSave.SaveName = selectedSave.SaveName;
         }
 
-        currentSave.DateTime = DateTime.Now.ToString("G");
+        currentSave.LastSaveTime = DateTime.Now.ToString("G");
         SaveManager.Save(currentSave, humanReadable: true);
         PopulateSaves();
     }

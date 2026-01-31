@@ -15,12 +15,16 @@ public class EntityBrain : MonoBehaviour
     [SerializeField]
     protected EntityMotor currentMotor = null;
 
+    [SerializeField]
+    protected Transform eyes;
+
     protected Rigidbody cachedRigidbody;
     protected Collider cachedCollider;
 
     public EntityMotor CurrentMotor => currentMotor;
     public Rigidbody Rigidbody => cachedRigidbody;
     public Collider Collider => cachedCollider;
+    public Transform GetEyesTransform() => eyes;
 
     public virtual Animator Animator => null;
 
@@ -48,7 +52,7 @@ public class EntityBrain : MonoBehaviour
 
     }
 
-    private void EnsurePhysicsComponents()
+    protected void EnsurePhysicsComponents()
     {
         cachedRigidbody = GetComponent<Rigidbody>();
         cachedCollider = GetComponent<Collider>();

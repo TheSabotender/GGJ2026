@@ -8,7 +8,7 @@ public class GameSave
     //Metadata about the save
     public string SaveName;
     public string StartDateTime;
-    public string DateTime;
+    public string LastSaveTime;
     public string GameVersion;
 
     //Player data
@@ -16,6 +16,9 @@ public class GameSave
     public int CurrentMask;
     public int MasksCollected;
 
+    public TimeSpan Playtime => System.DateTime.TryParse(LastSaveTime, out var saveDateTime) && System.DateTime.TryParse(StartDateTime, out var startDateTime)
+        ? saveDateTime - startDateTime
+        : TimeSpan.Zero;
     public CharacterProfile CurrentProfile => GameManager.AllProfiles.FirstOrDefault(p => p.Guid == Masks[CurrentMask].guid);
 }
 

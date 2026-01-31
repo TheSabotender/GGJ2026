@@ -7,21 +7,21 @@ public class NavTestBrain : EntityBrain
 {
     private Coroutine movementCoroutine;
 
-    private void Update()
+    protected override void Update()
     {
         if (Input.GetKeyDown(KeyCode.Keypad1))
-            GoToLocation(new Vector3(0f, 0f, 0f), false);
+            GoToLocation(new Vector3(0f, 0.5f, 0f), false);
         if (Input.GetKeyDown(KeyCode.Keypad2))
-            GoToLocation(new Vector3(3f, 0f, 0f), false);
+            GoToLocation(new Vector3(-3f, 0.5f, 0f), false);
         if (Input.GetKeyDown(KeyCode.Keypad3))
-            GoToLocation(new Vector3(6f, 0f, 0f), false);
+            GoToLocation(new Vector3(-6f, 0.5f, 0f), false);
 
         if (Input.GetKeyDown(KeyCode.Keypad4))
-            GoToLocation(new Vector3(0f, 0f, -5f), false);
+            GoToLocation(new Vector3(0f, 0.5f, -5f), false);
         if (Input.GetKeyDown(KeyCode.Keypad5))
-            GoToLocation(new Vector3(3f, 0f, -5f), false);
+            GoToLocation(new Vector3(-3f, 0.5f, -5f), false);
         if (Input.GetKeyDown(KeyCode.Keypad6))
-            GoToLocation(new Vector3(6f, 0f, -5f), false);
+            GoToLocation(new Vector3(-6f, 0.5f, -5f), false);
     }
 
     public void GoToLocation(Vector3 destination, bool isUrgent)
@@ -33,9 +33,6 @@ public class NavTestBrain : EntityBrain
 
     private IEnumerator MoveToRoutine(Vector3 destination, bool isUrgent)
     {
-        var currentLaneZ = EntityMotor.GetCurrentLane(this);
-        var destinationLaneZ = EntityMotor.GetLaneFromPosition(destination);
-
         var path = new NavigationPath(transform.position, destination, 1, currentMotor.LayerMask);
 
         // Follow the path points
@@ -53,7 +50,7 @@ public class NavTestBrain : EntityBrain
             var isDepth = Mathf.Abs(targetPoint.z - transform.position.z) > 0.1f;
 
             // Check if we reached the target point
-            if (distance < currentMotor.MoveSpeed || (!isHorizontal && !isDepth))
+            if (distance < 0.1f || (!isHorizontal && !isDepth))
             {
                 // Reached the point
                 lastPoint = nextPoint;

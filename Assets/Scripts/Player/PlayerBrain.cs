@@ -35,6 +35,9 @@ public class PlayerBrain : EntityBrain
     [SerializeField]
     private TendrilManager tendrilManager;
 
+    [SerializeField]
+    private ObservationManager observationManager;
+
     [Header("Ground Check")]
     [SerializeField]
     private float groundCheckDistance = 0.1f;
@@ -45,6 +48,8 @@ public class PlayerBrain : EntityBrain
     public CharacterProfile DefaultProfile => alienProfile;
 
     public TendrilManager TendrilManager => tendrilManager;
+
+    public ObservationManager ObservationManager => observationManager;
 
     public override Animator Animator => currentMask?.animator;
 
@@ -103,6 +108,21 @@ public class PlayerBrain : EntityBrain
             }
             isCrouchHeld = crouchPressed;
         }
+    }
+
+    public void AddMask(CharacterProfile profile)
+    {
+        if (profile == null)
+        {
+            Debug.LogError("Cannot add null profile");
+            return;
+        }
+
+        var mask = new MaskState();
+        mask.guid = profile.Guid;
+
+        if (!GameManager.CurrentGameSave.Masks.Any(m => m.guid == mask.guid))
+            GameManager.CurrentGameSave.Masks.Add(mask);
     }
 
     public void SwapMask(MaskState mask, CharacterProfile profile, bool force = false)

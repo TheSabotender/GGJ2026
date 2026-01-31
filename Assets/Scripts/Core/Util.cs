@@ -28,7 +28,7 @@ public static class Util
         coroutineRunner = runnerObject.AddComponent<UtilCoroutineRunner>();
     }
 
-    public static void SpawnOneShotVfx(GameObject vfxPrefab, Vector3 position)
+    public static void SpawnOneShotVfx(VisualEffect vfxPrefab, Vector3 position)
     {
         if (vfxPrefab == null)
             return;
@@ -37,13 +37,12 @@ public static class Util
         coroutineRunner.StartCoroutine(SpawnOneShotVfxRoutine(vfxPrefab, position));
     }
 
-    private static IEnumerator SpawnOneShotVfxRoutine(GameObject vfxPrefab, Vector3 position)
+    private static IEnumerator SpawnOneShotVfxRoutine(VisualEffect vfxPrefab, Vector3 position)
     {
-        var instance = Object.Instantiate(vfxPrefab, position, Quaternion.identity);
-        var vfx = instance.GetComponent<VisualEffect>();
+        var vfx = (VisualEffect)Object.Instantiate(vfxPrefab, position, Quaternion.identity);
         if (vfx == null)
         {
-            Object.Destroy(instance);
+            Object.Destroy(vfx.gameObject);
             yield break;
         }
 
@@ -53,8 +52,8 @@ public static class Util
         while (vfx != null && vfx.aliveParticleCount > 0)
             yield return null;
 
-        if (instance != null)
-            Object.Destroy(instance);
+        if (vfx?.gameObject != null)
+            Object.Destroy(vfx.gameObject);
     }
 
     public static bool TryGetAimWorldPoint(InputActionReference mouseAction, out Vector3 aimWorld)

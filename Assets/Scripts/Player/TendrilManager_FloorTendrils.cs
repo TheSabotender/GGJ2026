@@ -35,16 +35,16 @@ public partial class TendrilManager : MonoBehaviour
             return;
 
         // Attach new tendril
-        if (GetTendrilHit(tendrilParent.position + Vector3.down, stickySpacing, out Vector3 tendrilDown))
+        if (GetTendrilHit(tendrilParent.position + Vector3.down, stickySpacing, out _, out Vector3 tendrilDown))
             StickNewFloorTendril(tendrilDown);
 
-        if (GetTendrilHit(tendrilParent.position + Vector3.up, stickySpacing, out Vector3 tendrilUp))
+        if (GetTendrilHit(tendrilParent.position + Vector3.up, stickySpacing, out _, out Vector3 tendrilUp))
             StickNewFloorTendril(tendrilUp);
 
-        if (GetTendrilHit(tendrilParent.position + Vector3.left, stickySpacing, out Vector3 tendrilLeft))
+        if (GetTendrilHit(tendrilParent.position + Vector3.left, stickySpacing, out _, out Vector3 tendrilLeft))
             StickNewFloorTendril(tendrilLeft);
 
-        if (GetTendrilHit(tendrilParent.position + Vector3.right, stickySpacing, out Vector3 tendrilRight))
+        if (GetTendrilHit(tendrilParent.position + Vector3.right, stickySpacing, out _, out Vector3 tendrilRight))
             StickNewFloorTendril(tendrilRight);
     }
 

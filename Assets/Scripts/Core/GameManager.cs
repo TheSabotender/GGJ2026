@@ -21,9 +21,6 @@ public class GameManager : MonoBehaviour
     public CharacterProfile[] testMasks;
 
     [SerializeField]
-    private CharacterProfile[] allProfiles;
-
-    [SerializeField]
     private float frontDepthZ = -1f;
 
     [SerializeField]
@@ -31,11 +28,23 @@ public class GameManager : MonoBehaviour
 
     private GameSave currentGameSave = null;
 
-    public static PlayerBrain PlayerBrain => instance.playerBrain;
+    private static CharacterProfile[] allProfiles;
+
+    public static PlayerBrain PlayerBrain => instance?.playerBrain;
 
     public static GameSave CurrentGameSave => instance?.currentGameSave;
 
-    public static CharacterProfile[] AllProfiles => instance.allProfiles;
+    public static CharacterProfile[] AllProfiles
+    {
+        get
+        {
+            if (allProfiles == null || allProfiles.Length == 0)
+            {
+                allProfiles = Resources.LoadAll<CharacterProfile>("CharacterProfiles");
+            }
+            return allProfiles;
+        }
+    }
 
     public static AlertState CurrentAlertState => RegionManager.CurrentRegion.AlertState;
 

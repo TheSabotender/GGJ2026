@@ -106,4 +106,16 @@ public class RegionManager : MonoBehaviour
         AudioManager.SetMusicProfile(CurrentRegion?.MusicProfile);
         AlertStateChanged?.Invoke(currentRegion.AlertState);
     }
+
+    public static WorldRegion GetRegionAtPosition(Vector3 position)
+    {
+        foreach (var region in instance.cachedRegions)
+        {
+            if (region != null && region.IsWithinRegion(position))
+            {
+                return region;
+            }
+        }
+        return null;
+    }
 }

@@ -39,8 +39,17 @@ public class MaskDetailPanel : MonoBehaviour
         portrait.enabled = currentProfile.portrait != null;
         portrait.sprite = currentProfile.portrait;
         characterName.text = currentProfile.characterName;
-        field.text = currentProfile.field.ToString();
-        securityClearance.text = currentProfile.securityClearance.ToString();
+
+        if (LocalizationManager.TryGetValue(currentProfile.field.ToString(), out var localizedField))
+            field.text += localizedField;
+        else
+            field.text = currentProfile.field.ToString();
+
+        if (LocalizationManager.TryGetValue(currentProfile.securityClearance.ToString(), out var localizedClearance))
+            securityClearance.text += localizedClearance;
+        else
+            securityClearance.text = currentProfile.securityClearance.ToString();
+        
         description.text = currentProfile.description;
 
         likes.text = BitFieldToString<CharacterProfile.InterestTag>(currentProfile.likes);
@@ -58,7 +67,11 @@ public class MaskDetailPanel : MonoBehaviour
             {
                 if (l.Length > 0)
                     l += ", ";
-                l += flag.ToString();
+
+                if(LocalizationManager.TryGetValue(flag.ToString(), out var localizedFlag))
+                    l += localizedFlag;
+                else
+                    l += flag.ToString();
             }
         }
 

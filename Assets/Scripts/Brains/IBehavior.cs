@@ -7,5 +7,5 @@ public interface IBehavior
     void TickAlert(AIBrain brain);
     void SwitchState(AIBrain brain, GameManager.AlertState newState);
     void OnSeeAlien(AIBrain brain);
-    void OnSeePanic(AIBrain brain);
+    void OnSeePanic(AIBrain brain, AIBrain triggeringEntity);
 }

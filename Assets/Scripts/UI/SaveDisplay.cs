@@ -1,15 +1,15 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SaveDisplay : MonoBehaviour
 {
-    public TMP_Text saveNameText;
-    public TMP_Text startDateTimeText;
-    public TMP_Text dateTimeText;
-    public TMP_Text gameVersionText;
-    public TMP_Text masksCollectedText;
-    public TMP_Text currentMaskText;
-    public TMP_Text masksCountText;
+    public TextMeshProUGUI saveNameText;
+    public TextMeshProUGUI startDateTimeText;
+    public TextMeshProUGUI playtime;
+    public TextMeshProUGUI lastDateTimeText;
+    public TextMeshProUGUI masksCollectedText;
+    public Button selectButton;
 
     private GameSave save;
     private SaveLoadScreen saveLoadScreen;
@@ -25,20 +25,14 @@ public class SaveDisplay : MonoBehaviour
         if (startDateTimeText != null)
             startDateTimeText.text = gameSave?.StartDateTime ?? string.Empty;
 
-        if (dateTimeText != null)
-            dateTimeText.text = gameSave?.DateTime ?? string.Empty;
+        if (playtime != null)
+            playtime.text = gameSave != null ? gameSave.Playtime.ToString(@"dd\.hh\:mm\:ss") : string.Empty;
 
-        if (gameVersionText != null)
-            gameVersionText.text = gameSave?.GameVersion ?? string.Empty;
+        if (lastDateTimeText != null)
+            lastDateTimeText.text = gameSave?.LastSaveTime ?? string.Empty;
 
         if (masksCollectedText != null)
             masksCollectedText.text = gameSave != null ? gameSave.MasksCollected.ToString() : string.Empty;
-
-        if (currentMaskText != null)
-            currentMaskText.text = gameSave != null ? gameSave.CurrentMask.ToString() : string.Empty;
-
-        if (masksCountText != null)
-            masksCountText.text = gameSave?.Masks != null ? gameSave.Masks.Count.ToString() : string.Empty;
     }
 
     public void OnSelect()

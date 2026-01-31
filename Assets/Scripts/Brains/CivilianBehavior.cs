@@ -2,33 +2,52 @@ using UnityEngine;
 
 public class CivilianBehavior : MonoBehaviour, IBehavior
 {
+    [SerializeField]
+    private bool isPanicking = false;
+
     public void OnSeeAlien(AIBrain brain)
     {
-        throw new System.NotImplementedException();
+        brain.lastKnownPlayerPos = GameManager.PlayerBrain.transform.position;
+        isPanicking = true;
     }
 
-    public void OnSeePanic(AIBrain brain)
+    public void OnSeePanic(AIBrain brain, AIBrain triggeringEntity)
     {
-        throw new System.NotImplementedException();
+        var region = RegionManager.GetRegionAtPosition(brain.transform.position);
+        if (region.AlertState == GameManager.AlertState.Caution)
+        {
+            isPanicking = true;
+            brain.lastKnownPlayerPos = triggeringEntity.lastKnownPlayerPos;
+        }
     }
 
     public void SwitchState(AIBrain brain, GameManager.AlertState newState)
     {
-        throw new System.NotImplementedException();
+        if (newState == GameManager.AlertState.Alert)
+        {
+            isPanicking = true;
+        }
     }
 
     public void TickAlert(AIBrain brain)
     {
-        throw new System.NotImplementedException();
+        Panic();
     }
 
     public void TickCaution(AIBrain brain)
     {
-        throw new System.NotImplementedException();
+        if (isPanicking)
+            Panic();
     }
 
     public void TickIdle(AIBrain brain)
     {
-        throw new System.NotImplementedException();
+        if (isPanicking)
+            Panic();
+    }
+
+    void Panic()
+    {
+        // Implement panic behavior here
     }
 }
