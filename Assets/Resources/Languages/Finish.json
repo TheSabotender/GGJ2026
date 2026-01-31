@@ -83,6 +83,98 @@
     {
       "Key": "credits-aiBody",
       "Value": "AI:ta on käytetty koodin avustamiseen"
+    },
+    {
+      "Key": "menu-save",
+      "Value": "Tallenna"
+    },
+    {
+      "Key": "menu-load",
+      "Value": "Lataa"
+    },
+    {
+      "Key": "menu-delete",
+      "Value": "Poista"
+    },
+    {
+      "Key": "clearance-alien",
+      "Value": "PUNAINEN HÄLYTYS"
+    },
+    {
+      "Key": "clearance-wanted",
+      "Value": "Etsintäkuulutettu"
+    },
+    {
+      "Key": "clearance-disliked",
+      "Value": "Epäsuosittu"
+    },
+    {
+      "Key": "clearance-civilian",
+      "Value": "Siviili"
+    },
+    {
+      "Key": "clearance-employee",
+      "Value": "Työntekijä"
+    },
+    {
+      "Key": "clearance-valued",
+      "Value": "Arvostettu"
+    },
+    {
+      "Key": "clearance-official",
+      "Value": "Virallinen"
+    },
+    {
+      "Key": "clearance-executive",
+      "Value": "Johtaja"
+    },
+    {
+      "Key": "job-noJob",
+      "Value": "Työtön"
+    },
+    {
+      "Key": "job-scientist",
+      "Value": "Tutkija"
+    },
+    {
+      "Key": "job-security",
+      "Value": "Turvallisuus"
+    },
+    {
+      "Key": "job-medical",
+      "Value": "Lääketieteellinen"
+    },
+    {
+      "Key": "job-admin",
+      "Value": "Hallinnollinen"
+    },
+    {
+      "Key": "job-maintenance",
+      "Value": "Ylläpito"
+    },
+    {
+      "Key": "interest-none",
+      "Value": "Ei mitään"
+    },
+    {
+      "Key": "interest-tech",
+      "Value": "Teknologia"
+    },
+    {
+      "Key": "interest-engineer",
+      "Value": "Insinööritiede"
+    },
+    {
+      "Key": "interest-alcohol",
+      "Value": "Alkoholi"
+    },
+    {
+      "Key": "interest-lust",
+      "Value": "Himo"
+    },
+    {
+      "Key": "interest-money",
+      "Value": "Raha"
     }
   ]
 }

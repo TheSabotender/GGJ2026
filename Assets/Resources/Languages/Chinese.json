@@ -83,6 +83,98 @@
     {
       "Key": "credits-aiBody",
       "Value": "已使用 AI 协助编写代码"
+    },
+    {
+      "Key": "menu-save",
+      "Value": "保存"
+    },
+    {
+      "Key": "menu-load",
+      "Value": "加载"
+    },
+    {
+      "Key": "menu-delete",
+      "Value": "删除"
+    },
+    {
+      "Key": "clearance-alien",
+      "Value": "红色警报"
+    },
+    {
+      "Key": "clearance-wanted",
+      "Value": "通缉"
+    },
+    {
+      "Key": "clearance-disliked",
+      "Value": "不受欢迎"
+    },
+    {
+      "Key": "clearance-civilian",
+      "Value": "平民"
+    },
+    {
+      "Key": "clearance-employee",
+      "Value": "员工"
+    },
+    {
+      "Key": "clearance-valued",
+      "Value": "受重视"
+    },
+    {
+      "Key": "clearance-official",
+      "Value": "官方"
+    },
+    {
+      "Key": "clearance-executive",
+      "Value": "高管"
+    },
+    {
+      "Key": "job-noJob",
+      "Value": "失业"
+    },
+    {
+      "Key": "job-scientist",
+      "Value": "科学家"
+    },
+    {
+      "Key": "job-security",
+      "Value": "安保"
+    },
+    {
+      "Key": "job-medical",
+      "Value": "医疗"
+    },
+    {
+      "Key": "job-admin",
+      "Value": "行政"
+    },
+    {
+      "Key": "job-maintenance",
+      "Value": "维护"
+    },
+    {
+      "Key": "interest-none",
+      "Value": "无"
+    },
+    {
+      "Key": "interest-tech",
+      "Value": "技术"
+    },
+    {
+      "Key": "interest-engineer",
+      "Value": "工程"
+    },
+    {
+      "Key": "interest-alcohol",
+      "Value": "酒精"
+    },
+    {
+      "Key": "interest-lust",
+      "Value": "欲望"
+    },
+    {
+      "Key": "interest-money",
+      "Value": "金钱"
     }
   ]
 }

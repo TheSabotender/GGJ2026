@@ -83,6 +83,98 @@
     {
       "Key": "credits-aiBody",
       "Value": "L'IA a été utilisée pour aider au code"
+    },
+    {
+      "Key": "menu-save",
+      "Value": "Sauvegarder"
+    },
+    {
+      "Key": "menu-load",
+      "Value": "Charger"
+    },
+    {
+      "Key": "menu-delete",
+      "Value": "Supprimer"
+    },
+    {
+      "Key": "clearance-alien",
+      "Value": "Alerte rouge"
+    },
+    {
+      "Key": "clearance-wanted",
+      "Value": "Recherché"
+    },
+    {
+      "Key": "clearance-disliked",
+      "Value": "Détesté"
+    },
+    {
+      "Key": "clearance-civilian",
+      "Value": "Civil"
+    },
+    {
+      "Key": "clearance-employee",
+      "Value": "Employé"
+    },
+    {
+      "Key": "clearance-valued",
+      "Value": "Apprécié"
+    },
+    {
+      "Key": "clearance-official",
+      "Value": "Officiel"
+    },
+    {
+      "Key": "clearance-executive",
+      "Value": "Exécutif"
+    },
+    {
+      "Key": "job-noJob",
+      "Value": "Sans emploi"
+    },
+    {
+      "Key": "job-scientist",
+      "Value": "Scientifique"
+    },
+    {
+      "Key": "job-security",
+      "Value": "Sécurité"
+    },
+    {
+      "Key": "job-medical",
+      "Value": "Médical"
+    },
+    {
+      "Key": "job-admin",
+      "Value": "Administratif"
+    },
+    {
+      "Key": "job-maintenance",
+      "Value": "Maintenance"
+    },
+    {
+      "Key": "interest-none",
+      "Value": "Aucun"
+    },
+    {
+      "Key": "interest-tech",
+      "Value": "Technologie"
+    },
+    {
+      "Key": "interest-engineer",
+      "Value": "Ingénierie"
+    },
+    {
+      "Key": "interest-alcohol",
+      "Value": "Alcool"
+    },
+    {
+      "Key": "interest-lust",
+      "Value": "Luxure"
+    },
+    {
+      "Key": "interest-money",
+      "Value": "Argent"
     }
   ]
 }

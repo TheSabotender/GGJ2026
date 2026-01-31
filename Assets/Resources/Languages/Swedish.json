@@ -83,6 +83,98 @@
     {
       "Key": "credits-aiBody",
       "Value": "AI har använts för att assistera med kod"
+    },
+    {
+      "Key": "menu-save",
+      "Value": "Spara"
+    },
+    {
+      "Key": "menu-load",
+      "Value": "Ladda"
+    },
+    {
+      "Key": "menu-delete",
+      "Value": "Radera"
+    },
+    {
+      "Key": "clearance-alien",
+      "Value": "RÖD ALARM"
+    },
+    {
+      "Key": "clearance-wanted",
+      "Value": "Efterlyst"
+    },
+    {
+      "Key": "clearance-disliked",
+      "Value": "Ogillad"
+    },
+    {
+      "Key": "clearance-civilian",
+      "Value": "Civil"
+    },
+    {
+      "Key": "clearance-employee",
+      "Value": "Anställd"
+    },
+    {
+      "Key": "clearance-valued",
+      "Value": "Uppskattad"
+    },
+    {
+      "Key": "clearance-official",
+      "Value": "Officiell"
+    },
+    {
+      "Key": "clearance-executive",
+      "Value": "Chef"
+    },
+    {
+      "Key": "job-noJob",
+      "Value": "Arbetslös"
+    },
+    {
+      "Key": "job-scientist",
+      "Value": "Forskare"
+    },
+    {
+      "Key": "job-security",
+      "Value": "Säkerhet"
+    },
+    {
+      "Key": "job-medical",
+      "Value": "Medicinsk"
+    },
+    {
+      "Key": "job-admin",
+      "Value": "Administrativ"
+    },
+    {
+      "Key": "job-maintenance",
+      "Value": "Underhåll"
+    },
+    {
+      "Key": "interest-none",
+      "Value": "Ingen"
+    },
+    {
+      "Key": "interest-tech",
+      "Value": "Teknologi"
+    },
+    {
+      "Key": "interest-engineer",
+      "Value": "Ingenjörskonst"
+    },
+    {
+      "Key": "interest-alcohol",
+      "Value": "Alkohol"
+    },
+    {
+      "Key": "interest-lust",
+      "Value": "Lust"
+    },
+    {
+      "Key": "interest-money",
+      "Value": "Pengar"
     }
   ]
 }
