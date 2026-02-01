@@ -43,6 +43,12 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
+    public static void QuitToMainMenu()
+    {
+        instance.currentGameSave = null;
+        instance.StartCoroutine(instance.LoadGameRoutine(null));
+    }
+
     public static void NewGame()
     {
         var newGame = new GameSave();        

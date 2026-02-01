@@ -47,6 +47,11 @@ public class EntityBrain : MonoBehaviour
         HandleMovement();
     }
 
+    public virtual void SeeTransformation()
+    {
+
+    }
+
     protected virtual void HandleMovement()
     {
 

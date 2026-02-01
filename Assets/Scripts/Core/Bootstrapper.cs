@@ -7,6 +7,8 @@ public class Bootstrapper : MonoBehaviour
     [SerializeField]
     private string mainSceneName = "Main";
 
+    public float animationDuration = 1.0f;
+
     [SerializeField]
     private List<GameObject> essentialPrefabs = new List<GameObject>();
 
@@ -28,6 +30,8 @@ public class Bootstrapper : MonoBehaviour
             DontDestroyOnLoad(instance);
             yield return null;
         }
+
+        yield return new WaitForSeconds(animationDuration);
 
         LoadMainScene();
     }

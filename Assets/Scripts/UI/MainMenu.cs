@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class MainMenu : SubMenu
 {
     public Button continueButton;
+    public Button toMainMenu;
     public Button loadButton;
 
     private void OnEnable()
@@ -13,6 +14,8 @@ public class MainMenu : SubMenu
 
         var hasSaves = SaveManager.LoadAll().Length > 0;
         loadButton.interactable = hasSaves;
+
+        toMainMenu.gameObject.SetActive(MenuManager.CurrentScreen != MenuManager.Screen.Main);
     }
 
     public void ContinueGame()
@@ -48,6 +51,11 @@ public class MainMenu : SubMenu
     public void Credits()
     {
         MenuManager.SetScreen(MenuManager.Screen.Credits);
+    }
+
+    public void QuitToMainMenu()
+    {
+        GameManager.QuitToMainMenu();
     }
 
     public void Quit()

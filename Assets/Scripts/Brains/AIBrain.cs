@@ -227,6 +227,11 @@ public class AIBrain : EntityBrain
         Destroy(gameObject);
     }
 
+    public override void SeeTransformation()
+    {
+        alertBehavior.OnSeeAlien(this);
+    }
+
     bool LookForAlien()
     {
         if (CanSeePlayer())

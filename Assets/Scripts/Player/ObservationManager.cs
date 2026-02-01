@@ -14,6 +14,11 @@ public class ObservationManager : MonoBehaviour
 
     public int ObserverCount => observers.Count;
 
+    public List<EntityBrain> GetObservers()
+    {
+        return new List<EntityBrain>(observers);
+    }
+
     public bool CheckIfBeingObserved(EntityBrain source)
     {
         //Check both the bottom and top of the target

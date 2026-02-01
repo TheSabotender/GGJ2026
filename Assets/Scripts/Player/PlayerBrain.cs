@@ -149,6 +149,14 @@ public class PlayerBrain : EntityBrain
         if (!force && GameManager.CurrentGameSave.CurrentMask == maskIndex)
             return;
 
+        if (observationManager.ObserverCount > 0)
+        {
+            foreach (var observer in observationManager.GetObservers())
+            {
+                observer.SeeTransformation();
+            }
+        }
+
         GameManager.CurrentGameSave.CurrentMask = maskIndex;
         StartCoroutine(SwapAppearance(profile));
     }
