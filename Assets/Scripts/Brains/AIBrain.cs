@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using static GameManager;
 
@@ -24,10 +25,58 @@ public class AIBrain : EntityBrain
 
     private GameManager.AlertState lastAlertState;
     private Coroutine movementCoroutine;
+    private bool waitingForGameplay;
 
     protected override void Awake()
     {
         alertBehavior = (IBehavior)behaviorComponent;
+    }
+
+    private void Start()
+    {
+        if (MenuManager.CurrentScreen == MenuManager.Screen.Main)
+        {
+            waitingForGameplay = true;
+            MenuManager.ScreenChanged += HandleScreenChanged;
+            gameObject.SetActive(false);
+        }
+    }
+
+    private void OnEnable()
+    {
+        if (MenuManager.CurrentScreen == MenuManager.Screen.Main)
+            return;
+        DespawnIfPlayerHasProfile();
+    }
+
+    private void OnDestroy()
+    {
+        MenuManager.ScreenChanged -= HandleScreenChanged;
+    }
+
+    private void HandleScreenChanged(MenuManager.Screen screen)
+    {
+        if (!waitingForGameplay || screen != MenuManager.Screen.None)
+            return;
+        waitingForGameplay = false;
+        gameObject.SetActive(true);
+    }
+
+    private void DespawnIfPlayerHasProfile()
+    {
+        var save = GameManager.CurrentGameSave;
+        if (save == null || save.Masks == null || profile == null)
+            return;
+
+        foreach (var mask in save.Masks)
+        {
+            var maskProfile = GameManager.AllProfiles.FirstOrDefault(candidate => candidate.Guid == mask.guid);
+            if (maskProfile != null && maskProfile.Guid == profile.Guid)
+            {
+                Destroy(gameObject);
+                return;
+            }
+        }
     }
 
     protected override void Update()

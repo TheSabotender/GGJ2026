@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,7 @@ public class MenuManager : MonoBehaviour
     }
 
     private static MenuManager _instance;
+    public static event Action<Screen> ScreenChanged;
 
     [SerializeField]
     private Screen startingScreen = Screen.None;
@@ -65,5 +67,7 @@ public class MenuManager : MonoBehaviour
 
         if (current != null)
             yield return current.Show();
+
+        ScreenChanged?.Invoke(currentScreen);
     }
 }
