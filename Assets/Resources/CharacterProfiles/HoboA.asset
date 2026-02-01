@@ -17,7 +17,7 @@ MonoBehaviour:
   prefab: {fileID: -385657164195148974, guid: 0aac849ce8f61af4eb940768cf3e0a0c, type: 3}
   portrait: {fileID: 21300000, guid: 98ef26a82ba914a4b9a77bd462036fe7, type: 3}
   mask: {fileID: 21300000, guid: a25de055ddbb924429cdc81330b759d5, type: 3}
-  characterName: Homeless
+  characterName: Mike Kurtz
   field: 0
   securityClearance: -1
   description: has no home

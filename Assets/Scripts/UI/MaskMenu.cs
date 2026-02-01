@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.LightTransport;
-using UnityEngine.UI;
 
 public class MaskMenu : SubMenu
 {

@@ -38,8 +38,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 117.973, y: 76.2}
-  m_SizeDelta: {x: 172.653, y: 47.116}
+  m_AnchoredPosition: {x: 140.10004, y: 59.600006}
+  m_SizeDelta: {x: 136.24, y: 37.1791}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &5748531181708066496
 CanvasRenderer:
@@ -215,8 +215,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 296.7, y: 76.2}
-  m_SizeDelta: {x: 172.653, y: 47.116}
+  m_AnchoredPosition: {x: 316.4, y: 59}
+  m_SizeDelta: {x: 136.24, y: 37.1791}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &7773907777009826898
 CanvasRenderer:
@@ -541,15 +541,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GridLayoutGroup
   m_Padding:
-    m_Left: 6
-    m_Right: 6
-    m_Top: 6
-    m_Bottom: 6
+    m_Left: 3
+    m_Right: 3
+    m_Top: 3
+    m_Bottom: 3
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 81, y: 76.2}
-  m_Spacing: {x: 0.6, y: 1.5}
+  m_CellSize: {x: 78, y: 78}
+  m_Spacing: {x: 3, y: 1}
   m_Constraint: 1
   m_ConstraintCount: 5
 --- !u!114 &3753934734235930432
@@ -598,6 +598,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4163739387386388464}
   - {fileID: 2829097706052087805}
   - {fileID: 3373633203750316978}
   - {fileID: 2538663381675413291}
@@ -628,7 +629,7 @@ MonoBehaviour:
   canvasGroup: {fileID: 3254362596912401274}
   fadeDuration: 0.25
   mode: 0
-  saveDisplayPrefab: {fileID: 0}
+  saveDisplayPrefab: {fileID: 8541220050086213670, guid: d6d96ee67628bae48b4a6726ee16914e, type: 3}
   saveContainer: {fileID: 5359721151788660653}
   selectedSaveDisplay: {fileID: 1297186773848763832}
   saveButton: {fileID: 3540853693534761709}
@@ -1555,8 +1556,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32
-  m_fontSizeBase: 32
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
@@ -1650,8 +1651,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 80, y: 22.7124}
-  m_SizeDelta: {x: -364.8936, y: 242.136}
+  m_AnchoredPosition: {x: 86.017, y: 24.517511}
+  m_SizeDelta: {x: -373.3174, y: 238.5258}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &614710702613647832
 CanvasRenderer:
@@ -1668,7 +1669,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5322697796113413628}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -2009,8 +2010,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32
-  m_fontSizeBase: 32
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
@@ -2067,6 +2068,81 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Localized
   localizationKey: menu-save
+--- !u!1 &7276201991993722202
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4163739387386388464}
+  - component: {fileID: 2639713686597175303}
+  - component: {fileID: 5475844980693714223}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4163739387386388464
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7276201991993722202}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4081522902319337388}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -111.60267, y: -140.29912}
+  m_SizeDelta: {x: 415.2166, y: 96.9191}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &2639713686597175303
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7276201991993722202}
+  m_CullTransparentMesh: 1
+--- !u!114 &5475844980693714223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7276201991993722202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 638018de7a188eb4fb32d61c82cf8ad3, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &7579554265421430235
 GameObject:
   m_ObjectHideFlags: 0
@@ -2242,8 +2318,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 117.973, y: 76.2}
-  m_SizeDelta: {x: 172.653, y: 47.116}
+  m_AnchoredPosition: {x: 140.1, y: 59.6}
+  m_SizeDelta: {x: 136.24, y: 37.1791}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &517964683248229880
 CanvasRenderer:
@@ -2735,8 +2811,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32
-  m_fontSizeBase: 32
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 0

@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,6 +28,7 @@ public class AIBrain : EntityBrain
 
     protected override void Awake()
     {
+        base.Awake();
         alertBehavior = (IBehavior)behaviorComponent;
     }
 
@@ -69,18 +71,20 @@ public class AIBrain : EntityBrain
         else if (lastAlertState == GameManager.AlertState.Alert) alertBehavior.TickAlert(this);
     }
 
-    public void GoToLocation(Vector3 destination, bool isUrgent)
+    public bool IsWalking()
+    {
+        return movementCoroutine != null;
+    }
+
+    public void GoToLocation(Vector3 destination, bool isUrgent, Action onComplete)
     {
         if (movementCoroutine != null)
             StopCoroutine(movementCoroutine);
-        movementCoroutine = StartCoroutine(MoveToRoutine(destination, isUrgent));
+        movementCoroutine = StartCoroutine(MoveToRoutine(destination, isUrgent, onComplete));
     }
 
-    private IEnumerator MoveToRoutine(Vector3 destination, bool isUrgent)
+    private IEnumerator MoveToRoutine(Vector3 destination, bool isUrgent, Action onComplete)
     {
-        var currentLaneZ = EntityMotor.GetCurrentLane(this);
-        var destinationLaneZ = EntityMotor.GetLaneFromPosition(destination);
-
         var path = new NavigationPath(transform.position, destination, 1, currentMotor.LayerMask);
 
         // Follow the path points
@@ -92,35 +96,44 @@ public class AIBrain : EntityBrain
             // Check if we need to move towards the target point
             var targetPoint = path.Points[nextPoint];
             var distance = Vector3.Distance(transform.position, targetPoint);
-            if (distance > 0.1f)
+
+            // Find the direction to move
+            var isHorizontal = Mathf.Abs(targetPoint.x - transform.position.x) > 0.1f;
+            var isDepth = Mathf.Abs(targetPoint.z - transform.position.z) > 0.1f;
+
+            // Check if we reached the target point
+            if (distance < 0.1f || (!isHorizontal && !isDepth))
             {
-                // Move towards the target point
-                var isHorizontal = Mathf.Abs(targetPoint.x - transform.position.x) > 0.1f;
-                var isDepth = Mathf.Abs(targetPoint.z - transform.position.z) > 0.1f;
-
-                Vector3 direction = (targetPoint - transform.position).normalized;
-                if (isDepth)
-                {
-                    currentMotor.MoveDepth(this, direction.z);
-                }
-                else if (isHorizontal)
-                    currentMotor.MoveHorizontal(this, direction.x, true);
-
-                yield return null;
-            }
-
-            // Reached the target point
-            else
-            {
+                // Reached the point
                 lastPoint = nextPoint;
                 nextPoint++;
                 if (nextPoint >= path.Points.Count)
                     break;
+                continue;
             }
+
+            // Move towards the target point
+            Vector3 direction = (targetPoint - transform.position).normalized;
+            if (isDepth)
+                currentMotor.MoveDepth(this, direction.z);
+            else if (isHorizontal)
+                currentMotor.MoveHorizontal(this, direction.x, true);
+
+            yield return null;
+
         }
 
         currentMotor.MoveHorizontal(this, 0f, true);
         movementCoroutine = null;
+        onComplete?.Invoke();
+    }
+
+    public void StopWalking()
+    {
+        if (movementCoroutine != null)
+            StopCoroutine(movementCoroutine);
+        movementCoroutine = null;
+        currentMotor.MoveHorizontal(this, 0f, true);
     }
 
     public void Kill()

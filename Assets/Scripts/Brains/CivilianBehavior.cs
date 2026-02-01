@@ -5,10 +5,16 @@ public class CivilianBehavior : MonoBehaviour, IBehavior
     [SerializeField]
     private bool isPanicking = false;
 
+    [SerializeField]
+    private Vector3[] routine;
+
+    private int currentRoutineIndex = 0;
+
     public void OnSeeAlien(AIBrain brain)
     {
         brain.lastKnownPlayerPos = GameManager.PlayerBrain.transform.position;
         isPanicking = true;
+        brain.StopWalking();
     }
 
     public void OnSeePanic(AIBrain brain, AIBrain triggeringEntity)
@@ -18,6 +24,7 @@ public class CivilianBehavior : MonoBehaviour, IBehavior
         {
             isPanicking = true;
             brain.lastKnownPlayerPos = triggeringEntity.lastKnownPlayerPos;
+            brain.StopWalking();
         }
     }
 
@@ -26,6 +33,7 @@ public class CivilianBehavior : MonoBehaviour, IBehavior
         if (newState == GameManager.AlertState.Alert)
         {
             isPanicking = true;
+            brain.StopWalking();
         }
     }
 
@@ -44,10 +52,43 @@ public class CivilianBehavior : MonoBehaviour, IBehavior
     {
         if (isPanicking)
             Panic();
+        else 
+            FollowRoutine(brain);
+    }
+
+    void FollowRoutine(AIBrain brain)
+    {
+        if (routine == null || routine.Length == 0)
+            return;
+        if (brain.IsWalking())
+            return;
+
+        Vector3 targetPos = routine[currentRoutineIndex];
+        brain.GoToLocation(targetPos, isUrgent: false, onComplete: () =>
+        {
+            currentRoutineIndex = (currentRoutineIndex + 1) % routine.Length;
+        });
     }
 
     void Panic()
     {
         // Implement panic behavior here
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        if (routine == null || routine.Length == 0)
+            return;
+
+        bool first = true;
+        Gizmos.color = Color.magenta;
+        for (int i = 0; i < routine.Length; i++)
+        {
+            Vector3 point = routine[i];
+            if (!first)
+                Gizmos.DrawLine(routine[i-1], point);
+            first = false;
+            Gizmos.DrawWireSphere(point, 0.5f);
+        }
     }
 }

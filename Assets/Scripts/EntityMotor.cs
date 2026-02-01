@@ -34,8 +34,6 @@ public class EntityMotor : ScriptableObject
         if (brain.Rigidbody == null)
             return;
 
-        
-
         if (isGrounded)
         {
             var v = brain.Rigidbody.linearVelocity;
@@ -134,7 +132,7 @@ public class EntityMotor : ScriptableObject
         bool isInBackLane = Mathf.Abs(z - GameManager.FrontDepthZ) > Mathf.Abs(z - GameManager.BackDepthZ);
 
         var dir = isInBackLane ? Vector3.back : Vector3.forward;
-        Ray ray = new Ray(brain.transform.position, dir);
+        Ray ray = new Ray(brain.transform.position + Vector3.up * 0.5f, dir);
         var distance = Mathf.Max(GameManager.FrontDepthZ, GameManager.BackDepthZ) - Mathf.Min(GameManager.FrontDepthZ, GameManager.BackDepthZ);
         if (Physics.Raycast(ray, distance, layerMask, QueryTriggerInteraction.Ignore))
             return false;

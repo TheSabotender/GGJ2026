@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.VFX;
-using UnityEngine.Windows;
 
 public partial class TendrilManager : MonoBehaviour
 {
@@ -95,7 +94,7 @@ public partial class TendrilManager : MonoBehaviour
 
                 if (hitRigidbody != null)
                 {
-                    hitRigidbody.AddForce(-pullDirection * tendrilStrength, ForceMode.Acceleration);
+                    hitRigidbody.AddForce(-pullDirection * tendrilStrength, ForceMode.Force);
                     target = hitRigidbody.position + hitOffset;
                     rope.EndPoint = target;
                 }

@@ -42,7 +42,8 @@ public class Door : MonoBehaviour
 
     public bool HasAccess(JobTag field, Clearance clearance)
     {
-        var hasJob = (fieldsAllowed & field) != 0;
+        // Allow if the user's job field is in the allowed fields bitmask or if the door allows all jobs (fieldsAllowed == ~0)
+        var hasJob = (fieldsAllowed & field) != 0 || (field == JobTag.None && (int)fieldsAllowed == ~0);
         var clear = clearance >= minimumClearance;
         return hasJob && clear;
     }
