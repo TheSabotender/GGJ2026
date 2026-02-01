@@ -38,7 +38,7 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-        playerBrain = GameManager.PlayerBrain;
+        playerBrain = GameSceneManager.PlayerBrain;
         if (playerBrain != null)
         {
             lastPlayerPosition = playerBrain.transform.position;
@@ -53,7 +53,7 @@ public class AudioManager : MonoBehaviour
 
         if (playerBrain == null)
         {
-            playerBrain = GameManager.PlayerBrain;
+            playerBrain = GameSceneManager.PlayerBrain;
             if (playerBrain == null)
             {
                 return;
@@ -115,10 +115,10 @@ public class AudioManager : MonoBehaviour
             return;
 
         instance.currentProfile = newProfile;
-        instance.OnAlertStateChanged(GameManager.CurrentAlertState);
+        instance.OnAlertStateChanged(GameSceneManager.CurrentAlertState);
     }
 
-    private void OnAlertStateChanged(GameManager.AlertState newState)
+    private void OnAlertStateChanged(AlertState newState)
     {
         if (currentProfile == null)            
             return;
@@ -127,13 +127,13 @@ public class AudioManager : MonoBehaviour
         switch (newState)
         {
             default:
-            case GameManager.AlertState.Normal:
+            case AlertState.Normal:
                 newTrack = currentProfile.normal;
                 break;
-            case GameManager.AlertState.Caution:
+            case AlertState.Caution:
                 newTrack = currentProfile.caution;
                 break;
-            case GameManager.AlertState.Alert:
+            case AlertState.Alert:
                 newTrack = currentProfile.alert;
                 break;
         }

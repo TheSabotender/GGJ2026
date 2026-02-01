@@ -6,35 +6,19 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public enum AlertState
-    {
-        Normal,
-        Caution,
-        Alert
-    }
-    
     private static GameManager instance = null;
-
-    [SerializeField]
-    private PlayerBrain playerBrain = null;
 
     [SerializeField]
     private CharacterProfile startingMask;
     public CharacterProfile[] testMasks;
 
-    [SerializeField]
-    private float frontDepthZ = -1f;
-
-    [SerializeField]
-    private float backDepthZ = 0f;
-
     private GameSave currentGameSave = null;
 
     private static CharacterProfile[] allProfiles;
 
-    public static PlayerBrain PlayerBrain => instance?.playerBrain;
-
     public static GameSave CurrentGameSave => instance?.currentGameSave;
+
+    public static event Action<GameSave> GameLoaded;
 
     public static CharacterProfile[] AllProfiles
     {
@@ -48,11 +32,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public static AlertState CurrentAlertState => RegionManager.CurrentRegion.AlertState;
-
-    public static float FrontDepthZ => instance.frontDepthZ;
-    public static float BackDepthZ => instance.backDepthZ;
-
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -62,16 +41,6 @@ public class GameManager : MonoBehaviour
         }
         instance = this;
         DontDestroyOnLoad(this.gameObject);
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Keypad7))
-            RegionManager.SetAlertState(AlertState.Normal);
-        if (Input.GetKeyDown(KeyCode.Keypad8))
-            RegionManager.SetAlertState(AlertState.Caution);
-        if (Input.GetKeyDown(KeyCode.Keypad9))
-            RegionManager.SetAlertState(AlertState.Alert);
     }
 
     public static void NewGame()
@@ -98,9 +67,9 @@ public class GameManager : MonoBehaviour
         newGame.CurrentMask = 0;
         instance.currentGameSave = newGame;
 
-        Debug.Log("NewGame called - hook up intro cutscene here.");
+        instance.StartCoroutine(instance.LoadGameRoutine(newGame));
 
-        PlayerBrain.SwapMask(newGame.Masks[newGame.CurrentMask], newGame.CurrentProfile, force: true);
+        Debug.Log("NewGame called - hook up intro cutscene here.");
     }
 
     public static void LoadGame(GameSave gameSave)
@@ -113,12 +82,16 @@ public class GameManager : MonoBehaviour
 
         Debug.Log($"LoadGame called for save: {gameSave.SaveName}");
         instance.currentGameSave = gameSave;
-
+        
         instance.StartCoroutine(instance.LoadGameRoutine(gameSave));
+
     }
 
     private IEnumerator LoadGameRoutine(GameSave gameSave)
     {
+        MenuManager.SetScreen(MenuManager.Screen.None);
+        yield return null;
+
         var sceneLoad = SceneManager.LoadSceneAsync("Game");
         if (sceneLoad != null)
         {
@@ -126,31 +99,6 @@ public class GameManager : MonoBehaviour
                 yield return null;
         }
 
-        playerBrain = FindObjectOfType<PlayerBrain>();
-        if (playerBrain != null && gameSave.Masks != null && gameSave.Masks.Count > 0)
-        {
-            var currentMask = gameSave.Masks[gameSave.CurrentMask];
-            playerBrain.SwapMask(currentMask, gameSave.CurrentProfile, force: true);
-        }
-
-        if (playerBrain != null && !string.IsNullOrWhiteSpace(gameSave.SavePointGuid))
-        {
-            var savePoints = FindObjectsOfType<SavePoint>();
-            var matchingSavePoint = savePoints.FirstOrDefault(point => point.Guid == gameSave.SavePointGuid);
-            if (matchingSavePoint != null)
-            {
-                playerBrain.transform.position = matchingSavePoint.transform.position;
-            }
-        }
-    }
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawLine(new Vector3(transform.position.x - 1f, transform.position.y, frontDepthZ),
-                        new Vector3(transform.position.x + 1f, transform.position.y, frontDepthZ));
-
-        Gizmos.color = Color.magenta;
-        Gizmos.DrawLine(new Vector3(transform.position.x - 1f, transform.position.y, backDepthZ),
-                        new Vector3(transform.position.x + 1f, transform.position.y, backDepthZ));
+        GameLoaded?.Invoke(gameSave);
     }
 }

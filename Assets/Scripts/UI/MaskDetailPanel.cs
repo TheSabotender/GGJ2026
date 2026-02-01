@@ -10,25 +10,23 @@ public class MaskDetailPanel : MonoBehaviour
     public TMPro.TextMeshProUGUI description;
     public TMPro.TextMeshProUGUI likes;
 
-    private static MaskDetailPanel instance;
     private CharacterProfile currentProfile;
 
     private void Awake()
     {
-        instance = this;
         gameObject.SetActive(false);
     }
 
-    public static void Setup(CharacterProfile profile)
+    public void Setup(CharacterProfile profile)
     {
-        if (profile == instance.currentProfile)
+        if (profile == currentProfile)
             return;
 
-        instance.currentProfile = profile;
-        instance.gameObject.SetActive(profile != null);
+        currentProfile = profile;
+        gameObject.SetActive(profile != null);
 
         if (profile != null)
-            instance.UpdateData();
+            UpdateData();
     }
 
     public void UpdateData()

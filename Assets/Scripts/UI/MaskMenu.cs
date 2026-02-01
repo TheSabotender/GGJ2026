@@ -10,6 +10,7 @@ public class MaskMenu : SubMenu
 
     public MaskButton maskButton;
     public Transform buttonContainer;
+    public MaskDetailPanel maskDetailPanel;
 
     public bool worldMode;
     public float worldOffset;
@@ -18,6 +19,8 @@ public class MaskMenu : SubMenu
     private MaskButton[] buttons;
     private InputDevice lastDevice;
     private Vector2 currentMousePos;
+
+    public MaskDetailPanel DetailPanel => maskDetailPanel;
 
     private void OnEnable()
     {
@@ -61,7 +64,7 @@ public class MaskMenu : SubMenu
 
     private void UpdateWindowPosition(Vector3 delta, bool instant)
     {
-        var playerPos = GameManager.PlayerBrain.transform.position + (Vector3.up * worldOffset);
+        var playerPos = GameSceneManager.PlayerBrain.transform.position + (Vector3.up * worldOffset);
         var screenSpacePlayer = Camera.main.WorldToScreenPoint(playerPos);
 
         if (instant)
@@ -111,7 +114,7 @@ public class MaskMenu : SubMenu
             }
 
             MaskButton buttonObj = Instantiate(maskButton, buttonContainer);
-            buttonObj.Setup(maskIds[i], maskProfile);
+            buttonObj.Setup(maskIds[i], maskProfile, this);
             buttons[i] = buttonObj;
         }
     }

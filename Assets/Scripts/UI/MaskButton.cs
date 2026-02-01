@@ -11,11 +11,13 @@ public class MaskButton : MonoBehaviour
 
     private MaskState maskState;
     private CharacterProfile characterProfile;
+    private MaskMenu maskMenu;
 
     public Rigidbody2D Rigidbody => rigidbody;
 
-    public void Setup(MaskState state, CharacterProfile profile)
+    public void Setup(MaskState state, CharacterProfile profile, MaskMenu maskMenu)
     {
+        this.maskMenu = maskMenu;
         if (state == null || profile == null)
             return;
         maskState = state;
@@ -27,12 +29,12 @@ public class MaskButton : MonoBehaviour
 
     public void OnMouseOver()
     {
-        MaskDetailPanel.Setup(characterProfile);
+        maskMenu.DetailPanel.Setup(characterProfile);
     }
 
     public void OnClick()
     {
         MenuManager.SetScreen(MenuManager.Screen.None);
-        GameManager.PlayerBrain.SwapMask(maskState, characterProfile);
+        GameSceneManager.PlayerBrain.SwapMask(maskState, characterProfile);
     }
 }

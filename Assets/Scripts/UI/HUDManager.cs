@@ -25,13 +25,13 @@ public class HUDManager : MonoBehaviour
         RegionManager.AlertStateChanged += OnAlertStateChanged;
     }
 
-    private void OnAlertStateChanged(GameManager.AlertState newAlert)
+    private void OnAlertStateChanged(AlertState newAlert)
     {
         var color = newAlert switch
         {
-            GameManager.AlertState.Normal => baseColor,
-            GameManager.AlertState.Caution => Color.yellow,
-            GameManager.AlertState.Alert => Color.red,
+            AlertState.Normal => baseColor,
+            AlertState.Caution => Color.yellow,
+            AlertState.Alert => Color.red,
             _ => Color.white
         };
 

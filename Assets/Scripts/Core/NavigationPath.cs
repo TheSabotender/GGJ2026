@@ -110,7 +110,7 @@ public class NavigationPath
             var checkPoint = Vector3.Lerp(start, endInThisLane, t);
 
             //Check if we can change lane here
-            var oppositeLaneZ = Mathf.Approximately(checkPoint.z, GameManager.BackDepthZ) ? GameManager.FrontDepthZ : GameManager.BackDepthZ;
+            var oppositeLaneZ = Mathf.Approximately(checkPoint.z, GameSceneManager.BackDepthZ) ? GameSceneManager.FrontDepthZ : GameSceneManager.BackDepthZ;
             var collisionAtLaneChange = Physics.Linecast(checkPoint, new Vector3(checkPoint.x, checkPoint.y, oppositeLaneZ), layerMask);
             if (!collisionAtLaneChange)
             {

@@ -18,7 +18,7 @@ public class Door : MonoBehaviour
         if (GameManager.CurrentGameSave == null)
             return;
 
-        var playerPos = GameManager.PlayerBrain.transform.position;
+        var playerPos = GameSceneManager.PlayerBrain.transform.position;
         if (Vector3.Distance(transform.position, playerPos) <= openDistance)
         {
             var hasAccess = HasAccess(GameManager.CurrentGameSave.CurrentProfile);
@@ -34,7 +34,7 @@ public class Door : MonoBehaviour
 
     public bool HasAccess(CharacterProfile profile)
     {
-        if (region.AlertState == GameManager.AlertState.Alert)
+        if (region.AlertState == AlertState.Alert)
             return false;
 
         return HasAccess(profile.field, profile.securityClearance);

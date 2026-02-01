@@ -193,7 +193,7 @@ public class PlayerBrain : EntityBrain
         TendrilManager.ReleaseSpread();
 
         //Remove
-        if (currentMask != null)
+        if (currentMask != null && currentMask != newMaskInstance)
             currentMask.instance.gameObject.SetActive(false);
 
         currentMask = newMaskInstance;

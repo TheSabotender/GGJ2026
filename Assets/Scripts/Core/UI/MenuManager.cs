@@ -23,7 +23,6 @@ public class MenuManager : MonoBehaviour
     }
 
     private static MenuManager _instance;
-    public static event Action<Screen> ScreenChanged;
 
     [SerializeField]
     private Screen startingScreen = Screen.None;
@@ -59,15 +58,14 @@ public class MenuManager : MonoBehaviour
 
     private IEnumerator TransitionScreen(Screen screen)
     {
+        currentScreen = screen;
+
         if (current != null)
             yield return current.Hide();
-
-        currentScreen = screen;
+        
         current = screens.FirstOrDefault(s => s.screenType == screen);
 
         if (current != null)
             yield return current.Show();
-
-        ScreenChanged?.Invoke(currentScreen);
     }
 }

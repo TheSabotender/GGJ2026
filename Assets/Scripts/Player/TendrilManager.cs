@@ -49,7 +49,7 @@ public partial class TendrilManager : MonoBehaviour
 
     private IEnumerator Latch(Rope rope, Vector3 target, Vector2 tendrilSpeed, float tendrilStrength, float tendrilElasticity, GameObject hitObject, bool isSpider)
     {
-        var playerBrain = GameManager.PlayerBrain;
+        var playerBrain = GameSceneManager.PlayerBrain;
 
         var hitRigidbody = hitObject != null ? hitObject.GetComponent<Rigidbody>() : null;
         var hitOffset = hitRigidbody != null ? hitRigidbody.position - target : Vector3.zero;
@@ -114,7 +114,7 @@ public partial class TendrilManager : MonoBehaviour
                         var isBeingObserved = playerBrain.ObservationManager.ObserverCount > 0;
                         if (isBeingObserved)
                         {
-                            RegionManager.CurrentRegion.SetAlertState(GameManager.AlertState.Alert);
+                            RegionManager.CurrentRegion.SetAlertState(AlertState.Alert);
                         }
 
                         var maskState = new MaskState()
@@ -123,7 +123,7 @@ public partial class TendrilManager : MonoBehaviour
                             status = isBeingObserved ? MaskStatus.Compromised : MaskStatus.Fresh
                         };
 
-                        GameManager.PlayerBrain.AddMask(npcMask);
+                        GameSceneManager.PlayerBrain.AddMask(npcMask);
                         ReleaseTendril();
                     }
                 }

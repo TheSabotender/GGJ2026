@@ -26,14 +26,12 @@ public class MainMenu : SubMenu
         var save = SaveManager.GetLastSave();
         if (save == null)
             return;
-
-        MenuManager.SetScreen(MenuManager.Screen.None);
+        
         GameManager.LoadGame(save);
     }
 
     public void NewGame()
     {
-        MenuManager.SetScreen(MenuManager.Screen.None);
         GameManager.NewGame();
     }
 

@@ -1,4 +1,10 @@
 using UnityEngine;
+public enum AlertState
+{
+    Normal,
+    Caution,
+    Alert
+}
 
 public class WorldRegion : MonoBehaviour
 {
@@ -11,7 +17,7 @@ public class WorldRegion : MonoBehaviour
     [SerializeField]
     private Light[] securityLights;
 
-    public GameManager.AlertState AlertState { get; private set; }
+    public AlertState AlertState { get; private set; }
 
     public MusicProfile MusicProfile => musicProfile;
 
@@ -19,26 +25,26 @@ public class WorldRegion : MonoBehaviour
 
     void Awake()
     {
-        SetAlertState(GameManager.AlertState.Normal);
+        SetAlertState(AlertState.Normal);
     }
 
-    public void SetAlertState(GameManager.AlertState newAlert)
+    public void SetAlertState(AlertState newAlert)
     {
         AlertState = newAlert;
 
         var color = newAlert switch
         {
-            GameManager.AlertState.Caution => Color.yellow,
-            GameManager.AlertState.Alert => Color.red,
+            AlertState.Caution => Color.yellow,
+            AlertState.Alert => Color.red,
             _ => Color.white
         };
 
         foreach (var light in standardLights)
-            light.enabled = newAlert != GameManager.AlertState.Alert;
+            light.enabled = newAlert != AlertState.Alert;
 
         foreach (var light in securityLights)
         {
-            light.enabled = newAlert != GameManager.AlertState.Normal;
+            light.enabled = newAlert != AlertState.Normal;
             light.color = color;
         }
     }

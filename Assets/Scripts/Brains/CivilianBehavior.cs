@@ -12,7 +12,7 @@ public class CivilianBehavior : MonoBehaviour, IBehavior
 
     public void OnSeeAlien(AIBrain brain)
     {
-        brain.lastKnownPlayerPos = GameManager.PlayerBrain.transform.position;
+        brain.lastKnownPlayerPos = GameSceneManager.PlayerBrain.transform.position;
         isPanicking = true;
         brain.StopWalking();
     }
@@ -20,7 +20,7 @@ public class CivilianBehavior : MonoBehaviour, IBehavior
     public void OnSeePanic(AIBrain brain, AIBrain triggeringEntity)
     {
         var region = RegionManager.GetRegionAtPosition(brain.transform.position);
-        if (region.AlertState == GameManager.AlertState.Caution)
+        if (region.AlertState == AlertState.Caution)
         {
             isPanicking = true;
             brain.lastKnownPlayerPos = triggeringEntity.lastKnownPlayerPos;
@@ -28,9 +28,9 @@ public class CivilianBehavior : MonoBehaviour, IBehavior
         }
     }
 
-    public void SwitchState(AIBrain brain, GameManager.AlertState newState)
+    public void SwitchState(AIBrain brain, AlertState newState)
     {
-        if (newState == GameManager.AlertState.Alert)
+        if (newState == AlertState.Alert)
         {
             isPanicking = true;
             brain.StopWalking();

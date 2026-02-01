@@ -24,7 +24,8 @@ public class AIBrain : EntityBrain
 
     public override Animator Animator => animator;
 
-    private GameManager.AlertState lastAlertState;
+    private WorldRegion lastRegion;
+    private AlertState lastAlertState;
     private Coroutine movementCoroutine;
     private bool waitingForGameplay;
 
@@ -36,10 +37,10 @@ public class AIBrain : EntityBrain
 
     private void Start()
     {
-        if (MenuManager.CurrentScreen == MenuManager.Screen.Main)
+        if (MenuManager.CurrentScreen == MenuManager.Screen.Main || GameManager.CurrentGameSave == null)
         {
             waitingForGameplay = true;
-            MenuManager.ScreenChanged += HandleScreenChanged;
+            GameManager.GameLoaded += HandleGameLoaded;
             gameObject.SetActive(false);
         }
     }
@@ -53,13 +54,14 @@ public class AIBrain : EntityBrain
 
     private void OnDestroy()
     {
-        MenuManager.ScreenChanged -= HandleScreenChanged;
+        GameManager.GameLoaded -= HandleGameLoaded;
     }
 
-    private void HandleScreenChanged(MenuManager.Screen screen)
+    private void HandleGameLoaded(GameSave save)
     {
-        if (!waitingForGameplay || screen != MenuManager.Screen.None)
+        if (!waitingForGameplay)
             return;
+
         waitingForGameplay = false;
         gameObject.SetActive(true);
     }
@@ -83,14 +85,13 @@ public class AIBrain : EntityBrain
 
     protected override void Update()
     {
-        if (isDying)
+        if (!GameSceneManager.IsGameLoaded || GameManager.CurrentGameSave == null || MenuManager.CurrentScreen != MenuManager.Screen.None)
             return;
-        if (GameManager.CurrentGameSave == null)
+        if (currentMotor == null || isDying)
             return;
-        if (MenuManager.CurrentScreen != MenuManager.Screen.None)
+        if (gameObject == null || transform == null)
             return;
-        if (currentMotor == null)
-            return;
+        
         HandleMovement();
 
         var seeAlien = LookForAlien();
@@ -107,17 +108,25 @@ public class AIBrain : EntityBrain
             if (canSeePanic) alertBehavior.OnSeePanic(this, triggeringEntity);
         }
 
-        // Example: perception updates lastKnownPlayerPos when player seen
-        // if (CanSeePlayer()) lastKnownPlayerPos = player.position;
-        if (lastAlertState != GameManager.CurrentAlertState)
+        var newRegion = RegionManager.GetRegionAtPosition(transform.position);
+        if (newRegion != null && newRegion != lastRegion)
         {
-            lastAlertState = GameManager.CurrentAlertState;
-            alertBehavior.SwitchState(this, lastAlertState);
+            lastRegion = newRegion;
         }
 
-        if (lastAlertState == GameManager.AlertState.Normal) alertBehavior.TickIdle(this);
-        else if (lastAlertState == GameManager.AlertState.Caution) alertBehavior.TickCaution(this);
-        else if (lastAlertState == GameManager.AlertState.Alert) alertBehavior.TickAlert(this);
+        if (lastRegion != null)
+        {
+            var alertStateHere = lastRegion.AlertState;
+            if (lastAlertState != alertStateHere)
+            {
+                lastAlertState = alertStateHere;
+                alertBehavior.SwitchState(this, lastAlertState);
+            }
+        }
+
+        if (lastAlertState == AlertState.Normal) alertBehavior.TickIdle(this);
+        else if (lastAlertState == AlertState.Caution) alertBehavior.TickCaution(this);
+        else if (lastAlertState == AlertState.Alert) alertBehavior.TickAlert(this);
     }
 
     public bool IsWalking()
@@ -193,7 +202,7 @@ public class AIBrain : EntityBrain
         EnsurePhysicsComponents();
 
         isDying = true;
-        GameManager.PlayerBrain.ObservationManager.RemoveObserver(this);
+        GameSceneManager.PlayerBrain.ObservationManager.RemoveObserver(this);
 
         // Disable motor, etc.
         if (Collider != null)
@@ -237,8 +246,8 @@ public class AIBrain : EntityBrain
 
     bool CanSeePlayer()
     {
-        if (GameManager.PlayerBrain == null)
+        if (GameSceneManager.PlayerBrain == null)
             return false;
-        return GameManager.PlayerBrain.ObservationManager.CheckIfBeingObserved(this);
+        return GameSceneManager.PlayerBrain.ObservationManager.CheckIfBeingObserved(this);
     }
 }

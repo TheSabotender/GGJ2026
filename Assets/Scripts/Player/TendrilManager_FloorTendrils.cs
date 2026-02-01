@@ -81,7 +81,7 @@ public partial class TendrilManager : MonoBehaviour
         }
 
         // If tendril is still null, get the longest one
-        var playerPos = GameManager.PlayerBrain.transform.position;
+        var playerPos = GameSceneManager.PlayerBrain.transform.position;
         var longestDist = 0f;
         foreach (var floorTendril in floorTendrils)
         {
@@ -114,7 +114,7 @@ public partial class TendrilManager : MonoBehaviour
     {
         tendril.rope.enabled = true;
 
-        var playerBrain = GameManager.PlayerBrain;
+        var playerBrain = GameSceneManager.PlayerBrain;
         Vector3 lastTarget = tendril.isFree ? playerBrain.transform.position : tendril.rope.EndPoint;
         float distance = Vector3.Distance(lastTarget, target);
         float extendDuration = distance / tendrilSpeed;
@@ -142,7 +142,7 @@ public partial class TendrilManager : MonoBehaviour
 
     private static IEnumerator Unstick(FloorTendril tendril, float tendrilSpeed)
     {
-        var playerBrain = GameManager.PlayerBrain;
+        var playerBrain = GameSceneManager.PlayerBrain;
         var target = tendril.rope.EndPoint;
         float distance = Vector3.Distance(playerBrain.transform.position, target);
         float retractDuration = distance / tendrilSpeed;

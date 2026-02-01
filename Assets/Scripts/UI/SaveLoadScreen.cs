@@ -72,7 +72,6 @@ public class SaveLoadScreen : SubMenu
             return;
 
         GameManager.LoadGame(selectedSave);
-        MenuManager.SetScreen(MenuManager.Screen.None);
     }
 
     public void OnDeletePressed()

@@ -15,7 +15,7 @@ public static class Util
         if (mainCam == null)
             mainCam = Camera.main;
         if (playerBrain == null)
-            playerBrain = GameManager.PlayerBrain;
+            playerBrain = GameSceneManager.PlayerBrain;
     }
 
     private static void EnsureCoroutineRunner()

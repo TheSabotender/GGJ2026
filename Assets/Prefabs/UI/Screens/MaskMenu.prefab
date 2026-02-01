@@ -1459,7 +1459,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5997963939918421506}
   m_HandleRect: {fileID: 5902317325844547695}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1526,6 +1526,7 @@ MonoBehaviour:
   cursorForce: 100
   maskButton: {fileID: 5748018886106451104, guid: ab24f391b512cee49b73452b7a3fddc5, type: 3}
   buttonContainer: {fileID: 4251896450435992283}
+  maskDetailPanel: {fileID: 4368163827737825096}
   worldMode: 0
   worldOffset: 3
   worldSmoothness: 100

@@ -67,9 +67,9 @@ public class EntityMotor : ScriptableObject
         // Decide target lane
         float targetZ = nearestLaneZ;
         if (input > 0f)
-            targetZ = GameManager.BackDepthZ;
+            targetZ = GameSceneManager.BackDepthZ;
         else if (input < 0f)
-            targetZ = GameManager.FrontDepthZ;
+            targetZ = GameSceneManager.FrontDepthZ;
 
         Debug.Log($"Attempting depth change from {nearestLaneZ} to {targetZ}");
 
@@ -129,11 +129,11 @@ public class EntityMotor : ScriptableObject
     public static bool CanChangeLane(EntityBrain brain, LayerMask layerMask)
     {
         float z = brain.transform.position.z;
-        bool isInBackLane = Mathf.Abs(z - GameManager.FrontDepthZ) > Mathf.Abs(z - GameManager.BackDepthZ);
+        bool isInBackLane = Mathf.Abs(z - GameSceneManager.FrontDepthZ) > Mathf.Abs(z - GameSceneManager.BackDepthZ);
 
         var dir = isInBackLane ? Vector3.back : Vector3.forward;
         Ray ray = new Ray(brain.transform.position + Vector3.up * 0.5f, dir);
-        var distance = Mathf.Max(GameManager.FrontDepthZ, GameManager.BackDepthZ) - Mathf.Min(GameManager.FrontDepthZ, GameManager.BackDepthZ);
+        var distance = Mathf.Max(GameSceneManager.FrontDepthZ, GameSceneManager.BackDepthZ) - Mathf.Min(GameSceneManager.FrontDepthZ, GameSceneManager.BackDepthZ);
         if (Physics.Raycast(ray, distance, layerMask, QueryTriggerInteraction.Ignore))
             return false;
 
@@ -149,9 +149,9 @@ public class EntityMotor : ScriptableObject
     {
         float z = position.z;
         float laneZ =
-            (Mathf.Abs(z - GameManager.FrontDepthZ) <= Mathf.Abs(z - GameManager.BackDepthZ))
-                ? GameManager.FrontDepthZ
-                : GameManager.BackDepthZ;
+            (Mathf.Abs(z - GameSceneManager.FrontDepthZ) <= Mathf.Abs(z - GameSceneManager.BackDepthZ))
+                ? GameSceneManager.FrontDepthZ
+                : GameSceneManager.BackDepthZ;
         return laneZ;
     }
 }

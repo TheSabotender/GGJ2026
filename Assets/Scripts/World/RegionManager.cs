@@ -12,11 +12,10 @@ public class RegionManager : MonoBehaviour
     private float positionUpdateThreshold = 0.5f;
 
     private readonly List<WorldRegion> cachedRegions = new();
-    private PlayerBrain playerBrain;
     private Vector3 lastPlayerPosition;
 
     private WorldRegion currentRegion;
-    public static WorldRegion CurrentRegion => instance.currentRegion;
+    public static WorldRegion CurrentRegion => instance?.currentRegion;
 
     public static event Action<AlertState> AlertStateChanged;
 
@@ -28,10 +27,9 @@ public class RegionManager : MonoBehaviour
 
     private void Start()
     {
-        playerBrain = GameManager.PlayerBrain;
-        if (playerBrain != null)
+        if (GameSceneManager.PlayerBrain != null)
         {
-            lastPlayerPosition = playerBrain.transform.position;
+            lastPlayerPosition = GameSceneManager.PlayerBrain.transform.position;
             UpdateCurrentRegion();
         }
     }
@@ -47,20 +45,10 @@ public class RegionManager : MonoBehaviour
 
     private void Update()
     {
-        if (playerBrain == null)
-        {
-            playerBrain = GameManager.PlayerBrain;
-            if (playerBrain == null)
-            {
-                return;
-            }
-
-            lastPlayerPosition = playerBrain.transform.position;
-            UpdateCurrentRegion();
+        if (GameSceneManager.PlayerBrain == null || !GameSceneManager.IsGameLoaded)
             return;
-        }
 
-        var currentPosition = playerBrain.transform.position;
+        var currentPosition = GameSceneManager.PlayerBrain.transform.position;
         if ((currentPosition - lastPlayerPosition).sqrMagnitude < positionUpdateThreshold * positionUpdateThreshold)
         {
             return;
@@ -76,21 +64,21 @@ public class RegionManager : MonoBehaviour
         cachedRegions.AddRange(FindObjectsByType<WorldRegion>(FindObjectsInactive.Include, FindObjectsSortMode.None));
     }
 
-    private void UpdateCurrentRegion()
+    public static void UpdateCurrentRegion()
     {
-        if (playerBrain == null)
+        if (GameSceneManager.PlayerBrain == null)
             return;
 
-        if (cachedRegions.Count == 0)
+        if (instance.cachedRegions.Count == 0)
         {
-            currentRegion = null;
+            instance.currentRegion = null;
             AudioManager.SetMusicProfile(null);
             return;
         }
 
-        var playerPosition = playerBrain.transform.position;
-        var newRegion = currentRegion;
-        foreach (var region in cachedRegions)
+        var playerPosition = GameSceneManager.PlayerBrain.transform.position;
+        var newRegion = instance.currentRegion;
+        foreach (var region in instance.cachedRegions)
         {
             if (region != null && region.IsWithinRegion(playerPosition))
             {
@@ -99,12 +87,12 @@ public class RegionManager : MonoBehaviour
             }
         }
 
-        if (newRegion == currentRegion)
+        if (newRegion == instance.currentRegion)
             return;
 
-        currentRegion = newRegion;
+        instance.currentRegion = newRegion;
         AudioManager.SetMusicProfile(CurrentRegion?.MusicProfile);
-        AlertStateChanged?.Invoke(currentRegion.AlertState);
+        AlertStateChanged?.Invoke(instance.currentRegion.AlertState);
     }
 
     public static WorldRegion GetRegionAtPosition(Vector3 position)

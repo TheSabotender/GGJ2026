@@ -1681,6 +1681,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4276720856404039224, guid: ae98f6b380e34cd458e333396e5b8f36, type: 3}
+      propertyPath: mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276720856404039224, guid: ae98f6b380e34cd458e333396e5b8f36, type: 3}
       propertyPath: screenType
       value: 2
       objectReference: {fileID: 0}
