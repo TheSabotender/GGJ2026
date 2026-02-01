@@ -100,6 +100,13 @@ public class PlayerBrain : EntityBrain
             bool crouchPressed = crouchAction.action.IsPressed();
             if (crouchPressed && !isCrouchHeld)
             {
+                var savePoint = SavePoint.GetSavePointInRange(transform.position);
+                if (savePoint != null && MenuManager.CurrentScreen == MenuManager.Screen.None)
+                {
+                    if (GameManager.CurrentGameSave != null)
+                        GameManager.CurrentGameSave.SavePointGuid = savePoint.Guid;
+                    MenuManager.SetScreen(MenuManager.Screen.Save);
+                }
                 currentMotor.Crouch(this, true);
             }
             else if (!crouchPressed && isCrouchHeld)

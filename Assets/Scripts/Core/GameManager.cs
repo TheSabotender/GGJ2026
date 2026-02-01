@@ -1,6 +1,8 @@
 using System;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -112,7 +114,34 @@ public class GameManager : MonoBehaviour
         Debug.Log($"LoadGame called for save: {gameSave.SaveName}");
         instance.currentGameSave = gameSave;
 
-        // TODO: Apply save data to the current game state.
+        instance.StartCoroutine(instance.LoadGameRoutine(gameSave));
+    }
+
+    private IEnumerator LoadGameRoutine(GameSave gameSave)
+    {
+        var sceneLoad = SceneManager.LoadSceneAsync("Game");
+        if (sceneLoad != null)
+        {
+            while (!sceneLoad.isDone)
+                yield return null;
+        }
+
+        playerBrain = FindObjectOfType<PlayerBrain>();
+        if (playerBrain != null && gameSave.Masks != null && gameSave.Masks.Count > 0)
+        {
+            var currentMask = gameSave.Masks[gameSave.CurrentMask];
+            playerBrain.SwapMask(currentMask, gameSave.CurrentProfile, force: true);
+        }
+
+        if (playerBrain != null && !string.IsNullOrWhiteSpace(gameSave.SavePointGuid))
+        {
+            var savePoints = FindObjectsOfType<SavePoint>();
+            var matchingSavePoint = savePoints.FirstOrDefault(point => point.Guid == gameSave.SavePointGuid);
+            if (matchingSavePoint != null)
+            {
+                playerBrain.transform.position = matchingSavePoint.transform.position;
+            }
+        }
     }
     private void OnDrawGizmos()
     {
