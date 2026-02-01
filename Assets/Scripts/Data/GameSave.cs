@@ -15,6 +15,7 @@ public class GameSave
     public List<MaskState> Masks;
     public int CurrentMask;
     public int MasksCollected;
+    public string SavePointGuid;
 
     public TimeSpan Playtime => System.DateTime.TryParse(LastSaveTime, out var saveDateTime) && System.DateTime.TryParse(StartDateTime, out var startDateTime)
         ? saveDateTime - startDateTime
