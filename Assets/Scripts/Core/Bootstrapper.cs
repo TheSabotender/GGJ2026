@@ -1,13 +1,22 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Bootstrapper : MonoBehaviour
 {
     [SerializeField]
+    private InputActionReference skipAction = null;
+
+    [SerializeField]
     private string mainSceneName = "Main";
 
-    public float animationDuration = 1.0f;
+    [SerializeField]
+    private float animationDuration = 1.0f;
+
+    [SerializeField]
+    private Image skipGraphic;
 
     [SerializeField]
     private List<GameObject> essentialPrefabs = new List<GameObject>();
@@ -31,7 +40,29 @@ public class Bootstrapper : MonoBehaviour
             yield return null;
         }
 
-        yield return new WaitForSeconds(animationDuration);
+        var t = 0f;
+        var skipHoldTime = 0f;
+        while (t <= animationDuration)
+        {
+            if (skipAction?.action != null && skipAction.action.IsPressed())
+            {
+                skipHoldTime += Time.deltaTime;
+                if (skipGraphic != null)
+                    skipGraphic.fillAmount = Mathf.Clamp01(skipHoldTime / animationDuration);
+
+                if (skipHoldTime >= animationDuration)
+                    break;
+            }
+            else
+            {
+                skipHoldTime = 0f;
+                if (skipGraphic != null)
+                    skipGraphic.fillAmount = 0f;
+            }
+
+            t += Time.deltaTime;
+            yield return null;
+        }
 
         LoadMainScene();
     }

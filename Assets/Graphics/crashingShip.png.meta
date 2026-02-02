@@ -113,8 +113,8 @@ TextureImporter:
       name: crashingShip_0
       rect:
         serializedVersion: 2
-        x: 3
-        y: 26
+        x: 1
+        y: 89
         width: 75
         height: 29
       alignment: 0
@@ -135,8 +135,8 @@ TextureImporter:
       name: crashingShip_1
       rect:
         serializedVersion: 2
-        x: 80
-        y: 26
+        x: 78
+        y: 89
         width: 75
         height: 29
       alignment: 0
@@ -157,8 +157,8 @@ TextureImporter:
       name: crashingShip_2
       rect:
         serializedVersion: 2
-        x: 157
-        y: 26
+        x: 155
+        y: 89
         width: 75
         height: 29
       alignment: 0
@@ -176,11 +176,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: crashingShip_3
+      name: crashingShip_engine
       rect:
         serializedVersion: 2
-        x: 17
-        y: 4
+        x: 15
+        y: 2
         width: 55
         height: 11
       alignment: 0
@@ -198,11 +198,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: crashingShip_4
+      name: crashingShip_wing
       rect:
         serializedVersion: 2
-        x: 82
-        y: 5
+        x: 80
+        y: 3
         width: 22
         height: 10
       alignment: 0
@@ -219,6 +219,204 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: crashingShip_3
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 58
+        width: 75
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8df7f8cb2cf81c1419ab3d619eff72a9
+      internalID: -595724946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crashingShip_4
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 58
+        width: 75
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5309e3c2ea355324a90e68aee6daea32
+      internalID: -624006757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crashingShip_5
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 58
+        width: 75
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26a4032c95ef96d459ec02c208cb17b0
+      internalID: -1295492950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crashingShip_6
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 24
+        width: 75
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e5cae3e59ece8740860e6e993aef06b
+      internalID: 1373424970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crashingShip_7
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 24
+        width: 75
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8aac647208d01be40815fabde3976945
+      internalID: -2082959114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crashingShip_8
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 24
+        width: 75
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c48d2e80d5f65ad42aa743320769d464
+      internalID: 829837587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crashingShip_9
+      rect:
+        serializedVersion: 2
+        x: 106
+        y: 2
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27c41eef0df4c4e49920cacff17d2403
+      internalID: -659147568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crashingShip_10
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 2
+        width: 11
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c67507ef064f52478354c9f9778323a
+      internalID: 696766645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: crashingShip_11
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 1
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e54fd43f8e53664c8ae18c987f57d4f
+      internalID: -1989270138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -229,7 +427,11 @@ TextureImporter:
     indices: 
     edges: []
     weights: []
-    secondaryTextures: []
+    secondaryTextures:
+    - texture: {fileID: 2800000, guid: 9b3bd70e10fa0c642aba10064a74c5c0, type: 3}
+      name: _MSE
+    - texture: {fileID: 2800000, guid: 028aa1373aa8ce94a8198f51fe7dcd62, type: 3}
+      name: _NormalMap
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
@@ -237,9 +439,18 @@ TextureImporter:
     nameFileIdTable:
       crashingShip_0: -1983679653
       crashingShip_1: 1095021236
+      crashingShip_10: 696766645
+      crashingShip_11: -1989270138
       crashingShip_2: 829524019
-      crashingShip_3: 1343150290
-      crashingShip_4: -1202387831
+      crashingShip_3: -595724946
+      crashingShip_4: -624006757
+      crashingShip_5: -1295492950
+      crashingShip_6: 1373424970
+      crashingShip_7: -2082959114
+      crashingShip_8: 829837587
+      crashingShip_9: -659147568
+      crashingShip_engine: 1343150290
+      crashingShip_wing: -1202387831
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
