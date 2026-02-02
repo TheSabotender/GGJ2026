@@ -25,6 +25,10 @@
       "Value": "Avsluta"
     },
     {
+      "Key": "menu-quittomenu",
+      "Value": "Quit to menu"
+    },
+    {
       "Key": "menu-back",
       "Value": "Tillbaka"
     },
@@ -83,6 +87,14 @@
     {
       "Key": "credits-aiBody",
       "Value": "AI har använts för att assistera med kod"
+    },
+    {
+      "Key": "hud-current",
+      "Value": "Current mask"
+    },
+    {
+      "Key": "hud-maskheader",
+      "Value": "Masks"
     },
     {
       "Key": "menu-save",
