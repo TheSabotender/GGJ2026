@@ -25,6 +25,10 @@
       "Value": "退出"
     },
     {
+      "Key": "menu-quittomenu",
+      "Value": "Quit to menu"
+    },
+    {
       "Key": "menu-back",
       "Value": "返回"
     },
@@ -83,6 +87,14 @@
     {
       "Key": "credits-aiBody",
       "Value": "已使用 AI 协助编写代码"
+    },
+    {
+      "Key": "hud-current",
+      "Value": "Current mask"
+    },
+    {
+      "Key": "hud-maskheader",
+      "Value": "Masks"
     },
     {
       "Key": "menu-save",

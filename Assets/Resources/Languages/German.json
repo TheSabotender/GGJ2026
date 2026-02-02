@@ -25,6 +25,10 @@
       "Value": "Beenden"
     },
     {
+      "Key": "menu-quittomenu",
+      "Value": "Quit to menu"
+    },
+    {
       "Key": "menu-back",
       "Value": "Zurück"
     },
@@ -83,6 +87,14 @@
     {
       "Key": "credits-aiBody",
       "Value": "KI wurde zur Unterstützung beim Code verwendet"
+    },
+    {
+      "Key": "hud-current",
+      "Value": "Current mask"
+    },
+    {
+      "Key": "hud-maskheader",
+      "Value": "Masks"
     },
     {
       "Key": "menu-save",

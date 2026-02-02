@@ -25,6 +25,10 @@
       "Value": "Quit"
     },
     {
+      "Key": "menu-quittomenu",
+      "Value": "Quit to menu"
+    },
+    {
       "Key": "menu-back",
       "Value": "Back"
     },
@@ -95,6 +99,14 @@
     {
       "Key": "credits-aiBody",
       "Value": "AI has been used for assisting code"
+    },
+    {
+      "Key": "hud-current",
+      "Value": "Current mask"
+    },
+    {
+      "Key": "hud-maskheader",
+      "Value": "Masks"
     },
     {
       "Key": "clearance-alien",

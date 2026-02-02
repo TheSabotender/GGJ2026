@@ -25,6 +25,10 @@
       "Value": "Lopeta"
     },
     {
+      "Key": "menu-quittomenu",
+      "Value": "Quit to menu"
+    },
+    {
       "Key": "menu-back",
       "Value": "Takaisin"
     },
@@ -83,6 +87,14 @@
     {
       "Key": "credits-aiBody",
       "Value": "AI:ta on käytetty koodin avustamiseen"
+    },
+    {
+      "Key": "hud-current",
+      "Value": "Current mask"
+    },
+    {
+      "Key": "hud-maskheader",
+      "Value": "Masks"
     },
     {
       "Key": "menu-save",

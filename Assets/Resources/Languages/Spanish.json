@@ -25,6 +25,10 @@
       "Value": "Salir"
     },
     {
+      "Key": "menu-quittomenu",
+      "Value": "Quit to menu"
+    },
+    {
       "Key": "menu-back",
       "Value": "Atrás"
     },
@@ -83,6 +87,14 @@
     {
       "Key": "credits-aiBody",
       "Value": "Se ha utilizado IA para ayudar con el código"
+    },
+    {
+      "Key": "hud-current",
+      "Value": "Current mask"
+    },
+    {
+      "Key": "hud-maskheader",
+      "Value": "Masks"
     },
     {
       "Key": "menu-save",
